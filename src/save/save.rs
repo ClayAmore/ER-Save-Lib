@@ -18,9 +18,9 @@ pub enum SaveParseError {
     IoError(#[from] io::Error),
 }
 
-/// A trait representing a save file that can be read from a path or a byte slice.
+/// A struct representing an Elden Ring save file.
 ///
-/// This trait provides methods to read a save file from a specified file path or from
+/// This struct provides methods to read a save file from a specified file path or from
 /// a byte slice, and to check if a byte slice can be parsed as a valid save file.
 /// It includes functions for reading, parsing, and validating save files, ensuring that
 /// implementations handle the respective file formats correctly.
