@@ -1,0 +1,9 @@
+[package]
+name = "er-save-lib"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+deku = "0.17.0"
+md5 = "0.7.0"
+thiserror = "1.0.62"
