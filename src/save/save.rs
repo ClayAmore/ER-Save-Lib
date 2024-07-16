@@ -2,6 +2,8 @@ use core::result::Result;
 use deku::ctx::Endian;
 use deku::prelude::*;
 use deku::{DekuRead, DekuWrite};
+use std::fs::File;
+use std::path::Path;
 use std::{
     fs::{self},
     io::{self, Cursor},
@@ -113,6 +115,96 @@ impl Save {
         let mut save = Self::from_reader_with_ctx(reader, (Endian::Little, is_ps, sizes))?;
         save.user_data_x[0].update()?;
         Ok(save)
+    }
+
+    /// Writes the save file to a byte slice and returns it as a `Vec<u8>`.
+    ///
+    /// This function converts the `Save` instance into a byte slice, which can then be
+    /// saved to a file or used as needed.
+    ///
+    /// # Errors
+    ///
+    /// This function will return an `Err` variant if any of the following conditions occur:
+    /// - There are issues with formatting the data into a byte slice.
+    ///
+    /// Possible error types include:
+    /// - `deku::DekuError` if the bytes cannot be formatted correctly.
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// use er_save_lib::Save;
+    ///
+    /// fn main() {
+    ///     let save = Save::from_path("./test/ER0000.sl2").expect("Failed to read save file!");
+    ///     let bytes = save.to_slice().expect("Failed to write save file!");
+    /// }
+    /// ```
+    ///
+    /// # Safety
+    ///
+    /// This function is safe to call as it only performs data formatting operations.
+    pub fn write_to_slice(&self) -> Result<Vec<u8>, DekuError> {
+        let is_ps = self.header.len() == 0x6c;
+        let sizes: [usize; 4] = if is_ps {
+            [0x6c, 0x280000, 0x60000, 0x240010]
+        } else {
+            [0x2fc, 0x280010, 0x60010, 0x240020]
+        };
+        let mut buffer = Vec::new();
+        {
+            let mut temp_writer = Writer::new(Cursor::new(&mut buffer));
+            self.to_writer(&mut temp_writer, (Endian::Little, is_ps, sizes))?;
+        }
+        Ok(buffer)
+    }
+
+    /// Writes the save file to a specified path.
+    ///
+    /// This function attempts to write the `Save` instance to a file at the given path.
+    ///
+    /// # Errors
+    ///
+    /// This function will return an `Err` variant if any of the following conditions occur:
+    /// - The file cannot be created or opened for writing.
+    /// - There are issues with writing the data to the file.
+    ///
+    /// Possible error types include:
+    /// - `std::io::Error` if there are issues with file access.
+    /// - `deku::DekuError` if the bytes cannot be formatted correctly.
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// use er_save_lib::Save;
+    ///
+    /// fn main() {
+    ///     let save = Save::from_path("./test/PS_Save.txt").expect("Failed to read save file!");
+    ///     save.write_to_path("./test/New_Save.txt").expect("Failed to write save file!");
+    /// }
+    /// ```
+    ///
+    /// # Safety
+    ///
+    /// This function is safe to call as it only performs file writing and data formatting operations.
+    pub fn write_to_path(&self, path: &str) -> Result<(), SaveParseError> {
+        let path = Path::new(path);
+        let file = if !path.exists() {
+            File::create(path)?
+        } else {
+            File::options().write(true).open(path)?
+        };
+        let is_ps = self.header.len() == 0x6c;
+        let sizes: [usize; 4] = if is_ps {
+            [0x6c, 0x280000, 0x60000, 0x240010]
+        } else {
+            [0x2fc, 0x280010, 0x60010, 0x240020]
+        };
+
+        let mut writer = Writer::new(file);
+        self.to_writer(&mut writer, (Endian::Little, is_ps, sizes))?;
+
+        Ok(())
     }
 
     /// Reads a save file from the specified path and returns a `Save` instance.
