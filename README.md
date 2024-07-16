@@ -12,7 +12,7 @@ fn main() {
 
     match save {
         Ok(save) => {
-          save.write("new/path/file_name.sl2");
+          save.write_to_path("new/path/file_name.sl2");
         },
         Err(err) => eprintln!("{err}"),
     }
@@ -23,7 +23,7 @@ fn main() {
 
     match save {
         Ok(save) => {
-          save.write("new/path/file_name.txt");
+          let bytes = save.write_to_slice();
         },
         Err(err) => eprintln!("{err}"),
     }
