@@ -1,5 +1,5 @@
 # Description
-ER Save Lib is a library for reading and writing to Elden Ring save filesb, compatible with PC and Playstation Save Wizard exported saves. This library is currently in alpha and is being developed alongside the new release of ER-Save-Editor.
+ER Save Lib is a library for reading and writing to Elden Ring save files, compatible with PC and Playstation Save Wizard exported saves. This library is currently in alpha and is being developed alongside the new release of ER-Save-Editor.
 
 # Usage
 ## Example
