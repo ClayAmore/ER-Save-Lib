@@ -1317,7 +1317,7 @@ impl PlayerGameDataHash {
         let stats = Self::byte_hash(&stats);
 
         // Archetype hash
-        let archetype = Self::byte_hash(&player_game_data.arche_type.to_le_bytes());
+        let archetype = Self::byte_hash(&(player_game_data.arche_type as u32).to_le_bytes());
 
         // player_game_dataGameData0xC0 hash
         let playergame_data_0xc0 = Self::byte_hash(&player_game_data.unk0xb8.to_le_bytes()[..1]);
@@ -1505,7 +1505,7 @@ impl PlayerGameDataHash {
             equipped_armors_and_talismans,
             equipped_items,
             equipped_spells,
-            rest: Vec::with_capacity(0x54),
+            rest: vec![0; 0x54],
         }
     }
 
