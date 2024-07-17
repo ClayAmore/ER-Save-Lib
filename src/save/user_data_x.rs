@@ -365,8 +365,8 @@ pub(crate) struct PlayerGameData {
     #[deku(assert_eq = "0")]
     unk0x5c: u32,
     pub(crate) level: u32,
-    pub(crate) souls: u32,
-    pub(crate) souls_memory: u32,
+    pub(crate) runes: u32,
+    pub(crate) runes_memory: u32,
     unk0x6c: u32,
     pub(crate) poison_buildup: u32,
     pub(crate) rot_buildup: u32,
@@ -386,7 +386,7 @@ pub(crate) struct PlayerGameData {
     #[deku(assert_eq = "0")]
     pub(crate) terminator: u16,
     pub(crate) gender: u8,
-    pub(crate) arche_type: u8,
+    pub(crate) archetype: u8,
     unk0xb8: u8,
     unk0xb9: u8,
     pub(crate) voice_type: u8,
@@ -943,7 +943,7 @@ pub(crate) struct BloodStain {
     unk0x28: u32,
     unk0x2c: u32,
     unk0x30: i32,
-    pub(crate) souls: i32,
+    pub(crate) runes: i32,
     pub(crate) map_id: MapId,
     unk0x3c: u32,
     unk0x38: u32,
@@ -1190,8 +1190,8 @@ pub(crate) struct PlayerGameDataHash {
     pub(crate) archetype: u32,
     pub(crate) playergame_data_0xc0: u32,
     pub(crate) padding: u32,
-    pub(crate) souls: u32,
-    pub(crate) souls_memory: u32,
+    pub(crate) runes: u32,
+    pub(crate) runes_memory: u32,
     pub(crate) equipped_weapons: u32,
     pub(crate) equipped_armors_and_talismans: u32,
     pub(crate) equipped_items: u32,
@@ -1238,15 +1238,15 @@ impl PlayerGameDataHash {
             "0xc0",
         )?;
         Util::deku_assert(
-            player_game_data_hash.souls == 0
-                || calculated_player_game_data_hash.souls == player_game_data_hash.souls,
-            "souls",
+            player_game_data_hash.runes == 0
+                || calculated_player_game_data_hash.runes == player_game_data_hash.runes,
+            "runes",
         )?;
         Util::deku_assert(
-            player_game_data_hash.souls_memory == 0
-                || calculated_player_game_data_hash.souls_memory
-                    == player_game_data_hash.souls_memory,
-            "souls_memory",
+            player_game_data_hash.runes_memory == 0
+                || calculated_player_game_data_hash.runes_memory
+                    == player_game_data_hash.runes_memory,
+            "runes_memory",
         )?;
         Util::deku_assert(
             player_game_data_hash.equipped_weapons == 0
@@ -1317,16 +1317,16 @@ impl PlayerGameDataHash {
         let stats = Self::byte_hash(&stats);
 
         // Archetype hash
-        let archetype = Self::byte_hash(&(player_game_data.arche_type as u32).to_le_bytes());
+        let archetype = Self::byte_hash(&(player_game_data.archetype as u32).to_le_bytes());
 
         // player_game_dataGameData0xC0 hash
         let playergame_data_0xc0 = Self::byte_hash(&player_game_data.unk0xb8.to_le_bytes()[..1]);
 
-        // Souls hash
-        let souls = Self::byte_hash(&player_game_data.souls.to_le_bytes());
+        // Runes hash
+        let runes = Self::byte_hash(&player_game_data.runes.to_le_bytes());
 
-        // Souls memory hash
-        let souls_memory = Self::byte_hash(&player_game_data.souls_memory.to_le_bytes());
+        // Runes memory hash
+        let runes_memory = Self::byte_hash(&player_game_data.runes_memory.to_le_bytes());
 
         // Equipped weapons
         let mut equipped_weapon_ids = Vec::new();
@@ -1499,8 +1499,8 @@ impl PlayerGameDataHash {
             archetype,
             playergame_data_0xc0,
             padding: 0,
-            souls,
-            souls_memory,
+            runes,
+            runes_memory,
             equipped_weapons,
             equipped_armors_and_talismans,
             equipped_items,

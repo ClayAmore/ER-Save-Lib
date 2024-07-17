@@ -174,7 +174,7 @@ pub(crate) struct Profile {
     character_name_terminator: u16,
     pub(crate) level: u32,
     pub(crate) seconds_played: u32,
-    pub(crate) souls_memory: u32,
+    pub(crate) runes_memory: u32,
     pub(crate) map_id: MapId,
     pub(crate) unk0x34: u32,
     #[deku(ctx = "true")]
