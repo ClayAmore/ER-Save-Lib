@@ -38,7 +38,7 @@ pub struct Save {
 
     // Header
     #[deku(count = "size[0]")]
-    header: Vec<u8>,
+    pub(crate) header: Vec<u8>,
 
     // UserData 0-9
     #[deku(

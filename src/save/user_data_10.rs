@@ -1,16 +1,20 @@
 use std::io::Cursor;
 
-use deku::prelude::*;
 use deku::ctx::Endian;
+use deku::prelude::*;
 use deku::{DekuRead, DekuWrite};
 
-use super::util::{Util, MapId};
-use super::user_data_x::{ActiveWeaponSlotsAndArmStyle, EquippedItemsItemIds, EquppedItemsGaitemHandles, FaceData};
+use super::user_data_x::{
+    ActiveWeaponSlotsAndArmStyle, EquippedItemsItemIds, EquppedItemsGaitemHandles, FaceData,
+};
+use super::util::{MapId, Util};
 
 #[derive(PartialEq, Debug, DekuRead, DekuWrite)]
-#[deku(endian = "endian", ctx = "endian: Endian, start: usize, size: usize, is_ps: bool")]
+#[deku(
+    endian = "endian",
+    ctx = "endian: Endian, start: usize, size: usize, is_ps: bool"
+)]
 pub(crate) struct UserData10 {
-
     // Checksum (PC only)
     #[deku(skip, cond = "is_ps", count = "0x10")]
     checksum: Vec<u8>,
@@ -32,7 +36,7 @@ pub(crate) struct UserData10 {
 
     // Profile Summary
     pub(crate) profile_summary: ProfileSummary,
-    
+
     gamedataman0xd0: u32,
     gamedataman0x75: u8,
 
@@ -46,8 +50,8 @@ pub(crate) struct UserData10 {
     game_man_0x118: u64,
 
     // Empty calories
-    #[deku( count = "size - (deku::byte_offset - start)" )]
-    pub(crate) rest: Vec<u8>
+    #[deku(count = "size - (deku::byte_offset - start)")]
+    pub(crate) rest: Vec<u8>,
 }
 
 // Settings
@@ -103,10 +107,10 @@ pub(crate) struct Settings {
 impl UserData10 {
     pub(crate) fn read<R: std::io::Read>(
         reader: &mut deku::reader::Reader<R>,
-        endian: Endian, 
-        start: usize, 
-        size: usize, 
-        is_ps: bool
+        endian: Endian,
+        start: usize,
+        size: usize,
+        is_ps: bool,
     ) -> Result<Self, DekuError> {
         let user_data_10 = Self::from_reader_with_ctx(reader, (endian, start, size, is_ps))?;
         Ok(user_data_10)
@@ -114,13 +118,12 @@ impl UserData10 {
 
     pub(crate) fn write<W: std::io::Write>(
         writer: &mut deku::writer::Writer<W>,
-        endian: Endian, 
+        endian: Endian,
         start: usize,
-        size: usize, 
+        size: usize,
         is_ps: bool,
-        user_data_10: &Self
+        user_data_10: &Self,
     ) -> Result<(), DekuError> {
-        
         if is_ps {
             user_data_10.to_writer(writer, (endian, start, size, is_ps))?;
             return Ok(());
@@ -131,14 +134,13 @@ impl UserData10 {
             let mut temp_writer = Writer::new(Cursor::new(&mut buffer));
             user_data_10.to_writer(&mut temp_writer, (endian, start, size, is_ps))?;
         }
-        
+
         Util::update_checksum(&mut buffer);
 
         writer.write_bytes(&buffer)?;
         Ok(())
     }
 }
-
 
 // Menu System Save Load
 #[derive(PartialEq, Debug, DekuRead, DekuWrite)]
@@ -148,16 +150,16 @@ pub(crate) struct MenuSystemSaveLoad {
     unk0x2: u16,
     pub(crate) size: u32,
     #[deku(count = "size")]
-    pub(crate) data: Vec<u8>
+    pub(crate) data: Vec<u8>,
 }
 
 // Profile Summary
 #[derive(PartialEq, Debug, DekuRead, DekuWrite)]
 #[deku(endian = "endian", ctx = "endian: Endian")]
 pub(crate) struct ProfileSummary {
-    pub(crate) active_profiles: [u8; 10],
+    pub(crate) active_profiles: [bool; 10],
     #[deku(count = "10")]
-    pub(crate) profiles: Vec<Profile>
+    pub(crate) profiles: Vec<Profile>,
 }
 // Profile
 #[derive(PartialEq, Debug, DekuRead, DekuWrite)]
@@ -214,7 +216,7 @@ pub(crate) struct PCOptionData {
     unk0x10: u64,
     unk0x18: u16,
     #[deku(count = "0xa0/2")]
-    unk0x12: Vec<u16>
+    unk0x12: Vec<u16>,
 }
 
 // KeyConfigSaveLoad
@@ -225,5 +227,5 @@ pub(crate) struct KeyConfigSaveLoad {
     unk0x2: u16,
     pub(crate) size: u32,
     #[deku(count = "*size")]
-    pub(crate) data: Vec<u8>
+    pub(crate) data: Vec<u8>,
 }

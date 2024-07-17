@@ -195,8 +195,26 @@ pub(crate) struct UserDataX {
     // DLC
     pub(crate) dlc: DLC,
 
-    // Player Data Hash
-    pub(crate) player_data_hash: PlayerDataHash,
+    // Player Game Data Hash
+    #[deku(
+        reader = "PlayerGameDataHash::read(
+            deku::reader, 
+            endian, 
+            player_game_data, 
+            equipped_items_item_id, 
+            equipped_armaments_and_items, 
+            equipped_spells
+        )",
+        writer = "PlayerGameDataHash::write(
+            deku::writer, 
+            endian, 
+            player_game_data, 
+            equipped_items_item_id, 
+            equipped_armaments_and_items, 
+            equipped_spells
+        )"
+    )]
+    pub(crate) player_data_hash: PlayerGameDataHash,
 
     #[deku(count = "end - deku::byte_offset")]
     pub(crate) rest: Vec<u8>,
@@ -341,7 +359,7 @@ pub(crate) struct PlayerGameData {
     pub(crate) faith: u32,
     pub(crate) arcane: u32,
     #[deku(assert_eq = "0")]
-    unk0x54: u32,
+    pub(crate) unk0x54: u32,
     #[deku(assert_eq = "0")]
     unk0x58: u32,
     #[deku(assert_eq = "0")]
@@ -516,7 +534,7 @@ pub(crate) struct EquippedItemsItemIds {
     pub(crate) talisman2: u32,
     pub(crate) talisman3: u32,
     pub(crate) talisman4: u32,
-    unk0x54: u32,
+    pub(crate) unk0x54: u32,
 }
 
 // Equipped Items GaitemHandles
@@ -578,12 +596,8 @@ pub(crate) struct InvenotryItem {
 #[derive(PartialEq, Debug, DekuRead, DekuWrite)]
 #[deku(endian = "endian", ctx = "endian: Endian")]
 pub(crate) struct EquippedSpells {
-    #[deku(count = "0xc")]
+    #[deku(count = "14")]
     pub(crate) spellslot: Vec<Spell>,
-    unk0x60: u32,
-    unk0x64: u32,
-    unk0x68: u32,
-    unk0x70: u32,
     #[deku(assert = "*active_index < 0xc || *active_index == 0xffffffff")]
     pub(crate) active_index: u32,
 }
@@ -1170,7 +1184,7 @@ pub(crate) struct DLC {
 // Player Data Hash
 #[derive(PartialEq, Debug, DekuRead, DekuWrite)]
 #[deku(endian = "endian", ctx = "endian: Endian")]
-pub(crate) struct PlayerDataHash {
+pub(crate) struct PlayerGameDataHash {
     pub(crate) level: u32,
     pub(crate) stats: u32,
     pub(crate) archetype: u32,
@@ -1185,4 +1199,339 @@ pub(crate) struct PlayerDataHash {
 
     #[deku(count = "0x54")]
     rest: Vec<u8>,
+}
+
+impl PlayerGameDataHash {
+    pub(crate) fn read<R: std::io::Read>(
+        reader: &mut deku::reader::Reader<R>,
+        endian: Endian,
+        player_game_data: &PlayerGameData,
+        equipped_items_item_id: &EquippedItemsItemIds,
+        equipped_armaments_and_items: &EquippedArmamentsAndItems,
+        equipped_spells: &EquippedSpells,
+    ) -> Result<Self, DekuError> {
+        // Read hash struct from save file
+        let player_game_data_hash = Self::from_reader_with_ctx(reader, endian)?;
+
+        let calculated_player_game_data_hash = Self::calculate_hash(
+            player_game_data,
+            equipped_items_item_id,
+            equipped_armaments_and_items,
+            equipped_spells,
+        );
+
+        // Validate hash is correct
+        Util::deku_assert(
+            player_game_data_hash.level == 0
+                || calculated_player_game_data_hash.level == player_game_data_hash.level,
+            "level",
+        )?;
+        Util::deku_assert(
+            player_game_data_hash.stats == 0
+                || calculated_player_game_data_hash.stats == player_game_data_hash.stats,
+            "stats",
+        )?;
+        Util::deku_assert(
+            player_game_data_hash.playergame_data_0xc0 == 0
+                || calculated_player_game_data_hash.playergame_data_0xc0
+                    == player_game_data_hash.playergame_data_0xc0,
+            "0xc0",
+        )?;
+        Util::deku_assert(
+            player_game_data_hash.souls == 0
+                || calculated_player_game_data_hash.souls == player_game_data_hash.souls,
+            "souls",
+        )?;
+        Util::deku_assert(
+            player_game_data_hash.souls_memory == 0
+                || calculated_player_game_data_hash.souls_memory
+                    == player_game_data_hash.souls_memory,
+            "souls_memory",
+        )?;
+        Util::deku_assert(
+            player_game_data_hash.equipped_weapons == 0
+                || calculated_player_game_data_hash.equipped_weapons
+                    == player_game_data_hash.equipped_weapons,
+            "equipped_weapons",
+        )?;
+        Util::deku_assert(
+            player_game_data_hash.equipped_armors_and_talismans == 0
+                || calculated_player_game_data_hash.equipped_armors_and_talismans
+                    == player_game_data_hash.equipped_armors_and_talismans,
+            "equipped_armors_and_talismans",
+        )?;
+        Util::deku_assert(
+            player_game_data_hash.equipped_items == 0
+                || calculated_player_game_data_hash.equipped_items
+                    == player_game_data_hash.equipped_items,
+            "equipped_items",
+        )?;
+        Util::deku_assert(
+            player_game_data_hash.equipped_spells == 0
+                || calculated_player_game_data_hash.equipped_spells
+                    == player_game_data_hash.equipped_spells,
+            "eqipped spells",
+        )?;
+
+        Ok(player_game_data_hash)
+    }
+
+    pub(crate) fn write<W: std::io::Write>(
+        writer: &mut deku::writer::Writer<W>,
+        endian: Endian,
+        player_game_data: &PlayerGameData,
+        equipped_items_item_id: &EquippedItemsItemIds,
+        equipped_armaments_and_items: &EquippedArmamentsAndItems,
+        equipped_spells: &EquippedSpells,
+    ) -> Result<(), DekuError> {
+        let calculated_player_game_data_hash = Self::calculate_hash(
+            player_game_data,
+            equipped_items_item_id,
+            equipped_armaments_and_items,
+            equipped_spells,
+        );
+        calculated_player_game_data_hash.to_writer(writer, endian)?;
+        Ok(())
+    }
+
+    fn calculate_hash(
+        player_game_data: &PlayerGameData,
+        equipped_items_item_id: &EquippedItemsItemIds,
+        equipped_armaments_and_items: &EquippedArmamentsAndItems,
+        equipped_spells: &EquippedSpells,
+    ) -> PlayerGameDataHash {
+        // Level hash
+        let level = Self::byte_hash(&player_game_data.level.to_le_bytes());
+
+        // Stats hash
+        let mut stats = Vec::new();
+        stats.extend(player_game_data.vigor.to_le_bytes());
+        stats.extend(player_game_data.mind.to_le_bytes());
+        stats.extend(player_game_data.endurance.to_le_bytes());
+        stats.extend(player_game_data.strength.to_le_bytes());
+        stats.extend(player_game_data.dexterity.to_le_bytes());
+        stats.extend(player_game_data.intelligence.to_le_bytes());
+        stats.extend(player_game_data.faith.to_le_bytes());
+        stats.extend(player_game_data.arcane.to_le_bytes());
+        stats.extend(player_game_data.unk0x54.to_le_bytes());
+        let stats = Self::byte_hash(&stats);
+
+        // Archetype hash
+        let archetype = Self::byte_hash(&player_game_data.arche_type.to_le_bytes());
+
+        // player_game_dataGameData0xC0 hash
+        let playergame_data_0xc0 = Self::byte_hash(&player_game_data.unk0xb8.to_le_bytes()[..1]);
+
+        // Souls hash
+        let souls = Self::byte_hash(&player_game_data.souls.to_le_bytes());
+
+        // Souls memory hash
+        let souls_memory = Self::byte_hash(&player_game_data.souls_memory.to_le_bytes());
+
+        // Equipped weapons
+        let mut equipped_weapon_ids = Vec::new();
+        equipped_weapon_ids.extend((equipped_items_item_id.left_hand_armament1).to_le_bytes());
+        equipped_weapon_ids.extend((equipped_items_item_id.left_hand_armament2).to_le_bytes());
+        equipped_weapon_ids.extend((equipped_items_item_id.left_hand_armament3).to_le_bytes());
+        equipped_weapon_ids.extend((equipped_items_item_id.right_hand_armament1).to_le_bytes());
+        equipped_weapon_ids.extend((equipped_items_item_id.right_hand_armament2).to_le_bytes());
+        equipped_weapon_ids.extend((equipped_items_item_id.right_hand_armament3).to_le_bytes());
+        equipped_weapon_ids.extend((equipped_items_item_id.arrows1).to_le_bytes());
+        equipped_weapon_ids.extend((equipped_items_item_id.arrows2).to_le_bytes());
+        equipped_weapon_ids.extend((equipped_items_item_id.bolts1).to_le_bytes());
+        equipped_weapon_ids.extend((equipped_items_item_id.bolts2).to_le_bytes());
+        let equipped_weapons = Self::byte_hash(&equipped_weapon_ids);
+
+        // Equipped armors and talismans
+        let mut equipped_armors_and_talismans_ids = Vec::new();
+        equipped_armors_and_talismans_ids.extend((equipped_items_item_id.head).to_le_bytes());
+        equipped_armors_and_talismans_ids.extend((equipped_items_item_id.chest).to_le_bytes());
+        equipped_armors_and_talismans_ids.extend((equipped_items_item_id.arms).to_le_bytes());
+        equipped_armors_and_talismans_ids.extend((equipped_items_item_id.legs).to_le_bytes());
+        equipped_armors_and_talismans_ids.extend((equipped_items_item_id.talisman1).to_le_bytes());
+        equipped_armors_and_talismans_ids.extend((equipped_items_item_id.talisman2).to_le_bytes());
+        equipped_armors_and_talismans_ids.extend((equipped_items_item_id.talisman3).to_le_bytes());
+        equipped_armors_and_talismans_ids.extend((equipped_items_item_id.talisman4).to_le_bytes());
+        equipped_armors_and_talismans_ids.extend((equipped_items_item_id.unk0x54).to_le_bytes());
+        let equipped_armors_and_talismans = Self::byte_hash(&equipped_armors_and_talismans_ids);
+
+        // Equipped Items
+        let mut equipped_items_ids = Vec::new();
+        equipped_items_ids.extend(
+            (if equipped_armaments_and_items.quickitem1 != 0xffffffff {
+                equipped_armaments_and_items.quickitem1 & 0x0fffffff
+            } else {
+                equipped_armaments_and_items.quickitem1
+            })
+            .to_le_bytes(),
+        );
+        equipped_items_ids.extend(
+            (if equipped_armaments_and_items.quickitem2 != 0xffffffff {
+                equipped_armaments_and_items.quickitem2 & 0x0fffffff
+            } else {
+                equipped_armaments_and_items.quickitem2
+            })
+            .to_le_bytes(),
+        );
+        equipped_items_ids.extend(
+            (if equipped_armaments_and_items.quickitem3 != 0xffffffff {
+                equipped_armaments_and_items.quickitem3 & 0x0fffffff
+            } else {
+                equipped_armaments_and_items.quickitem3
+            })
+            .to_le_bytes(),
+        );
+        equipped_items_ids.extend(
+            (if equipped_armaments_and_items.quickitem4 != 0xffffffff {
+                equipped_armaments_and_items.quickitem4 & 0x0fffffff
+            } else {
+                equipped_armaments_and_items.quickitem4
+            })
+            .to_le_bytes(),
+        );
+        equipped_items_ids.extend(
+            (if equipped_armaments_and_items.quickitem5 != 0xffffffff {
+                equipped_armaments_and_items.quickitem5 & 0x0fffffff
+            } else {
+                equipped_armaments_and_items.quickitem5
+            })
+            .to_le_bytes(),
+        );
+        equipped_items_ids.extend(
+            (if equipped_armaments_and_items.quickitem6 != 0xffffffff {
+                equipped_armaments_and_items.quickitem6 & 0x0fffffff
+            } else {
+                equipped_armaments_and_items.quickitem6
+            })
+            .to_le_bytes(),
+        );
+        equipped_items_ids.extend(
+            (if equipped_armaments_and_items.quickitem7 != 0xffffffff {
+                equipped_armaments_and_items.quickitem7 & 0x0fffffff
+            } else {
+                equipped_armaments_and_items.quickitem7
+            })
+            .to_le_bytes(),
+        );
+        equipped_items_ids.extend(
+            (if equipped_armaments_and_items.quickitem8 != 0xffffffff {
+                equipped_armaments_and_items.quickitem8 & 0x0fffffff
+            } else {
+                equipped_armaments_and_items.quickitem8
+            })
+            .to_le_bytes(),
+        );
+        equipped_items_ids.extend(
+            (if equipped_armaments_and_items.quickitem9 != 0xffffffff {
+                equipped_armaments_and_items.quickitem9 & 0x0fffffff
+            } else {
+                equipped_armaments_and_items.quickitem9
+            })
+            .to_le_bytes(),
+        );
+        equipped_items_ids.extend(
+            (if equipped_armaments_and_items.quickitem10 != 0xffffffff {
+                equipped_armaments_and_items.quickitem10 & 0x0fffffff
+            } else {
+                equipped_armaments_and_items.quickitem10
+            })
+            .to_le_bytes(),
+        );
+        equipped_items_ids.extend(
+            (if equipped_armaments_and_items.pouch1 != 0xffffffff {
+                equipped_armaments_and_items.pouch1 & 0x0fffffff
+            } else {
+                equipped_armaments_and_items.pouch1
+            })
+            .to_le_bytes(),
+        );
+        equipped_items_ids.extend(
+            (if equipped_armaments_and_items.pouch2 != 0xffffffff {
+                equipped_armaments_and_items.pouch2 & 0x0fffffff
+            } else {
+                equipped_armaments_and_items.pouch2
+            })
+            .to_le_bytes(),
+        );
+        equipped_items_ids.extend(
+            (if equipped_armaments_and_items.pouch3 != 0xffffffff {
+                equipped_armaments_and_items.pouch3 & 0x0fffffff
+            } else {
+                equipped_armaments_and_items.pouch3
+            })
+            .to_le_bytes(),
+        );
+        equipped_items_ids.extend(
+            (if equipped_armaments_and_items.pouch4 != 0xffffffff {
+                equipped_armaments_and_items.pouch4 & 0x0fffffff
+            } else {
+                equipped_armaments_and_items.pouch4
+            })
+            .to_le_bytes(),
+        );
+        equipped_items_ids.extend(
+            (if equipped_armaments_and_items.pouch5 != 0xffffffff {
+                equipped_armaments_and_items.pouch5 & 0x0fffffff
+            } else {
+                equipped_armaments_and_items.pouch5
+            })
+            .to_le_bytes(),
+        );
+        equipped_items_ids.extend(
+            (if equipped_armaments_and_items.pouch6 != 0xffffffff {
+                equipped_armaments_and_items.pouch6 & 0x0fffffff
+            } else {
+                equipped_armaments_and_items.pouch6
+            })
+            .to_le_bytes(),
+        );
+        let equipped_items = Self::byte_hash(&equipped_items_ids);
+
+        let mut equipped_spell_ids = Vec::new();
+        for i in 0..14 {
+            equipped_spell_ids.extend(equipped_spells.spellslot[i].spell_id.to_le_bytes());
+        }
+        let equipped_spells = Self::byte_hash(&equipped_spell_ids);
+
+        PlayerGameDataHash {
+            level,
+            stats,
+            archetype,
+            playergame_data_0xc0,
+            padding: 0,
+            souls,
+            souls_memory,
+            equipped_weapons,
+            equipped_armors_and_talismans,
+            equipped_items,
+            equipped_spells,
+            rest: Vec::with_capacity(0x54),
+        }
+    }
+
+    fn byte_hash(bytes: &[u8]) -> u32 {
+        let mut lo: u32 = 1;
+        let mut hi: u32 = 0;
+
+        for byte in bytes {
+            lo = lo + *byte as u32;
+            hi = hi + lo;
+        }
+
+        let lo_hashed = Self::compute_hashed_value(lo);
+        let hi_hashed = Self::compute_hashed_value(hi);
+
+        (lo_hashed | (hi_hashed << 0x10)).wrapping_mul(2)
+    }
+
+    fn compute_hashed_value(input: u32) -> u32 {
+        const MULTIPLIER: u32 = 0x80078071;
+        const MOD_CONSTANT: i32 = -0xfff1;
+        const SHIFT_AMOUNT: u32 = 15;
+        let product = (MULTIPLIER as u64).wrapping_mul(input as u64);
+        let upper_bits = (product >> 32) as u32;
+        let shifted_upper_bits = upper_bits >> SHIFT_AMOUNT;
+        let mod_product = (shifted_upper_bits as i32).wrapping_mul(MOD_CONSTANT) as u32;
+        input.wrapping_add(mod_product)
+    }
 }

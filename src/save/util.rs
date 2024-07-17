@@ -17,14 +17,18 @@ impl Util {
         size: usize,
     ) -> Result<String, DekuError> {
         if size % 2 != 0 {
-            return Err(DekuError::Parse(Cow::from("Size is not even. Cannot parse bytes into u16 string")));
+            return Err(DekuError::Parse(Cow::from(
+                "Size is not even. Cannot parse bytes into u16 string",
+            )));
         }
 
         let mut buffer = vec![0; size];
         let _ = reader.read_bytes(size, &mut buffer)?;
 
         if buffer.as_ptr() as usize % std::mem::align_of::<u16>() != 0 {
-            return Err(DekuError::Parse(Cow::from("Unaligned. Cannot parse bytes into u16 string")));
+            return Err(DekuError::Parse(Cow::from(
+                "Unaligned. Cannot parse bytes into u16 string",
+            )));
         }
 
         let mut u16_vec: Vec<u16> = Vec::new();
@@ -35,7 +39,7 @@ impl Util {
             }
             u16_vec.push(u16::from_le_bytes([b1, b2]));
         }
-        
+
         let str = String::from_utf16(&u16_vec);
 
         match str {
@@ -51,13 +55,15 @@ impl Util {
     ) -> Result<(), DekuError> {
         let mut str_utf16 = str.encode_utf16();
         let mut bytes = Vec::new();
-        
+
         let mut count = 0;
         while let Some(wchar) = str_utf16.next() {
             bytes.extend(wchar.to_le_bytes());
             count += 2;
-            if count == size { break; }
-        } 
+            if count == size {
+                break;
+            }
+        }
 
         let remaining = size - count;
         for _ in 0..remaining {
@@ -65,7 +71,7 @@ impl Util {
         }
 
         bytes.to_writer(writer, ())?;
-        
+
         return Ok(());
     }
 
@@ -74,5 +80,15 @@ impl Util {
         for (i, byte) in digest.0.iter().enumerate() {
             bytes[i] = *byte;
         }
+    }
+
+    pub(crate) fn deku_assert(condition: bool, value: &str) -> Result<(), DekuError> {
+        if !condition {
+            return Err(DekuError::Assertion(Cow::from(format!(
+                "Player game data -> {} hash assertion failed!",
+                value
+            ))));
+        }
+        Ok(())
     }
 }
