@@ -117,9 +117,9 @@ impl Save {
         Ok(save)
     }
 
-    /// Writes the save file to a byte slice and returns it as a `Vec<u8>`.
+    /// Writes the save file to a byte vector and returns it as a `Vec<u8>`.
     ///
-    /// This function converts the `Save` instance into a byte slice, which can then be
+    /// This function converts the `Save` instance into a byte vector, which can then be
     /// saved to a file or used as needed.
     ///
     /// # Errors
@@ -137,14 +137,14 @@ impl Save {
     ///
     /// fn main() {
     ///     let save = Save::from_path("./test/ER0000.sl2").expect("Failed to read save file!");
-    ///     let bytes = save.to_slice().expect("Failed to write save file!");
+    ///     let bytes = save.write_to_vec().expect("Failed to write save file!");
     /// }
     /// ```
     ///
     /// # Safety
     ///
     /// This function is safe to call as it only performs data formatting operations.
-    pub fn write_to_slice(&self) -> Result<Vec<u8>, DekuError> {
+    pub fn write_to_vec(&self) -> Result<Vec<u8>, DekuError> {
         let is_ps = self.header.len() == 0x6c;
         let sizes: [usize; 4] = if is_ps {
             [0x6c, 0x280000, 0x60000, 0x240010]
@@ -187,8 +187,8 @@ impl Save {
     /// # Safety
     ///
     /// This function is safe to call as it only performs file writing and data formatting operations.
-    pub fn write_to_path(&self, path: &str) -> Result<(), SaveParseError> {
-        let path = Path::new(path);
+    pub fn write_to_path(&self, path: impl AsRef<Path>) -> Result<(), SaveParseError> {
+        let path = path.as_ref();
         let file = if !path.exists() {
             File::create(path)?
         } else {
@@ -241,7 +241,7 @@ impl Save {
     /// # Safety
     ///
     /// This function is safe to call as it only performs file reading and parsing operations.
-    pub fn from_path(path: &str) -> Result<Self, SaveParseError> {
+    pub fn from_path(path: impl AsRef<Path>) -> Result<Self, SaveParseError> {
         let bytes = fs::read(path)?;
         Self::from_slice(&bytes)
     }
