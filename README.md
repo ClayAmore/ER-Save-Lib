@@ -11,28 +11,28 @@ fn main() {
    // PC
    let save_api = SaveApi::from_path("./test/ER0000.sl2").expect("Failed to read save file!");
 
-match save_api {
-   Ok(save_api) => {
-      let character_index = 0;
-      save_api.set_character_name(character_index, "New Name");
-      save_api.write_to_path("new/path/file_name.sl2");
-   },
-   Err(err) => eprintln!("{err}"),
-}
-
-
-// Playstation
-let save = SaveApi::from_path("./test/ps_save.txt").expect("Failed to read save file!");
-
-match save_api {
-   Ok(save_api) => {
-      let character_name = save_api.character_name();
-      println!("{}", character_name);
-      let bytes = save.write_to_vec();
-   },
+   match save_api {
+      Ok(save_api) => {
+         let character_index = 0;
+         save_api.set_character_name(character_index, "New Name");
+         save_api.write_to_path("new/path/file_name.sl2");
+      },
       Err(err) => eprintln!("{err}"),
    }
-}
+   
+   
+   // Playstation
+   let save = SaveApi::from_path("./test/ps_save.txt").expect("Failed to read save file!");
+   
+   match save_api {
+      Ok(save_api) => {
+         let character_name = save_api.character_name();
+         println!("{}", character_name);
+         let bytes = save.write_to_vec();
+      },
+         Err(err) => eprintln!("{err}"),
+      }
+   }
 ```
 
 
