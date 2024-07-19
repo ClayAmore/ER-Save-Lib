@@ -316,4 +316,44 @@ impl SaveApi {
         self.raw.user_data_10.profile_summary.profiles[index].runes_memory = runes_memory;
         Ok(())
     }
+
+    pub fn regions(&self, index: usize) -> Result<&Vec<u32>, SaveApiError> {
+        Ok(&self.raw.user_data_x[index].unlocked_regions.ids)
+    }
+
+    pub fn regions_count(&self, index: usize) -> Result<u32, SaveApiError> {
+        Ok(self.raw.user_data_x[index].unlocked_regions.count)
+    }
+
+    pub fn add_region(&mut self, index: usize, region_id: u32) -> Result<(), SaveApiError> {
+        let user_data_x = &mut self.raw.user_data_x[index];
+        if user_data_x
+            .unlocked_regions
+            .ids
+            .iter()
+            .position(|id| *id == region_id)
+            .is_none()
+        {
+            user_data_x.unlocked_regions.ids.push(region_id);
+            user_data_x.unlocked_regions.count += 1;
+            let rest_len = user_data_x.rest.len();
+            user_data_x.rest.truncate(rest_len - 4);
+        }
+        Ok(())
+    }
+
+    pub fn remove_region(&mut self, index: usize, region_id: u32) -> Result<(), SaveApiError> {
+        let user_data_x = &mut self.raw.user_data_x[index];
+        if let Some(region_index) = user_data_x
+            .unlocked_regions
+            .ids
+            .iter()
+            .position(|id| *id == region_id)
+        {
+            user_data_x.unlocked_regions.ids.remove(region_index);
+            user_data_x.unlocked_regions.count -= 1;
+            user_data_x.rest.extend(vec![0; 4]);
+        }
+        Ok(())
+    }
 }
