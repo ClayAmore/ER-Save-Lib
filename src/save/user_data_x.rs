@@ -1007,28 +1007,6 @@ pub(crate) struct TutorialData {
     pub(crate) data: TutorialDataChunk,
 }
 
-// Event Flags
-#[derive(PartialEq, Debug, DekuRead, DekuWrite)]
-#[deku(endian = "endian", ctx = "endian: Endian")]
-pub(crate) struct EventFlag {
-    #[deku(bits = 1)]
-    pub(crate) bit_0: u8,
-    #[deku(bits = 1)]
-    pub(crate) bit_1: u8,
-    #[deku(bits = 1)]
-    pub(crate) bit_2: u8,
-    #[deku(bits = 1)]
-    pub(crate) bit_3: u8,
-    #[deku(bits = 1)]
-    pub(crate) bit_4: u8,
-    #[deku(bits = 1)]
-    pub(crate) bit_5: u8,
-    #[deku(bits = 1)]
-    pub(crate) bit_6: u8,
-    #[deku(bits = 1)]
-    pub(crate) bit_7: u8,
-}
-
 // Field Area
 #[derive(PartialEq, Debug, DekuRead, DekuWrite)]
 #[deku(endian = "endian", ctx = "endian: Endian")]
