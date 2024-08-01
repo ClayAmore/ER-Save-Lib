@@ -196,24 +196,14 @@ pub(crate) struct UserDataX {
     pub(crate) dlc: DLC,
 
     // Player Game Data Hash
-    #[deku(
-        reader = "PlayerGameDataHash::read(
-            deku::reader, 
-            endian, 
-            player_game_data, 
-            equipped_items_item_id, 
-            equipped_armaments_and_items, 
-            equipped_spells
-        )",
-        writer = "PlayerGameDataHash::write(
+    #[deku(writer = "PlayerGameDataHash::write(
             deku::writer, 
             endian, 
             player_game_data, 
             equipped_items_item_id, 
             equipped_armaments_and_items, 
             equipped_spells
-        )"
-    )]
+        )")]
     pub(crate) player_data_hash: PlayerGameDataHash,
 
     #[deku(count = "end - deku::byte_offset")]
@@ -267,9 +257,6 @@ impl UserDataX {
         Ok(())
     }
 }
-
-// #[deku(skip, cond = "true", default = "deku::byte_offset")]
-// pub(crate) test: usize,
 
 // Gaitem Map
 #[derive(PartialEq, Debug, DekuRead, DekuWrite)]
@@ -333,9 +320,7 @@ pub(crate) struct Gaitem {
 #[derive(PartialEq, Debug, DekuRead, DekuWrite)]
 #[deku(endian = "endian", ctx = "endian: Endian")]
 pub(crate) struct PlayerGameData {
-    #[deku(assert_eq = "0")]
     unk0x0: u32,
-    #[deku(assert_eq = "0")]
     unk0x4: u32,
     pub(crate) hp: u32,
     pub(crate) max_hp: u32,
@@ -376,7 +361,6 @@ pub(crate) struct PlayerGameData {
     pub(crate) sleep_buildup: u32,
     pub(crate) madness_buildup: u32,
     unk0x8c: u32,
-    #[deku(assert_eq = "0")]
     unk0x90: u32,
     #[deku(
         reader = "Util::read_wstring(deku::reader, 32)",
@@ -1180,80 +1164,6 @@ pub(crate) struct PlayerGameDataHash {
 }
 
 impl PlayerGameDataHash {
-    pub(crate) fn read<R: std::io::Read>(
-        reader: &mut deku::reader::Reader<R>,
-        endian: Endian,
-        player_game_data: &PlayerGameData,
-        equipped_items_item_id: &EquippedItemsItemIds,
-        equipped_armaments_and_items: &EquippedArmamentsAndItems,
-        equipped_spells: &EquippedSpells,
-    ) -> Result<Self, DekuError> {
-        // Read hash struct from save file
-        let player_game_data_hash = Self::from_reader_with_ctx(reader, endian)?;
-
-        let calculated_player_game_data_hash = Self::calculate_hash(
-            player_game_data,
-            equipped_items_item_id,
-            equipped_armaments_and_items,
-            equipped_spells,
-        );
-
-        // Validate hash is correct
-        Util::deku_assert(
-            player_game_data_hash.level == 0
-                || calculated_player_game_data_hash.level == player_game_data_hash.level,
-            "level",
-        )?;
-        Util::deku_assert(
-            player_game_data_hash.stats == 0
-                || calculated_player_game_data_hash.stats == player_game_data_hash.stats,
-            "stats",
-        )?;
-        Util::deku_assert(
-            player_game_data_hash.playergame_data_0xc0 == 0
-                || calculated_player_game_data_hash.playergame_data_0xc0
-                    == player_game_data_hash.playergame_data_0xc0,
-            "0xc0",
-        )?;
-        Util::deku_assert(
-            player_game_data_hash.runes == 0
-                || calculated_player_game_data_hash.runes == player_game_data_hash.runes,
-            "runes",
-        )?;
-        Util::deku_assert(
-            player_game_data_hash.runes_memory == 0
-                || calculated_player_game_data_hash.runes_memory
-                    == player_game_data_hash.runes_memory,
-            "runes_memory",
-        )?;
-        Util::deku_assert(
-            player_game_data_hash.equipped_weapons == 0
-                || calculated_player_game_data_hash.equipped_weapons
-                    == player_game_data_hash.equipped_weapons,
-            "equipped_weapons",
-        )?;
-        Util::deku_assert(
-            player_game_data_hash.equipped_armors_and_talismans == 0
-                || calculated_player_game_data_hash.equipped_armors_and_talismans
-                    == player_game_data_hash.equipped_armors_and_talismans,
-            "equipped_armors_and_talismans",
-        )?;
-        Util::deku_assert(
-            player_game_data_hash.equipped_items == 0
-                || calculated_player_game_data_hash.equipped_items
-                    == player_game_data_hash.equipped_items,
-            "equipped_items",
-        )?;
-        Util::deku_assert(
-            player_game_data_hash.equipped_spells == 0
-                || calculated_player_game_data_hash.equipped_spells
-                    == player_game_data_hash.equipped_spells,
-            "eqipped spells",
-        )?;
-
-        Ok(player_game_data_hash)
-    }
-
     pub(crate) fn write<W: std::io::Write>(
         writer: &mut deku::writer::Writer<W>,
         endian: Endian,

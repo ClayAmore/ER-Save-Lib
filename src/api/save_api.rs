@@ -1,6 +1,14 @@
-use std::{num::ParseIntError, path::Path};
+use std::{
+    collections::{BTreeMap, HashMap},
+    num::ParseIntError,
+    path::Path,
+};
 
-use crate::{save::save::SaveParseError, Save};
+use crate::{
+    regulation::{params::param_structs, regulation::RegulationParseError},
+    save::save::SaveParseError,
+    Save,
+};
 
 use super::event_flags::EventFlagsApi;
 
@@ -14,14 +22,20 @@ pub enum SaveApiError {
     SaveParserError(#[from] SaveParseError),
     #[error(transparent)]
     ParseIntError(#[from] ParseIntError),
-    #[error("EventId not found!")]
-    EventIdNotFound,
+    #[error("EventId {} not found!", .0)]
+    EventIdNotFound(u32),
+    #[error(transparent)]
+    RegulationParseError(#[from] RegulationParseError),
 }
 
 #[derive(PartialEq)]
 pub enum SaveType {
     PC,
     Playstation,
+}
+
+pub struct Param<P: param_structs::param_trait::Param> {
+    pub rows: HashMap<i32, P::ParamType>,
 }
 
 pub struct SaveApi {
@@ -67,6 +81,24 @@ impl SaveApi {
             .profiles
             .iter()
             .position(|profile| profile.character_name.contains(name))
+    }
+
+    pub fn get_param_bytes_map(&self) -> Result<&BTreeMap<String, Vec<u8>>, SaveApiError> {
+        Ok(&self
+            .raw
+            .user_data_11
+            .regulation
+            .content
+            .data
+            .file_data
+            .param_files)
+    }
+
+    pub fn get_param<P: param_structs::param_trait::Param>(
+        &self,
+    ) -> Result<Param<P>, SaveApiError> {
+        let rows = self.raw.user_data_11.regulation.get_param::<P>()?;
+        Ok(Param::<P> { rows })
     }
 
     pub fn get_event_flag(

@@ -112,9 +112,10 @@ impl Save {
         } else {
             [0x2fc, 0x280010, 0x60010, 0x240020]
         };
-        let mut save = Self::from_reader_with_ctx(reader, (Endian::Little, is_ps, sizes))?;
-        save.user_data_x[0].update()?;
-        Ok(save)
+        Ok(Self::from_reader_with_ctx(
+            reader,
+            (Endian::Little, is_ps, sizes),
+        )?)
     }
 
     /// Writes the save file to a byte vector and returns it as a `Vec<u8>`.

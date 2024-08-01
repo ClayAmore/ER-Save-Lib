@@ -81,14 +81,4 @@ impl Util {
             bytes[i] = *byte;
         }
     }
-
-    pub(crate) fn deku_assert(condition: bool, value: &str) -> Result<(), DekuError> {
-        if !condition {
-            return Err(DekuError::Assertion(Cow::from(format!(
-                "Player game data -> {} hash assertion failed!",
-                value
-            ))));
-        }
-        Ok(())
-    }
 }

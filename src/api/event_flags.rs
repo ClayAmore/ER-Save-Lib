@@ -29,7 +29,7 @@ impl EventFlagsApi {
             let eventflag_bit = ((eventflag_byte >> bit_index) & 1) == 1;
             return Ok(eventflag_bit);
         }
-        return Err(SaveApiError::EventIdNotFound);
+        return Err(SaveApiError::EventIdNotFound(event_id));
     }
 
     pub(crate) fn set_event_flag(
@@ -57,7 +57,7 @@ impl EventFlagsApi {
                 eventflag_byte;
             return Ok(());
         }
-        return Err(SaveApiError::EventIdNotFound);
+        return Err(SaveApiError::EventIdNotFound(event_id));
     }
 
     // BST tree turned into a static hashmap
