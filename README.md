@@ -5,7 +5,7 @@ ER-Save-Lib is a library for reading and writing Elden Ring save files, compatib
 ## SaveApi
 ### Example
 ```rust
-use er_save_lib::Save;
+use er_save_lib::SaveApi;
 
 fn main() {
    // PC
