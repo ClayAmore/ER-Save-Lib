@@ -21,39 +21,39 @@ pub struct SP_EFFECT_VFX_PARAM_ST {
 	pub playCategory: u8,
 	pub playPriority: u8,
 	#[deku(bits = 1)]
-	pub existEffectForLarge: u8,
-	#[deku(bits = 1)]
-	pub existEffectForSoul: u8,
-	#[deku(bits = 1)]
-	pub effectInvisibleAtCamouflage: u8,
-	#[deku(bits = 1)]
-	pub useCamouflage: u8,
-	#[deku(bits = 1)]
-	pub invisibleAtFriendCamouflage: u8,
+	pub halfCamouflage: u8,
 	#[deku(bits = 1)]
 	pub isHideFootEffect_forCamouflage: u8,
 	#[deku(bits = 1)]
-	pub halfCamouflage: u8,
+	pub invisibleAtFriendCamouflage: u8,
 	#[deku(bits = 1)]
-	pub isFullBodyTransformProtectorId: u8,
+	pub useCamouflage: u8,
 	#[deku(bits = 1)]
-	pub isInvisibleWeapon: u8,
+	pub effectInvisibleAtCamouflage: u8,
 	#[deku(bits = 1)]
-	pub isSilence: u8,
+	pub existEffectForSoul: u8,
 	#[deku(bits = 1)]
-	pub isMidstFullbody: u8,
-	#[deku(bits = 1)]
-	pub isInitFullbody: u8,
-	#[deku(bits = 1)]
-	pub isFinishFullbody: u8,
+	pub existEffectForLarge: u8,
 	#[deku(bits = 1)]
 	pub isVisibleDeadChr: u8,
 	#[deku(bits = 1)]
-	pub isUseOffsetEnchantSfxSize: u8,
-	#[deku(skip, cond = "version >= 11210015", bits = 1)]
-	pub pad_1: u8,
+	pub isFinishFullbody: u8,
+	#[deku(bits = 1)]
+	pub isInitFullbody: u8,
+	#[deku(bits = 1)]
+	pub isMidstFullbody: u8,
+	#[deku(bits = 1)]
+	pub isSilence: u8,
+	#[deku(bits = 1)]
+	pub isInvisibleWeapon: u8,
+	#[deku(bits = 1)]
+	pub isFullBodyTransformProtectorId: u8,
 	#[deku(skip, cond = "version < 11210015", bits = 1)]
 	pub unknown_0x2f_7: u8,
+	#[deku(skip, cond = "version >= 11210015", bits = 1)]
+	pub pad_1: u8,
+	#[deku(bits = 1)]
+	pub isUseOffsetEnchantSfxSize: u8,
 	pub decalId1: i32,
 	pub decalId2: i32,
 	pub footEffectPriority: u8,

@@ -162,7 +162,7 @@ pub(crate) struct ProfileSummary {
     pub(crate) profiles: Vec<Profile>,
 }
 // Profile
-#[derive(PartialEq, Debug, DekuRead, DekuWrite)]
+#[derive(PartialEq, Debug, DekuRead, DekuWrite, Clone)]
 #[deku(endian = "endian", ctx = "endian: Endian")]
 pub(crate) struct Profile {
     #[deku(
@@ -192,7 +192,7 @@ pub(crate) struct Profile {
 }
 
 // Profile Equipment
-#[derive(PartialEq, Debug, DekuRead, DekuWrite)]
+#[derive(PartialEq, Debug, DekuRead, DekuWrite, Clone)]
 #[deku(endian = "endian", ctx = "endian: Endian")]
 pub(crate) struct ProfileEquipment {
     unk0x0: u64,

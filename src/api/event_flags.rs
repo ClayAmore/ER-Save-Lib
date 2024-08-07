@@ -2,7 +2,7 @@ use std::{collections::HashMap, sync::OnceLock};
 
 use crate::{Save, SaveApiError};
 
-// BST tree dump
+// BST dump
 const EVENTFLAG_BST: &str = include_str!("../res/eventflag_bst.txt");
 
 pub(crate) struct EventFlagsApi;
@@ -60,7 +60,7 @@ impl EventFlagsApi {
         return Err(SaveApiError::EventIdNotFound(event_id));
     }
 
-    // BST tree turned into a static hashmap
+    // BST turned into a static hashmap
     fn event_flag_map() -> &'static HashMap<u32, u32> {
         static MAP: OnceLock<HashMap<u32, u32>> = OnceLock::new();
         MAP.get_or_init(|| {

@@ -5,57 +5,57 @@ use deku::{ DekuRead, DekuWrite};
 #[deku(endian = "endian", ctx = "endian: Endian, version: u32")]
 pub struct ATTACK_ELEMENT_CORRECT_PARAM_ST {
 	#[deku(bits = 1)]
-	pub isStrengthCorrect_byPhysics: u8,
-	#[deku(bits = 1)]
-	pub isDexterityCorrect_byPhysics: u8,
-	#[deku(bits = 1)]
-	pub isMagicCorrect_byPhysics: u8,
-	#[deku(bits = 1)]
-	pub isFaithCorrect_byPhysics: u8,
-	#[deku(bits = 1)]
-	pub isLuckCorrect_byPhysics: u8,
+	pub isDexterityCorrect_byMagic: u8,
 	#[deku(bits = 1)]
 	pub isStrengthCorrect_byMagic: u8,
 	#[deku(bits = 1)]
-	pub isDexterityCorrect_byMagic: u8,
+	pub isLuckCorrect_byPhysics: u8,
 	#[deku(bits = 1)]
-	pub isMagicCorrect_byMagic: u8,
+	pub isFaithCorrect_byPhysics: u8,
 	#[deku(bits = 1)]
-	pub isFaithCorrect_byMagic: u8,
+	pub isMagicCorrect_byPhysics: u8,
 	#[deku(bits = 1)]
-	pub isLuckCorrect_byMagic: u8,
+	pub isDexterityCorrect_byPhysics: u8,
 	#[deku(bits = 1)]
-	pub isStrengthCorrect_byFire: u8,
-	#[deku(bits = 1)]
-	pub isDexterityCorrect_byFire: u8,
-	#[deku(bits = 1)]
-	pub isMagicCorrect_byFire: u8,
+	pub isStrengthCorrect_byPhysics: u8,
 	#[deku(bits = 1)]
 	pub isFaithCorrect_byFire: u8,
 	#[deku(bits = 1)]
-	pub isLuckCorrect_byFire: u8,
+	pub isMagicCorrect_byFire: u8,
 	#[deku(bits = 1)]
-	pub isStrengthCorrect_byThunder: u8,
+	pub isDexterityCorrect_byFire: u8,
 	#[deku(bits = 1)]
-	pub isDexterityCorrect_byThunder: u8,
+	pub isStrengthCorrect_byFire: u8,
 	#[deku(bits = 1)]
-	pub isMagicCorrect_byThunder: u8,
+	pub isLuckCorrect_byMagic: u8,
 	#[deku(bits = 1)]
-	pub isFaithCorrect_byThunder: u8,
+	pub isFaithCorrect_byMagic: u8,
 	#[deku(bits = 1)]
-	pub isLuckCorrect_byThunder: u8,
+	pub isMagicCorrect_byMagic: u8,
 	#[deku(bits = 1)]
 	pub isStrengthCorrect_byDark: u8,
 	#[deku(bits = 1)]
-	pub isDexterityCorrect_byDark: u8,
+	pub isLuckCorrect_byThunder: u8,
 	#[deku(bits = 1)]
-	pub isMagicCorrect_byDark: u8,
+	pub isFaithCorrect_byThunder: u8,
+	#[deku(bits = 1)]
+	pub isMagicCorrect_byThunder: u8,
+	#[deku(bits = 1)]
+	pub isDexterityCorrect_byThunder: u8,
+	#[deku(bits = 1)]
+	pub isStrengthCorrect_byThunder: u8,
+	#[deku(bits = 1)]
+	pub isLuckCorrect_byFire: u8,
+	#[deku(bits = 7)]
+	pub pad1: u8,
+	#[deku(bits = 1)]
+	pub isLuckCorrect_byDark: u8,
 	#[deku(bits = 1)]
 	pub isFaithCorrect_byDark: u8,
 	#[deku(bits = 1)]
-	pub isLuckCorrect_byDark: u8,
-	#[deku(bits = 7)]
-	pub pad1: u8,
+	pub isMagicCorrect_byDark: u8,
+	#[deku(bits = 1)]
+	pub isDexterityCorrect_byDark: u8,
 	pub overwriteStrengthCorrectRate_byPhysics: i16,
 	pub overwriteDexterityCorrectRate_byPhysics: i16,
 	pub overwriteMagicCorrectRate_byPhysics: i16,

@@ -26,20 +26,20 @@ pub struct THROW_PARAM_ST {
 	pub throwType: u8,
 	pub selfEscCycleCnt: u8,
 	pub dmyHasChrDirType: u8,
+	#[deku(bits = 2)]
+	pub pad0: u8,
 	#[deku(bits = 1)]
-	pub isTurnAtker: u8,
-	#[deku(bits = 1)]
-	pub isSkipWepCate: u8,
-	#[deku(bits = 1)]
-	pub isSkipSphereCast: u8,
-	#[deku(bits = 1)]
-	pub isEnableCorrectPos_forThrowAdjust: u8,
+	pub isEnableThrowFollowingFeedback: u8,
 	#[deku(bits = 1)]
 	pub isEnableThrowFollowingFallAssist: u8,
 	#[deku(bits = 1)]
-	pub isEnableThrowFollowingFeedback: u8,
-	#[deku(bits = 2)]
-	pub pad0: u8,
+	pub isEnableCorrectPos_forThrowAdjust: u8,
+	#[deku(bits = 1)]
+	pub isSkipSphereCast: u8,
+	#[deku(bits = 1)]
+	pub isSkipWepCate: u8,
+	#[deku(bits = 1)]
+	pub isTurnAtker: u8,
 	pub atkSorbDmyId: i16,
 	pub defSorbDmyId: i16,
 	pub Dist_start: f32,

@@ -111,20 +111,20 @@ pub struct FACE_PARAM_ST {
 	pub chrBodyScaleLArm: u8,
 	pub chrBodyScaleLLeg: u8,
 	pub burn_scar: u8,
+	#[deku(bits = 2)]
+	pub pad2: u8,
 	#[deku(bits = 1)]
-	pub override_eye_partsId: u8,
-	#[deku(bits = 1)]
-	pub override_eye_irisColor: u8,
-	#[deku(bits = 1)]
-	pub override_eye_cataract: u8,
-	#[deku(bits = 1)]
-	pub override_eye_cataractColor: u8,
+	pub override_burn_scar: u8,
 	#[deku(bits = 1)]
 	pub override_eye_scleraColor: u8,
 	#[deku(bits = 1)]
-	pub override_burn_scar: u8,
-	#[deku(bits = 2)]
-	pub pad2: u8,
+	pub override_eye_cataractColor: u8,
+	#[deku(bits = 1)]
+	pub override_eye_cataract: u8,
+	#[deku(bits = 1)]
+	pub override_eye_irisColor: u8,
+	#[deku(bits = 1)]
+	pub override_eye_partsId: u8,
 	pub pad: [u8;5],
 	pub age: u8,
 	pub gender: u8,

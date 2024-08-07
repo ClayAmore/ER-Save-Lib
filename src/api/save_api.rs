@@ -2,15 +2,27 @@ use std::{
     collections::{BTreeMap, HashMap},
     num::ParseIntError,
     path::Path,
+    sync::LazyLock,
 };
 
 use crate::{
     regulation::{params::param_structs, regulation::RegulationParseError},
-    save::save::SaveParseError,
+    save::{save::SaveParseError, user_data_10::Profile, user_data_x::UserDataX},
     Save,
 };
 
-use super::event_flags::EventFlagsApi;
+use super::{
+    event_flags::EventFlagsApi,
+    inventory::{Item, ItemType, StorageItemType, StorageType, KEY_ITEM_CAPACITY},
+    text::{
+        accessory_name::ACCESSORY_NAME, accessory_name_dlc01::ACCESSORY_NAME_DLC01,
+        arts_name::ARTS_NAME, arts_name_dlc01::ARTS_NAME_DLC01, goods_name::GOODS_NAME,
+        goods_name_dlc01::GOODS_NAME_DLC01, protector_name::PROTECTOR_NAME,
+        protector_name_dlc01::PROTECTOR_NAME_DLC01, weapon_name::WEAPON_NAME,
+        weapon_name_dlc01::WEAPON_NAME_DLC01,
+    },
+    vanilla_check::VanillaCheck,
+};
 
 #[derive(thiserror::Error, Debug)]
 pub enum SaveApiError {
@@ -26,6 +38,14 @@ pub enum SaveApiError {
     EventIdNotFound(u32),
     #[error(transparent)]
     RegulationParseError(#[from] RegulationParseError),
+    #[error("Character index is out of range for the limit is 10 and the index is {}.", .0)]
+    CharacterIndexOutOfRange(usize),
+    #[error("Failed to determine item type from id: {:#X}", .0)]
+    UnkownItemType(u32),
+    #[error("Failed to find item id from gaitem handle: {:#X}", .0)]
+    ItemIdNotFound(u32),
+    #[error("Failed to import character to a playstation save!\nReason: {}", .0)]
+    CheatedCharacterImport(String),
 }
 
 #[derive(PartialEq)]
@@ -34,6 +54,7 @@ pub enum SaveType {
     Playstation,
 }
 
+#[derive(Default)]
 pub struct Param<P: param_structs::param_trait::Param> {
     pub rows: HashMap<i32, P::ParamType>,
 }
@@ -145,6 +166,67 @@ impl SaveApi {
 
     pub fn active_characters(&self) -> [bool; 10] {
         self.raw.user_data_10.profile_summary.active_profiles
+    }
+
+    pub fn import_character(
+        &mut self,
+        to_index: usize,
+        from: &SaveApi,
+        from_index: usize,
+    ) -> Result<(), SaveApiError> {
+        // Validate character
+        if self.platform() == SaveType::Playstation {
+            VanillaCheck::is_vanilla_save(&from.raw, from_index)?;
+        }
+
+        // Validate index is within range
+        if to_index > 9 {
+            return Err(SaveApiError::CharacterIndexOutOfRange(to_index));
+        }
+
+        // Count active characters
+        let active_character_count = self.active_characters().into_iter().filter(|b| *b).count();
+
+        // Update active characters flag if neccessary
+        if to_index > active_character_count - 1 {
+            self.raw.user_data_10.profile_summary.active_profiles[active_character_count] = true;
+        }
+
+        // Set profile
+        Self::set_profile(self, to_index, from.get_profile(from_index)?)?;
+
+        // Set character
+        Self::set_character(self, to_index, from.get_character(from_index)?)?;
+
+        Ok(())
+    }
+
+    fn get_profile(&self, index: usize) -> Result<&Profile, SaveApiError> {
+        Ok(&self.raw.user_data_10.profile_summary.profiles[index])
+    }
+
+    fn set_profile(&mut self, index: usize, profile: &Profile) -> Result<(), SaveApiError> {
+        self.raw.user_data_10.profile_summary.profiles[index] = profile.clone();
+        Ok(())
+    }
+
+    fn get_character(&self, index: usize) -> Result<&UserDataX, SaveApiError> {
+        Ok(&self.raw.user_data_x[index])
+    }
+
+    fn set_character(&mut self, index: usize, character: &UserDataX) -> Result<(), SaveApiError> {
+        // Clone character
+        let mut character = character.clone();
+
+        // Update character steam ID
+        character.steam_id = match self.platform() {
+            SaveType::PC => self.steam_id(),
+            SaveType::Playstation => 0,
+        };
+
+        // Insert the character
+        self.raw.user_data_x[index] = character;
+        Ok(())
     }
 
     pub fn gender(&self, index: usize) -> u8 {
@@ -387,5 +469,151 @@ impl SaveApi {
             user_data_x.rest.extend(vec![0; 4]);
         }
         Ok(())
+    }
+
+    pub fn get_inventory(
+        &self,
+        index: usize,
+        storage_type: StorageType,
+        storage_item_type: StorageItemType,
+    ) -> Result<Vec<Item>, SaveApiError> {
+        // Get save item list
+        let items = match (&storage_type, &storage_item_type) {
+            (StorageType::Held, StorageItemType::Regular) => {
+                &self.raw.user_data_x[index].inventory_held.common_items
+            }
+            (StorageType::Held, StorageItemType::Key) => {
+                &self.raw.user_data_x[index].inventory_held.key_items
+            }
+            (StorageType::StorageBox, StorageItemType::Regular) => {
+                &self.raw.user_data_x[index]
+                    .inventory_storage_box
+                    .common_items
+            }
+            (StorageType::StorageBox, StorageItemType::Key) => {
+                &self.raw.user_data_x[index].inventory_storage_box.key_items
+            }
+        };
+
+        // Create item list
+        let items: Result<Vec<Item>, SaveApiError> = items
+            .iter()
+            .enumerate()
+            .map(|(inventory_index, item)| {
+                let item_type = ItemType::from_gaitem_id(item.gaitem_handle)?;
+                let gaitem_handle = item.gaitem_handle;
+                let item_id = self.item_id_from_gaitem_handle(index, item.gaitem_handle)?;
+                let text_repo_id = Self::text_repo_id(item_id, &item_type);
+                let item_name =
+                    if let Some(item_name) = Self::get_item_name(text_repo_id, &item_type) {
+                        item_name
+                    } else {
+                        format!("Unk_{}", item_id)
+                    };
+                let equip_index = match &storage_item_type {
+                    StorageItemType::Regular => match &storage_type {
+                        StorageType::Held => KEY_ITEM_CAPACITY.0 + inventory_index,
+                        StorageType::StorageBox => KEY_ITEM_CAPACITY.1 + inventory_index,
+                    },
+                    StorageItemType::Key => 0,
+                };
+                let quantity = item.quantity;
+                let aqcuistion_index = item.aqcuistion_index;
+                let is_dlc_item = Self::is_dlc_item(item_id, &item_type);
+
+                Ok(Item {
+                    item_type,
+                    gaitem_handle,
+                    item_id,
+                    item_name,
+                    quantity,
+                    aqcuistion_index,
+                    equip_index,
+                    is_dlc_item,
+                })
+            })
+            .collect();
+
+        items
+    }
+
+    fn item_id_from_gaitem_handle(
+        &self,
+        index: usize,
+        gaitem_handle: u32,
+    ) -> Result<u32, SaveApiError> {
+        // Get item type
+        let item_type = ItemType::from_gaitem_id(gaitem_handle)?;
+
+        // Get item id
+        match item_type {
+            ItemType::None => Ok(0),
+            ItemType::Aow | ItemType::Weapon | ItemType::Armor => {
+                let entry = self.raw.user_data_x[index]
+                    .gaitem_map
+                    .iter()
+                    .find(|entry| entry.gaitem_handle == gaitem_handle);
+
+                if entry.is_none() {
+                    return Err(SaveApiError::ItemIdNotFound(gaitem_handle));
+                }
+
+                Ok(entry.unwrap().item_id & 0x0fffffff)
+            }
+            ItemType::Item | ItemType::Accessory => Ok(gaitem_handle & 0x0fffffff),
+        }
+    }
+
+    fn get_text_repos_from_item_type<'a>(
+        item_type: &ItemType,
+    ) -> Option<(
+        &'a LazyLock<HashMap<u32, &'static str>>,
+        &'a LazyLock<HashMap<u32, &'static str>>,
+    )> {
+        match item_type {
+            ItemType::None => None,
+            ItemType::Weapon => Some((&WEAPON_NAME, &WEAPON_NAME_DLC01)),
+            ItemType::Armor => Some((&PROTECTOR_NAME, &PROTECTOR_NAME_DLC01)),
+            ItemType::Accessory => Some((&ACCESSORY_NAME, &ACCESSORY_NAME_DLC01)),
+            ItemType::Item => Some((&GOODS_NAME, &GOODS_NAME_DLC01)),
+            ItemType::Aow => Some((&ARTS_NAME, &ARTS_NAME_DLC01)),
+        }
+    }
+
+    fn text_repo_id(item_id: u32, item_type: &ItemType) -> u32 {
+        // If item is a weapon then remove the weapon level.
+        if item_type == &ItemType::Weapon {
+            item_id / 100 * 100
+        }
+        // Aows in inventory has two additional zeros that need to be removed
+        // in order to look it up in the text repository
+        else if item_type == &ItemType::Aow {
+            item_id / 100
+        } else {
+            item_id
+        }
+    }
+
+    pub fn get_item_name(text_repo_id: u32, item_type: &ItemType) -> Option<String> {
+        // Try to get name from text repos
+        if let Some((regular, dlc)) = Self::get_text_repos_from_item_type(item_type) {
+            if let Some(name) = regular.get(&text_repo_id) {
+                return Some(name.to_string());
+            } else if let Some(name) = dlc.get(&text_repo_id) {
+                return Some(name.to_string());
+            }
+        }
+
+        None
+    }
+
+    pub fn is_dlc_item(text_repo_id: u32, item_type: &ItemType) -> bool {
+        if let Some((_, dlc)) = Self::get_text_repos_from_item_type(item_type) {
+            if let Some(_) = dlc.get(&text_repo_id) {
+                return true;
+            }
+        }
+
+        false
     }
 }

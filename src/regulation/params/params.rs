@@ -80,9 +80,9 @@ impl<'a> DekuWriter<Ctx<'a>> for Params {
         for ((_, param_file), file_header) in self.param_files.iter().zip(file_headers) {
             let data_offset = file_header.data_offset as usize;
             param_file.to_writer(writer, ())?;
-            if param_file.len() < data_offset {
-                let padding = vec![0; data_offset - param_file.len()];
-                padding.to_writer(writer, ())?;
+            let bytes_written = writer.bits_written / 8;
+            if bytes_written < data_offset {
+                vec![0; data_offset - bytes_written].to_writer(writer, ())?;
             }
         }
         Ok(())

@@ -4,23 +4,23 @@ use deku::{ DekuRead, DekuWrite};
 #[derive(PartialEq, Debug, DekuRead, DekuWrite)]
 #[deku(endian = "endian", ctx = "endian: Endian, version: u32")]
 pub struct NPC_THINK_PARAM_ST {
-	#[deku(bits = 1)]
-	pub disableParam_NT: u8,
 	#[deku(bits = 7)]
 	pub disableParamReserve1: u8,
+	#[deku(bits = 1)]
+	pub disableParam_NT: u8,
 	pub disableParamReserve2: [u8;3],
 	pub logicId: i32,
 	pub battleGoalID: i32,
 	pub searchEye_dist: i16,
 	pub searchEye_angY: u8,
+	#[deku(bits = 5)]
+	pub pad8: u8,
 	#[deku(bits = 1)]
-	pub isNoAvoidHugeEnemy: u8,
+	pub targetAILockDmyPoly: u8,
 	#[deku(bits = 1)]
 	pub enableWeaponOnOff: u8,
 	#[deku(bits = 1)]
-	pub targetAILockDmyPoly: u8,
-	#[deku(bits = 5)]
-	pub pad8: u8,
+	pub isNoAvoidHugeEnemy: u8,
 	pub spEffectId_RangedAttack: i32,
 	pub searchTargetLv1ForgetTime: f32,
 	pub searchTargetLv2ForgetTime: f32,
@@ -63,19 +63,19 @@ pub struct NPC_THINK_PARAM_ST {
 	pub skipArrivalVisibleCheck: u8,
 	pub thinkAttr_doAdmirer: u8,
 	#[deku(bits = 1)]
-	pub enableNaviFlg_Edge: u8,
-	#[deku(bits = 1)]
-	pub enableNaviFlg_LargeSpace: u8,
-	#[deku(bits = 1)]
-	pub enableNaviFlg_Ladder: u8,
-	#[deku(bits = 1)]
-	pub enableNaviFlg_Hole: u8,
-	#[deku(bits = 1)]
-	pub enableNaviFlg_Door: u8,
+	pub enableNaviFlg_Lava: u8,
 	#[deku(bits = 1)]
 	pub enableNaviFlg_InSideWall: u8,
 	#[deku(bits = 1)]
-	pub enableNaviFlg_Lava: u8,
+	pub enableNaviFlg_Door: u8,
+	#[deku(bits = 1)]
+	pub enableNaviFlg_Hole: u8,
+	#[deku(bits = 1)]
+	pub enableNaviFlg_Ladder: u8,
+	#[deku(bits = 1)]
+	pub enableNaviFlg_LargeSpace: u8,
+	#[deku(bits = 1)]
+	pub enableNaviFlg_Edge: u8,
 	#[deku(bits = 1)]
 	pub enableNaviFlg_Edge_Ordinary: u8,
 	pub enableNaviFlg_reserve1: [u8;3],

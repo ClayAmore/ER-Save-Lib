@@ -4,10 +4,10 @@ use deku::{ DekuRead, DekuWrite};
 #[derive(PartialEq, Debug, DekuRead, DekuWrite)]
 #[deku(endian = "endian", ctx = "endian: Endian, version: u32")]
 pub struct PLAY_REGION_PARAM_ST {
-	#[deku(bits = 1)]
-	pub disableParam_NT: u8,
 	#[deku(bits = 7)]
 	pub disableParamReserve1: u8,
+	#[deku(bits = 1)]
+	pub disableParam_NT: u8,
 	pub disableParamReserve2: [u8;3],
 	pub matchAreaId: i32,
 	pub multiPlayStartLimitEventFlagId: i32,
@@ -17,19 +17,19 @@ pub struct PLAY_REGION_PARAM_ST {
 	pub cultNpcWhiteGhostEntityId_byFree: i16,
 	pub bMapGuradianRegion: u8,
 	#[deku(bits = 1)]
-	pub bYellowCostumeRegion: u8,
-	#[deku(bits = 1)]
-	pub multiPlayStartLimitEventFlagId_targetFlagState: u8,
-	#[deku(bits = 1)]
-	pub breakInLimitEventFlagId_1_targetFlagState: u8,
-	#[deku(bits = 1)]
-	pub whiteSignLimitEventFlagId_1_targetFlagState: u8,
-	#[deku(bits = 1)]
-	pub redSignLimitEventFlagId_1_targetFlagState: u8,
+	pub breakInLimitEventFlagId_3_targetFlagState: u8,
 	#[deku(bits = 1)]
 	pub breakInLimitEventFlagId_2_targetFlagState: u8,
 	#[deku(bits = 1)]
-	pub breakInLimitEventFlagId_3_targetFlagState: u8,
+	pub redSignLimitEventFlagId_1_targetFlagState: u8,
+	#[deku(bits = 1)]
+	pub whiteSignLimitEventFlagId_1_targetFlagState: u8,
+	#[deku(bits = 1)]
+	pub breakInLimitEventFlagId_1_targetFlagState: u8,
+	#[deku(bits = 1)]
+	pub multiPlayStartLimitEventFlagId_targetFlagState: u8,
+	#[deku(bits = 1)]
+	pub bYellowCostumeRegion: u8,
 	#[deku(bits = 1)]
 	pub whiteSignLimitEventFlagId_2_targetFlagState: u8,
 	pub warpItemUsePermitBonfireId_1: i32,
@@ -43,29 +43,29 @@ pub struct PLAY_REGION_PARAM_ST {
 	pub warpItemProhibitionEventFlagId_4: i32,
 	pub warpItemProhibitionEventFlagId_5: i32,
 	#[deku(bits = 1)]
-	pub enableBloodstain: u8,
-	#[deku(bits = 1)]
-	pub enableBloodMessage: u8,
-	#[deku(bits = 1)]
-	pub enableGhost: u8,
-	#[deku(bits = 1)]
-	pub dispMask00: u8,
-	#[deku(bits = 1)]
-	pub dispMask01: u8,
+	pub redSignLimitEventFlagId_2_targetFlagState: u8,
 	#[deku(bits = 1)]
 	pub whiteSignLimitEventFlagId_3_targetFlagState: u8,
 	#[deku(bits = 1)]
-	pub redSignLimitEventFlagId_2_targetFlagState: u8,
+	pub dispMask01: u8,
 	#[deku(bits = 1)]
-	pub redSignLimitEventFlagId_3_targetFlagState: u8,
+	pub dispMask00: u8,
 	#[deku(bits = 1)]
-	pub isAutoIntrudePoint: u8,
+	pub enableGhost: u8,
+	#[deku(bits = 1)]
+	pub enableBloodMessage: u8,
+	#[deku(bits = 1)]
+	pub enableBloodstain: u8,
 	#[deku(skip, cond = "version >= 11210015", bits = 7)]
 	pub pad1_old: u8,
-	#[deku(skip, cond = "version < 11210015", bits = 1)]
-	pub unknown_0x45_1: u8,
+	#[deku(bits = 1)]
+	pub isAutoIntrudePoint: u8,
+	#[deku(bits = 1)]
+	pub redSignLimitEventFlagId_3_targetFlagState: u8,
 	#[deku(skip, cond = "version < 11210015", bits = 6)]
 	pub pad1: u8,
+	#[deku(skip, cond = "version < 11210015", bits = 1)]
+	pub unknown_0x45_1: u8,
 	pub pad2: [u8;2],
 	pub multiPlayHASHostLimitEventFlagId: i32,
 	pub otherMaxDistance: f32,

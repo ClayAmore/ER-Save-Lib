@@ -94,12 +94,12 @@ pub struct CHARACTER_INIT_PARAM {
 	pub npcPlayerType: u8,
 	pub npcPlayerDrawType: i8,
 	pub npcPlayerSex: u8,
-	#[deku(bits = 4)]
-	pub vowType: u8,
-	#[deku(bits = 1)]
-	pub isSyncTarget: u8,
 	#[deku(bits = 3)]
 	pub pad: u8,
+	#[deku(bits = 1)]
+	pub isSyncTarget: u8,
+	#[deku(bits = 4)]
+	pub vowType: u8,
 	pub pad6: [u8;2],
 	pub wepParamType_Right1: u8,
 	pub wepParamType_Right2: u8,

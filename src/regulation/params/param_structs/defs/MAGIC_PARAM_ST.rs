@@ -4,10 +4,10 @@ use deku::{ DekuRead, DekuWrite};
 #[derive(PartialEq, Debug, DekuRead, DekuWrite)]
 #[deku(endian = "endian", ctx = "endian: Endian, version: u32")]
 pub struct MAGIC_PARAM_ST {
-	#[deku(bits = 1)]
-	pub disableParam_NT: u8,
 	#[deku(bits = 7)]
 	pub disableParamReserve1: u8,
+	#[deku(bits = 1)]
+	pub disableParam_NT: u8,
 	pub disableParamReserve2: [u8;3],
 	pub yesNoDialogMessageId: i32,
 	pub limitCancelSpEffectId: i32,
@@ -39,69 +39,69 @@ pub struct MAGIC_PARAM_ST {
 	pub replaceCategory: u8,
 	pub useLimitCategory: u8,
 	#[deku(bits = 1)]
-	pub vowType0: u8,
-	#[deku(bits = 1)]
-	pub vowType1: u8,
-	#[deku(bits = 1)]
-	pub vowType2: u8,
-	#[deku(bits = 1)]
-	pub vowType3: u8,
-	#[deku(bits = 1)]
-	pub vowType4: u8,
+	pub vowType6: u8,
 	#[deku(bits = 1)]
 	pub vowType5: u8,
 	#[deku(bits = 1)]
-	pub vowType6: u8,
+	pub vowType4: u8,
 	#[deku(bits = 1)]
-	pub vowType7: u8,
+	pub vowType3: u8,
 	#[deku(bits = 1)]
-	pub enable_multi: u8,
+	pub vowType2: u8,
 	#[deku(bits = 1)]
-	pub enable_multi_only: u8,
+	pub vowType1: u8,
 	#[deku(bits = 1)]
-	pub isEnchant: u8,
-	#[deku(bits = 1)]
-	pub isShieldEnchant: u8,
-	#[deku(bits = 1)]
-	pub enable_live: u8,
+	pub vowType0: u8,
 	#[deku(bits = 1)]
 	pub enable_gray: u8,
 	#[deku(bits = 1)]
-	pub enable_white: u8,
+	pub enable_live: u8,
 	#[deku(bits = 1)]
-	pub enable_black: u8,
+	pub isShieldEnchant: u8,
 	#[deku(bits = 1)]
-	pub disableOffline: u8,
+	pub isEnchant: u8,
 	#[deku(bits = 1)]
-	pub castResonanceMagic: u8,
+	pub enable_multi_only: u8,
 	#[deku(bits = 1)]
-	pub isValidTough_ProtSADmg: u8,
+	pub enable_multi: u8,
 	#[deku(bits = 1)]
-	pub isWarpMagic: u8,
+	pub vowType7: u8,
 	#[deku(bits = 1)]
 	pub enableRiding: u8,
 	#[deku(bits = 1)]
-	pub disableRiding: u8,
+	pub isWarpMagic: u8,
 	#[deku(bits = 1)]
-	pub isUseNoAttackRegion: u8,
+	pub isValidTough_ProtSADmg: u8,
 	#[deku(bits = 1)]
-	pub pad_1: u8,
+	pub castResonanceMagic: u8,
 	#[deku(bits = 1)]
-	pub vowType8: u8,
+	pub disableOffline: u8,
 	#[deku(bits = 1)]
-	pub vowType9: u8,
+	pub enable_black: u8,
 	#[deku(bits = 1)]
-	pub vowType10: u8,
+	pub enable_white: u8,
 	#[deku(bits = 1)]
 	pub vowType11: u8,
 	#[deku(bits = 1)]
-	pub vowType12: u8,
+	pub vowType10: u8,
 	#[deku(bits = 1)]
-	pub vowType13: u8,
+	pub vowType9: u8,
+	#[deku(bits = 1)]
+	pub vowType8: u8,
+	#[deku(bits = 1)]
+	pub pad_1: u8,
+	#[deku(bits = 1)]
+	pub isUseNoAttackRegion: u8,
+	#[deku(bits = 1)]
+	pub disableRiding: u8,
+	#[deku(bits = 1)]
+	pub vowType15: u8,
 	#[deku(bits = 1)]
 	pub vowType14: u8,
 	#[deku(bits = 1)]
-	pub vowType15: u8,
+	pub vowType13: u8,
+	#[deku(bits = 1)]
+	pub vowType12: u8,
 	pub castSfxId: i32,
 	pub fireSfxId: i32,
 	pub effectSfxId: i32,

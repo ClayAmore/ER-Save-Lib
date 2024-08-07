@@ -26,39 +26,39 @@ pub struct ASSET_GEOMETORY_PARAM_ST {
 	pub animBreakIdMax: u8,
 	pub breakBulletAttributeDamageType: i8,
 	#[deku(bits = 1)]
-	pub isBreakByPlayerCollide: u8,
-	#[deku(bits = 1)]
-	pub isBreakByEnemyCollide: u8,
-	#[deku(bits = 1)]
-	pub isBreak_ByChrRide: u8,
-	#[deku(bits = 1)]
-	pub isDisableBreakForFirstAppear: u8,
-	#[deku(bits = 1)]
-	pub isAnimBreak: u8,
+	pub isAttackBacklash: u8,
 	#[deku(bits = 1)]
 	pub isDamageCover: u8,
 	#[deku(bits = 1)]
-	pub isAttackBacklash: u8,
-	#[deku(skip, cond = "version >= 11210015", bits = 1)]
-	pub Reserve_2: u8,
-	#[deku(skip, cond = "version < 11210015", bits = 1)]
-	pub unknown_0x3b_7: u8,
+	pub isAnimBreak: u8,
 	#[deku(bits = 1)]
-	pub isLadder: u8,
+	pub isDisableBreakForFirstAppear: u8,
 	#[deku(bits = 1)]
-	pub isMoveObj: u8,
+	pub isBreak_ByChrRide: u8,
 	#[deku(bits = 1)]
-	pub isSkydomeFlag: u8,
+	pub isBreakByEnemyCollide: u8,
 	#[deku(bits = 1)]
-	pub isAnimPauseOnRemoPlay: u8,
+	pub isBreakByPlayerCollide: u8,
 	#[deku(bits = 1)]
 	pub isBurn: u8,
 	#[deku(bits = 1)]
-	pub isEnableRepick: u8,
+	pub isAnimPauseOnRemoPlay: u8,
+	#[deku(bits = 1)]
+	pub isSkydomeFlag: u8,
+	#[deku(bits = 1)]
+	pub isMoveObj: u8,
+	#[deku(bits = 1)]
+	pub isLadder: u8,
+	#[deku(skip, cond = "version < 11210015", bits = 1)]
+	pub unknown_0x3b_7: u8,
+	#[deku(skip, cond = "version >= 11210015", bits = 1)]
+	pub Reserve_2: u8,
+	#[deku(bits = 1)]
+	pub isBreakByHugeenemyCollide: u8,
 	#[deku(bits = 1)]
 	pub isBreakOnPickUp: u8,
 	#[deku(bits = 1)]
-	pub isBreakByHugeenemyCollide: u8,
+	pub isEnableRepick: u8,
 	pub navimeshFlag: u8,
 	pub burnBulletInterval: i16,
 	pub clothUpdateDist: f32,
@@ -124,20 +124,20 @@ pub struct ASSET_GEOMETORY_PARAM_ST {
 	pub repickReplacementItemLotParamId: i32,
 	pub noGenerateCarver: u8,
 	pub noHitHugeAfterBreak: u8,
+	#[deku(bits = 2)]
+	pub unkR1: u8,
 	#[deku(bits = 1)]
-	pub isEnabledBreakSync: u8,
-	#[deku(bits = 1)]
-	pub isHiddenOnRepick: u8,
-	#[deku(bits = 1)]
-	pub isCreateMultiPlayOnly: u8,
-	#[deku(bits = 1)]
-	pub isDisableBulletHitSfx: u8,
+	pub isEnableSignPostBreak: u8,
 	#[deku(bits = 1)]
 	pub isEnableSignPreBreak: u8,
 	#[deku(bits = 1)]
-	pub isEnableSignPostBreak: u8,
-	#[deku(bits = 2)]
-	pub unkR1: u8,
+	pub isDisableBulletHitSfx: u8,
+	#[deku(bits = 1)]
+	pub isCreateMultiPlayOnly: u8,
+	#[deku(bits = 1)]
+	pub isHiddenOnRepick: u8,
+	#[deku(bits = 1)]
+	pub isEnabledBreakSync: u8,
 	pub generateMultiForbiddenRegion: u8,
 	pub residentSeId0: i32,
 	pub residentSeId1: i32,

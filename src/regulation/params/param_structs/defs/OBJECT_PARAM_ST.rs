@@ -10,37 +10,37 @@ pub struct OBJECT_PARAM_ST {
 	pub materialId: i16,
 	pub animBreakIdMax: u8,
 	#[deku(bits = 1)]
-	pub isCamHit: u8,
-	#[deku(bits = 1)]
-	pub isBreakByPlayerCollide: u8,
-	#[deku(bits = 1)]
-	pub isAnimBreak: u8,
-	#[deku(bits = 1)]
-	pub isPenetrationBulletHit: u8,
-	#[deku(bits = 1)]
-	pub isChrHit: u8,
+	pub isDisableBreakForFirstAppear: u8,
 	#[deku(bits = 1)]
 	pub isAttackBacklash: u8,
 	#[deku(bits = 1)]
-	pub isDisableBreakForFirstAppear: u8,
+	pub isChrHit: u8,
 	#[deku(bits = 1)]
-	pub isLadder: u8,
+	pub isPenetrationBulletHit: u8,
 	#[deku(bits = 1)]
-	pub isAnimPauseOnRemoPlay: u8,
+	pub isAnimBreak: u8,
 	#[deku(bits = 1)]
-	pub isDamageNoHit: u8,
+	pub isBreakByPlayerCollide: u8,
 	#[deku(bits = 1)]
-	pub isMoveObj: u8,
-	#[deku(bits = 1)]
-	pub isRopeBridge: u8,
-	#[deku(bits = 1)]
-	pub isAddRigidImpulse_ByDamage: u8,
+	pub isCamHit: u8,
 	#[deku(bits = 1)]
 	pub isBreak_ByChrRide: u8,
 	#[deku(bits = 1)]
-	pub isBurn: u8,
+	pub isAddRigidImpulse_ByDamage: u8,
+	#[deku(bits = 1)]
+	pub isRopeBridge: u8,
+	#[deku(bits = 1)]
+	pub isMoveObj: u8,
+	#[deku(bits = 1)]
+	pub isDamageNoHit: u8,
+	#[deku(bits = 1)]
+	pub isAnimPauseOnRemoPlay: u8,
+	#[deku(bits = 1)]
+	pub isLadder: u8,
 	#[deku(bits = 1)]
 	pub isBreakByEnemyCollide: u8,
+	#[deku(bits = 1)]
+	pub isBurn: u8,
 	pub defaultLodParamId: i8,
 	pub breakSfxId: i32,
 	pub breakSfxCpId: i32,

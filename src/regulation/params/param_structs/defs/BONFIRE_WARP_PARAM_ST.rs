@@ -4,10 +4,10 @@ use deku::{ DekuRead, DekuWrite};
 #[derive(PartialEq, Debug, DekuRead, DekuWrite)]
 #[deku(endian = "endian", ctx = "endian: Endian, version: u32")]
 pub struct BONFIRE_WARP_PARAM_ST {
-	#[deku(bits = 1)]
-	pub disableParam_NT: u8,
 	#[deku(bits = 7)]
 	pub disableParamReserve1: u8,
+	#[deku(bits = 1)]
+	pub disableParam_NT: u8,
 	pub disableParamReserve2: [u8;3],
 	pub eventflagId: i32,
 	pub bonfireEntityId: i32,
@@ -19,16 +19,16 @@ pub struct BONFIRE_WARP_PARAM_ST {
 	pub bonfireSubCategoryId: i32,
 	pub clearedEventFlagId: i32,
 	pub iconId: i16,
-	#[deku(bits = 1)]
-	pub dispMask00: u8,
-	#[deku(bits = 1)]
-	pub dispMask01: u8,
 	#[deku(skip, cond = "version >= 11210015", bits = 6)]
 	pub pad1_old: u8,
-	#[deku(skip, cond = "version < 11210015", bits = 1)]
-	pub dispMask02: u8,
+	#[deku(bits = 1)]
+	pub dispMask01: u8,
+	#[deku(bits = 1)]
+	pub dispMask00: u8,
 	#[deku(skip, cond = "version < 11210015", bits = 5)]
 	pub pad1: u8,
+	#[deku(skip, cond = "version < 11210015", bits = 1)]
+	pub dispMask02: u8,
 	pub pad2: [u8;1],
 	pub areaNo: u8,
 	pub gridXNo: u8,

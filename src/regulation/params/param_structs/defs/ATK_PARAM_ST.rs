@@ -68,37 +68,37 @@ pub struct ATK_PARAM_ST {
 	pub hitSourceType: u8,
 	pub throwFlag: u8,
 	#[deku(bits = 1)]
-	pub disableGuard: u8,
-	#[deku(bits = 1)]
-	pub disableStaminaAttack: u8,
-	#[deku(bits = 1)]
-	pub disableHitSpEffect: u8,
-	#[deku(bits = 1)]
-	pub IgnoreNotifyMissSwingForAI: u8,
-	#[deku(bits = 1)]
-	pub repeatHitSfx: u8,
+	pub isGhostAtk: u8,
 	#[deku(bits = 1)]
 	pub isArrowAtk: u8,
 	#[deku(bits = 1)]
-	pub isGhostAtk: u8,
+	pub repeatHitSfx: u8,
+	#[deku(bits = 1)]
+	pub IgnoreNotifyMissSwingForAI: u8,
+	#[deku(bits = 1)]
+	pub disableHitSpEffect: u8,
+	#[deku(bits = 1)]
+	pub disableStaminaAttack: u8,
+	#[deku(bits = 1)]
+	pub disableGuard: u8,
 	#[deku(bits = 1)]
 	pub isDisableNoDamage: u8,
 	pub atkPow_forSfx: i8,
 	pub atkDir_forSfx: i8,
 	#[deku(bits = 1)]
-	pub opposeTarget: u8,
-	#[deku(bits = 1)]
-	pub friendlyTarget: u8,
-	#[deku(bits = 1)]
-	pub selfTarget: u8,
-	#[deku(bits = 1)]
-	pub isCheckDoorPenetration: u8,
-	#[deku(bits = 1)]
-	pub isVsRideAtk: u8,
+	pub excludeThreatLvNotify: u8,
 	#[deku(bits = 1)]
 	pub isAddBaseAtk: u8,
 	#[deku(bits = 1)]
-	pub excludeThreatLvNotify: u8,
+	pub isVsRideAtk: u8,
+	#[deku(bits = 1)]
+	pub isCheckDoorPenetration: u8,
+	#[deku(bits = 1)]
+	pub selfTarget: u8,
+	#[deku(bits = 1)]
+	pub friendlyTarget: u8,
+	#[deku(bits = 1)]
+	pub opposeTarget: u8,
 	#[deku(bits = 1)]
 	pub pad1: u8,
 	pub atkBehaviorId: u8,
@@ -201,16 +201,16 @@ pub struct ATK_PARAM_ST {
 	pub defSfxMaterial2: i16,
 	pub atkDarkCorrection: i16,
 	pub atkDark: i16,
+	#[deku(bits = 4)]
+	pub pad2: u8,
 	#[deku(bits = 1)]
-	pub pad5: u8,
-	#[deku(bits = 1)]
-	pub isDisableParry: u8,
+	pub isInvalidatedByNoDamageInAir: u8,
 	#[deku(bits = 1)]
 	pub isDisableBothHandsAtkBonus: u8,
 	#[deku(bits = 1)]
-	pub isInvalidatedByNoDamageInAir: u8,
-	#[deku(bits = 4)]
-	pub pad2: u8,
+	pub isDisableParry: u8,
+	#[deku(bits = 1)]
+	pub pad5: u8,
 	pub dmgLevel_vsPlayer: i8,
 	pub statusAilmentAtkPowerCorrectRate: i16,
 	pub spEffectAtkPowerCorrectRate_byPoint: i16,

@@ -1,0 +1,30 @@
+use std::{collections::HashMap, sync::LazyLock};
+
+pub static GEM_INFO_DLC01: LazyLock<HashMap<u32, &'static str>> = LazyLock::new(|| {
+    HashMap::from([
+		(200000,"Grants affinities and skills to an armament"),
+		(200100,"Grants affinities and skills to an armament"),
+		(400000,"Grants affinities and skills to an armament"),
+		(401000,"Grants affinities and skills to an armament"),
+		(402000,"Grants affinities and skills to an armament"),
+		(403000,"Grants affinities and skills to an armament"),
+		(404000,"Grants affinities and skills to an armament"),
+		(405000,"Grants affinities and skills to an armament"),
+		(406000,"Grants affinities and skills to an armament"),
+		(407000,"Grants affinities and skills to an armament"),
+		(409000,"Grants affinities and skills to an armament"),
+		(410000,"Grants affinities and skills to an armament"),
+		(411000,"Grants affinities and skills to an armament"),
+		(412000,"Grants affinities and skills to an armament"),
+		(413000,"Grants affinities and skills to an armament"),
+		(414000,"Grants affinities and skills to an armament"),
+		(415000,"Grants affinities and skills to an armament"),
+		(416000,"Grants affinities and skills to an armament"),
+		(417000,"Grants affinities and skills to an armament"),
+		(418000,"Grants affinities and skills to an armament"),
+		(419000,"Grants affinities and skills to an armament"),
+		(422000,"Grants affinities and skills to an armament"),
+		(505000,"Grants affinities and skills to an armament"),
+		(548000,"Grants affinities and skills to an armament"),
+		(800000,"Grants affinities and skills to an armament"),
+])});

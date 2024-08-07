@@ -5,33 +5,33 @@ use deku::{ DekuRead, DekuWrite};
 #[deku(endian = "endian", ctx = "endian: Endian, version: u32")]
 pub struct CHR_ACTIVATE_CONDITION_PARAM_ST {
 	#[deku(bits = 1)]
-	pub weatherSunny: u8,
-	#[deku(bits = 1)]
-	pub weatherClearSky: u8,
-	#[deku(bits = 1)]
-	pub weatherWeakCloudy: u8,
-	#[deku(bits = 1)]
-	pub weatherCloudy: u8,
-	#[deku(bits = 1)]
-	pub weatherRain: u8,
+	pub weatherStorm: u8,
 	#[deku(bits = 1)]
 	pub weatherHeavyRain: u8,
 	#[deku(bits = 1)]
-	pub weatherStorm: u8,
+	pub weatherRain: u8,
 	#[deku(bits = 1)]
-	pub weatherStormForBattle: u8,
+	pub weatherCloudy: u8,
 	#[deku(bits = 1)]
-	pub weatherSnow: u8,
+	pub weatherWeakCloudy: u8,
 	#[deku(bits = 1)]
-	pub weatherHeavySnow: u8,
+	pub weatherClearSky: u8,
 	#[deku(bits = 1)]
-	pub weatherFog: u8,
+	pub weatherSunny: u8,
 	#[deku(bits = 1)]
-	pub weatherHeavyFog: u8,
+	pub weatherSandStorm: u8,
 	#[deku(bits = 1)]
 	pub weatherHeavyFogRain: u8,
 	#[deku(bits = 1)]
-	pub weatherSandStorm: u8,
+	pub weatherHeavyFog: u8,
+	#[deku(bits = 1)]
+	pub weatherFog: u8,
+	#[deku(bits = 1)]
+	pub weatherHeavySnow: u8,
+	#[deku(bits = 1)]
+	pub weatherSnow: u8,
+	#[deku(bits = 1)]
+	pub weatherStormForBattle: u8,
 	#[deku(bits = 2)]
 	pub pad1: u8,
 	pub timeStartHour: u8,

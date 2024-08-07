@@ -8,10 +8,10 @@ pub struct FE_TEXT_EFFECT_PARAM_ST {
 	pub pad1: [u8;2],
 	pub textId: i32,
 	pub seId: i32,
-	#[deku(bits = 1)]
-	pub canMixMapName: u8,
 	#[deku(bits = 7)]
 	pub pad3: u8,
+	#[deku(bits = 1)]
+	pub canMixMapName: u8,
 	#[deku(count = "19")]
 	pub pad2: Vec<u8>,
 }

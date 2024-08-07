@@ -7,14 +7,14 @@ pub struct HIT_MTRL_PARAM_ST {
 	pub aiVolumeRate: f32,
 	pub spEffectIdOnHit0: i32,
 	pub spEffectIdOnHit1: i32,
+	#[deku(bits = 1)]
+	pub disableFallDamage: u8,
 	#[deku(bits = 2)]
-	pub footEffectHeightType: u8,
+	pub floorHeightType: u8,
 	#[deku(bits = 2)]
 	pub footEffectDirType: u8,
 	#[deku(bits = 2)]
-	pub floorHeightType: u8,
-	#[deku(bits = 1)]
-	pub disableFallDamage: u8,
+	pub footEffectHeightType: u8,
 	#[deku(bits = 1)]
 	pub isHardnessForSoundReverb: u8,
 	pub hardnessType: u8,

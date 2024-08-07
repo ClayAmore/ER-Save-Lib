@@ -4,10 +4,10 @@ use deku::{ DekuRead, DekuWrite};
 #[derive(PartialEq, Debug, DekuRead, DekuWrite)]
 #[deku(endian = "endian", ctx = "endian: Endian, version: u32")]
 pub struct NPC_PARAM_ST {
-	#[deku(bits = 1)]
-	pub disableParam_NT: u8,
 	#[deku(bits = 7)]
 	pub disableParamReserve1: u8,
+	#[deku(bits = 1)]
+	pub disableParam_NT: u8,
 	pub disableParamReserve2: [u8;3],
 	pub behaviorVariationId: i32,
 	pub resistCorrectId_poison: i32,
@@ -132,135 +132,135 @@ pub struct NPC_PARAM_ST {
 	pub ladderEndChkOffsetTop: u8,
 	pub ladderEndChkOffsetLow: u8,
 	#[deku(bits = 1)]
-	pub useRagdollCamHit: u8,
-	#[deku(bits = 1)]
-	pub disableClothRigidHit: u8,
-	#[deku(bits = 1)]
-	pub useUndulationAddAnimFB: u8,
-	#[deku(bits = 1)]
-	pub isWeakA: u8,
-	#[deku(bits = 1)]
-	pub isGhost: u8,
+	pub isUnduration: u8,
 	#[deku(bits = 1)]
 	pub isNoDamageMotion: u8,
 	#[deku(bits = 1)]
-	pub isUnduration: u8,
+	pub isGhost: u8,
 	#[deku(bits = 1)]
-	pub isChangeWanderGhost: u8,
+	pub isWeakA: u8,
 	#[deku(bits = 1)]
-	pub modelDispMask0: u8,
+	pub useUndulationAddAnimFB: u8,
 	#[deku(bits = 1)]
-	pub modelDispMask1: u8,
+	pub disableClothRigidHit: u8,
 	#[deku(bits = 1)]
-	pub modelDispMask2: u8,
-	#[deku(bits = 1)]
-	pub modelDispMask3: u8,
-	#[deku(bits = 1)]
-	pub modelDispMask4: u8,
+	pub useRagdollCamHit: u8,
 	#[deku(bits = 1)]
 	pub modelDispMask5: u8,
 	#[deku(bits = 1)]
-	pub modelDispMask6: u8,
+	pub modelDispMask4: u8,
 	#[deku(bits = 1)]
-	pub modelDispMask7: u8,
+	pub modelDispMask3: u8,
 	#[deku(bits = 1)]
-	pub modelDispMask8: u8,
+	pub modelDispMask2: u8,
 	#[deku(bits = 1)]
-	pub modelDispMask9: u8,
+	pub modelDispMask1: u8,
 	#[deku(bits = 1)]
-	pub modelDispMask10: u8,
+	pub modelDispMask0: u8,
 	#[deku(bits = 1)]
-	pub modelDispMask11: u8,
+	pub isChangeWanderGhost: u8,
 	#[deku(bits = 1)]
 	pub modelDispMask12: u8,
 	#[deku(bits = 1)]
-	pub modelDispMask13: u8,
+	pub modelDispMask11: u8,
 	#[deku(bits = 1)]
-	pub modelDispMask14: u8,
+	pub modelDispMask10: u8,
 	#[deku(bits = 1)]
-	pub modelDispMask15: u8,
+	pub modelDispMask9: u8,
 	#[deku(bits = 1)]
-	pub isEnableNeckTurn: u8,
+	pub modelDispMask8: u8,
 	#[deku(bits = 1)]
-	pub disableRespawn: u8,
+	pub modelDispMask7: u8,
 	#[deku(bits = 1)]
-	pub isMoveAnimWait: u8,
+	pub modelDispMask6: u8,
 	#[deku(bits = 1)]
 	pub isCrowd: u8,
 	#[deku(bits = 1)]
-	pub isWeakB: u8,
+	pub isMoveAnimWait: u8,
 	#[deku(bits = 1)]
-	pub isWeakC: u8,
+	pub disableRespawn: u8,
 	#[deku(bits = 1)]
-	pub isWeakD: u8,
+	pub isEnableNeckTurn: u8,
 	#[deku(bits = 1)]
-	pub doesAlwaysUseSpecialTurn: u8,
+	pub modelDispMask15: u8,
 	#[deku(bits = 1)]
-	pub isRideAtkTarget: u8,
+	pub modelDispMask14: u8,
 	#[deku(bits = 1)]
-	pub isEnableStepDispInterpolate: u8,
+	pub modelDispMask13: u8,
 	#[deku(bits = 1)]
 	pub isStealthTarget: u8,
 	#[deku(bits = 1)]
-	pub disableInitializeDead: u8,
+	pub isEnableStepDispInterpolate: u8,
 	#[deku(bits = 1)]
-	pub isHitRumble: u8,
+	pub isRideAtkTarget: u8,
 	#[deku(bits = 1)]
-	pub isSmoothTurn: u8,
+	pub doesAlwaysUseSpecialTurn: u8,
 	#[deku(bits = 1)]
-	pub isWeakE: u8,
+	pub isWeakD: u8,
 	#[deku(bits = 1)]
-	pub isWeakF: u8,
+	pub isWeakC: u8,
 	#[deku(bits = 1)]
-	pub modelDispMask16: u8,
+	pub isWeakB: u8,
 	#[deku(bits = 1)]
 	pub modelDispMask17: u8,
 	#[deku(bits = 1)]
-	pub modelDispMask18: u8,
+	pub modelDispMask16: u8,
 	#[deku(bits = 1)]
-	pub modelDispMask19: u8,
+	pub isWeakF: u8,
 	#[deku(bits = 1)]
-	pub modelDispMask20: u8,
+	pub isWeakE: u8,
 	#[deku(bits = 1)]
-	pub modelDispMask21: u8,
+	pub isSmoothTurn: u8,
 	#[deku(bits = 1)]
-	pub modelDispMask22: u8,
+	pub isHitRumble: u8,
 	#[deku(bits = 1)]
-	pub modelDispMask23: u8,
+	pub disableInitializeDead: u8,
 	#[deku(bits = 1)]
 	pub modelDispMask24: u8,
 	#[deku(bits = 1)]
-	pub modelDispMask25: u8,
+	pub modelDispMask23: u8,
 	#[deku(bits = 1)]
-	pub modelDispMask26: u8,
+	pub modelDispMask22: u8,
 	#[deku(bits = 1)]
-	pub modelDispMask27: u8,
+	pub modelDispMask21: u8,
 	#[deku(bits = 1)]
-	pub modelDispMask28: u8,
+	pub modelDispMask20: u8,
 	#[deku(bits = 1)]
-	pub modelDispMask29: u8,
+	pub modelDispMask19: u8,
+	#[deku(bits = 1)]
+	pub modelDispMask18: u8,
+	#[deku(bits = 1)]
+	pub modelDispMask31: u8,
 	#[deku(bits = 1)]
 	pub modelDispMask30: u8,
 	#[deku(bits = 1)]
-	pub modelDispMask31: u8,
+	pub modelDispMask29: u8,
+	#[deku(bits = 1)]
+	pub modelDispMask28: u8,
+	#[deku(bits = 1)]
+	pub modelDispMask27: u8,
+	#[deku(bits = 1)]
+	pub modelDispMask26: u8,
+	#[deku(bits = 1)]
+	pub modelDispMask25: u8,
 	pub itemSearchRadius: f32,
 	pub chrHitHeight: f32,
 	pub chrHitRadius: f32,
 	pub specialTurnType: u8,
 	#[deku(bits = 1)]
-	pub isSoulGetByBoss: u8,
-	#[deku(bits = 1)]
-	pub isBulletOwner_byObject: u8,
-	#[deku(bits = 1)]
-	pub isUseLowHitFootIk: u8,
-	#[deku(bits = 1)]
-	pub isCalculatePvPDamage: u8,
-	#[deku(bits = 1)]
-	pub isHostSyncChr: u8,
+	pub isKeepHitOnRide: u8,
 	#[deku(bits = 1)]
 	pub isSkipWeakDamageAnim: u8,
 	#[deku(bits = 1)]
-	pub isKeepHitOnRide: u8,
+	pub isHostSyncChr: u8,
+	#[deku(bits = 1)]
+	pub isCalculatePvPDamage: u8,
+	#[deku(bits = 1)]
+	pub isUseLowHitFootIk: u8,
+	#[deku(bits = 1)]
+	pub isBulletOwner_byObject: u8,
+	#[deku(bits = 1)]
+	pub isSoulGetByBoss: u8,
 	#[deku(bits = 1)]
 	pub isSpCollide: u8,
 	pub def_dark: i16,
@@ -307,7 +307,7 @@ pub struct NPC_PARAM_ST {
 	#[deku(skip, cond = "version >= 11210015")]
 	pub pad1: [u8;1],
 	#[deku(skip, cond = "version < 11210015")]
-	pub unknown_0x1e3: u8,
+	pub hpBurnDamageRate: u8,
 	pub lockCameraParamId: i32,
 	pub spEffectID16: i32,
 	pub spEffectID17: i32,
@@ -328,19 +328,19 @@ pub struct NPC_PARAM_ST {
 	pub disableLockOnAng: f32,
 	pub clothOffLodLevel: i8,
 	#[deku(bits = 1)]
-	pub isUseFootIKNormalByUnduration: u8,
-	#[deku(bits = 1)]
-	pub attachHitInitializeDead: u8,
-	#[deku(bits = 1)]
-	pub excludeGroupRewardCheck: u8,
-	#[deku(bits = 1)]
-	pub enableAILockDmyPoly_212: u8,
-	#[deku(bits = 1)]
-	pub enableAILockDmyPoly_213: u8,
+	pub disableActivateOpen_xb1: u8,
 	#[deku(bits = 1)]
 	pub enableAILockDmyPoly_214: u8,
 	#[deku(bits = 1)]
-	pub disableActivateOpen_xb1: u8,
+	pub enableAILockDmyPoly_213: u8,
+	#[deku(bits = 1)]
+	pub enableAILockDmyPoly_212: u8,
+	#[deku(bits = 1)]
+	pub excludeGroupRewardCheck: u8,
+	#[deku(bits = 1)]
+	pub attachHitInitializeDead: u8,
+	#[deku(bits = 1)]
+	pub isUseFootIKNormalByUnduration: u8,
 	#[deku(bits = 1)]
 	pub disableActivateLegacy_xb1: u8,
 	pub estusFlaskRecoveryParamId: i16,

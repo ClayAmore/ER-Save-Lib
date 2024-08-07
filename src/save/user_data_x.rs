@@ -6,7 +6,7 @@ use std::io::Cursor;
 
 use super::util::{FloatVector3, FloatVector4, MapId, Util};
 
-#[derive(PartialEq, Debug, DekuRead, DekuWrite)]
+#[derive(PartialEq, Debug, DekuRead, DekuWrite, Clone)]
 #[deku(endian = "endian", ctx = "endian: Endian, end: usize, is_ps: bool")]
 pub(crate) struct UserDataX {
     // Checksum (PC only)
@@ -25,7 +25,7 @@ pub(crate) struct UserDataX {
     unk0x10: [u8; 0x10],
 
     // Gaitem Map
-    #[deku(count = "if *version <= 80 {0x13FE} else {0x1400}")]
+    #[deku(count = "if *version <= 81 {0x13FE} else {0x1400}")]
     pub(crate) gaitem_map: Vec<Gaitem>,
 
     // Player data
@@ -259,7 +259,7 @@ impl UserDataX {
 }
 
 // Gaitem Map
-#[derive(PartialEq, Debug, DekuRead, DekuWrite)]
+#[derive(PartialEq, Debug, DekuRead, DekuWrite, Clone)]
 #[deku(endian = "endian", ctx = "endian: Endian")]
 pub(crate) struct Gaitem {
     #[deku(assert = "
@@ -317,7 +317,7 @@ pub(crate) struct Gaitem {
 }
 
 // Player
-#[derive(PartialEq, Debug, DekuRead, DekuWrite)]
+#[derive(PartialEq, Debug, DekuRead, DekuWrite, Clone)]
 #[deku(endian = "endian", ctx = "endian: Endian")]
 pub(crate) struct PlayerGameData {
     unk0x0: u32,
@@ -437,7 +437,7 @@ pub(crate) struct PlayerGameData {
 }
 
 // SPeffects
-#[derive(PartialEq, Debug, DekuRead, DekuWrite)]
+#[derive(PartialEq, Debug, DekuRead, DekuWrite, Clone)]
 #[deku(endian = "endian", ctx = "endian: Endian")]
 pub(crate) struct SPEffect {
     sp_effect_id: i32,
@@ -447,7 +447,7 @@ pub(crate) struct SPEffect {
 }
 
 // Equipped Items Equip Indexes
-#[derive(PartialEq, Debug, DekuRead, DekuWrite)]
+#[derive(PartialEq, Debug, DekuRead, DekuWrite, Clone)]
 #[deku(endian = "endian", ctx = "endian: Endian")]
 pub(crate) struct EquippedItemsEquipIndex {
     pub(crate) left_hand_armament1: u32,
@@ -475,7 +475,7 @@ pub(crate) struct EquippedItemsEquipIndex {
 }
 
 // Active weapon slot, arrow and bolt
-#[derive(PartialEq, Debug, DekuRead, DekuWrite)]
+#[derive(PartialEq, Debug, DekuRead, DekuWrite, Clone)]
 #[deku(endian = "endian", ctx = "endian: Endian")]
 pub(crate) struct ActiveWeaponSlotsAndArmStyle {
     pub(crate) arm_style: u32,
@@ -494,7 +494,7 @@ pub(crate) struct ActiveWeaponSlotsAndArmStyle {
 }
 
 // Equipped Items Param Ids
-#[derive(PartialEq, Debug, DekuRead, DekuWrite)]
+#[derive(PartialEq, Debug, DekuRead, DekuWrite, Clone)]
 #[deku(endian = "endian", ctx = "endian: Endian")]
 pub(crate) struct EquippedItemsItemIds {
     pub(crate) left_hand_armament1: u32,
@@ -522,7 +522,7 @@ pub(crate) struct EquippedItemsItemIds {
 }
 
 // Equipped Items GaitemHandles
-#[derive(PartialEq, Debug, DekuRead, DekuWrite)]
+#[derive(PartialEq, Debug, DekuRead, DekuWrite, Clone)]
 #[deku(endian = "endian", ctx = "endian: Endian")]
 pub(crate) struct EquppedItemsGaitemHandles {
     pub(crate) left_hand_armament1: u32,
@@ -550,34 +550,34 @@ pub(crate) struct EquppedItemsGaitemHandles {
 }
 
 // Inventory (Held and Storage Box)
-#[derive(PartialEq, Debug, DekuRead, DekuWrite)]
+#[derive(PartialEq, Debug, DekuRead, DekuWrite, Clone)]
 #[deku(
     endian = "endian",
     ctx = "endian: Endian, common_items_capacity: u32, key_items_capacity: u32"
 )]
 pub(crate) struct Invenotry {
     #[deku(assert = "*common_item_count <= common_items_capacity")]
-    common_item_count: u32,
+    pub(crate) common_item_count: u32,
     #[deku(count = "common_items_capacity")]
-    common_items: Vec<InvenotryItem>,
+    pub(crate) common_items: Vec<InvenotryItem>,
     #[deku(assert = "*key_item_count <= key_items_capacity")]
-    key_item_count: u32,
+    pub(crate) key_item_count: u32,
     #[deku(count = "key_items_capacity")]
-    key_items: Vec<InvenotryItem>,
-    equip_index_counter: u32,
-    aquistion_index_counter: u32,
+    pub(crate) key_items: Vec<InvenotryItem>,
+    pub(crate) equip_index_counter: u32,
+    pub(crate) aquistion_index_counter: u32,
 }
-#[derive(PartialEq, Debug, DekuRead, DekuWrite)]
+#[derive(PartialEq, Debug, DekuRead, DekuWrite, Clone)]
 #[deku(endian = "endian", ctx = "endian: Endian")]
 pub(crate) struct InvenotryItem {
-    gaitem_handle: u32,
+    pub(crate) gaitem_handle: u32,
     #[deku(assert = "*quantity <= 999")]
-    quantity: u32,
-    aqcuistion_index: u32,
+    pub(crate) quantity: u32,
+    pub(crate) aqcuistion_index: u32,
 }
 
 // Equipped Spells
-#[derive(PartialEq, Debug, DekuRead, DekuWrite)]
+#[derive(PartialEq, Debug, DekuRead, DekuWrite, Clone)]
 #[deku(endian = "endian", ctx = "endian: Endian")]
 pub(crate) struct EquippedSpells {
     #[deku(count = "14")]
@@ -585,7 +585,7 @@ pub(crate) struct EquippedSpells {
     #[deku(assert = "*active_index < 0xc || *active_index == 0xffffffff")]
     pub(crate) active_index: u32,
 }
-#[derive(PartialEq, Debug, DekuRead, DekuWrite)]
+#[derive(PartialEq, Debug, DekuRead, DekuWrite, Clone)]
 #[deku(endian = "endian", ctx = "endian: Endian")]
 pub(crate) struct Spell {
     pub(crate) spell_id: u32,
@@ -593,7 +593,7 @@ pub(crate) struct Spell {
 }
 
 // Equipped Items
-#[derive(PartialEq, Debug, DekuRead, DekuWrite)]
+#[derive(PartialEq, Debug, DekuRead, DekuWrite, Clone)]
 #[deku(endian = "endian", ctx = "endian: Endian")]
 pub(crate) struct EquippedItems {
     #[deku(count = "0xa")]
@@ -605,7 +605,7 @@ pub(crate) struct EquippedItems {
     unk0x84: u32,
     unk0x88: u32,
 }
-#[derive(PartialEq, Debug, DekuRead, DekuWrite)]
+#[derive(PartialEq, Debug, DekuRead, DekuWrite, Clone)]
 #[deku(endian = "endian", ctx = "endian: Endian")]
 pub(crate) struct EquippedItem {
     pub(crate) gaitem_handle: u32,
@@ -613,7 +613,7 @@ pub(crate) struct EquippedItem {
 }
 
 // Equipped Gestures
-#[derive(PartialEq, Debug, DekuRead, DekuWrite)]
+#[derive(PartialEq, Debug, DekuRead, DekuWrite, Clone)]
 #[deku(endian = "endian", ctx = "endian: Endian")]
 pub(crate) struct EquippedGestures {
     #[deku(count = "0x6")]
@@ -621,14 +621,14 @@ pub(crate) struct EquippedGestures {
 }
 
 // Aquired Projectiles
-#[derive(PartialEq, Debug, DekuRead, DekuWrite)]
+#[derive(PartialEq, Debug, DekuRead, DekuWrite, Clone)]
 #[deku(endian = "endian", ctx = "endian: Endian")]
 pub(crate) struct AcquiredProjectiles {
     pub(crate) count: u32,
     #[deku(count = "*count")]
     projectiles: Vec<Projectile>,
 }
-#[derive(PartialEq, Debug, DekuRead, DekuWrite)]
+#[derive(PartialEq, Debug, DekuRead, DekuWrite, Clone)]
 #[deku(endian = "endian", ctx = "endian: Endian")]
 pub(crate) struct Projectile {
     pub(crate) id: u32,
@@ -636,7 +636,7 @@ pub(crate) struct Projectile {
 }
 
 // Equipped Weapons, Amor, Talisman and Items
-#[derive(PartialEq, Debug, DekuRead, DekuWrite)]
+#[derive(PartialEq, Debug, DekuRead, DekuWrite, Clone)]
 #[deku(endian = "endian", ctx = "endian: Endian")]
 pub(crate) struct EquippedArmamentsAndItems {
     pub(crate) left_hand_armament1: u32,
@@ -681,7 +681,7 @@ pub(crate) struct EquippedArmamentsAndItems {
 }
 
 // Equipped Physics
-#[derive(PartialEq, Debug, DekuRead, DekuWrite)]
+#[derive(PartialEq, Debug, DekuRead, DekuWrite, Clone)]
 #[deku(endian = "endian", ctx = "endian: Endian")]
 pub(crate) struct EquippedPhysics {
     pub(crate) slot1: u32,
@@ -690,7 +690,7 @@ pub(crate) struct EquippedPhysics {
 }
 
 // Face Data
-#[derive(PartialEq, Debug, DekuRead, DekuWrite)]
+#[derive(PartialEq, Debug, DekuRead, DekuWrite, Clone)]
 #[deku(endian = "endian", ctx = "endian: Endian, in_profile_summary: bool")]
 pub(crate) struct FaceData {
     #[deku(assert = "*facedata0x150 == 0 || *facedata0x150 == -1")]
@@ -888,7 +888,7 @@ pub(crate) struct FaceData {
 }
 
 // Gestures
-#[derive(PartialEq, Debug, DekuRead, DekuWrite)]
+#[derive(PartialEq, Debug, DekuRead, DekuWrite, Clone)]
 #[deku(endian = "endian", ctx = "endian: Endian")]
 pub(crate) struct Gestures {
     #[deku(count = "0x40")]
@@ -896,7 +896,7 @@ pub(crate) struct Gestures {
 }
 
 // Regions
-#[derive(PartialEq, Debug, DekuRead, DekuWrite)]
+#[derive(PartialEq, Debug, DekuRead, DekuWrite, Clone)]
 #[deku(endian = "endian", ctx = "endian: Endian")]
 pub(crate) struct Regions {
     pub(crate) count: u32,
@@ -905,7 +905,7 @@ pub(crate) struct Regions {
 }
 
 // Ride Game Data
-#[derive(PartialEq, Debug, DekuRead, DekuWrite)]
+#[derive(PartialEq, Debug, DekuRead, DekuWrite, Clone)]
 #[deku(endian = "endian", ctx = "endian: Endian")]
 pub(crate) struct RideGameData {
     pub(crate) coordinates: FloatVector3,
@@ -916,7 +916,7 @@ pub(crate) struct RideGameData {
 }
 
 // BloodStain
-#[derive(PartialEq, Debug, DekuRead, DekuWrite)]
+#[derive(PartialEq, Debug, DekuRead, DekuWrite, Clone)]
 #[deku(endian = "endian", ctx = "endian: Endian")]
 pub(crate) struct BloodStain {
     pub(crate) coordinates: FloatVector3,
@@ -934,7 +934,7 @@ pub(crate) struct BloodStain {
 }
 
 // Menu Save Load
-#[derive(PartialEq, Debug, DekuRead, DekuWrite)]
+#[derive(PartialEq, Debug, DekuRead, DekuWrite, Clone)]
 #[deku(endian = "endian", ctx = "endian: Endian")]
 pub(crate) struct MenuSaveLoad {
     unk0x0: u16,
@@ -945,7 +945,7 @@ pub(crate) struct MenuSaveLoad {
 }
 
 // Trophy Equip Data
-#[derive(PartialEq, Debug, DekuRead, DekuWrite)]
+#[derive(PartialEq, Debug, DekuRead, DekuWrite, Clone)]
 #[deku(endian = "endian", ctx = "endian: Endian")]
 pub(crate) struct TrophyEquipData {
     unk0x0: u32,
@@ -955,7 +955,7 @@ pub(crate) struct TrophyEquipData {
 }
 
 // Gaitem Data
-#[derive(PartialEq, Debug, DekuRead, DekuWrite)]
+#[derive(PartialEq, Debug, DekuRead, DekuWrite, Clone)]
 #[deku(endian = "endian", ctx = "endian: Endian")]
 pub(crate) struct GaitemGameDataEntry {
     pub(crate) id: u32,
@@ -965,7 +965,7 @@ pub(crate) struct GaitemGameDataEntry {
     #[deku(pad_bytes_after = "3")]
     unk0xc: u8,
 }
-#[derive(PartialEq, Debug, DekuRead, DekuWrite)]
+#[derive(PartialEq, Debug, DekuRead, DekuWrite, Clone)]
 #[deku(endian = "endian", ctx = "endian: Endian")]
 pub(crate) struct GaitemGameData {
     pub(crate) count: i64,
@@ -974,14 +974,14 @@ pub(crate) struct GaitemGameData {
 }
 
 // Tutorial Data
-#[derive(PartialEq, Debug, DekuRead, DekuWrite)]
+#[derive(PartialEq, Debug, DekuRead, DekuWrite, Clone)]
 #[deku(endian = "endian", ctx = "endian: Endian, total_count: u32")]
 pub(crate) struct TutorialDataChunk {
     pub(crate) count: u32,
     #[deku(skip, cond = "*count == 0", count = "(total_count-0x4)/4")]
     pub(crate) ids: Vec<u32>,
 }
-#[derive(PartialEq, Debug, DekuRead, DekuWrite)]
+#[derive(PartialEq, Debug, DekuRead, DekuWrite, Clone)]
 #[deku(endian = "endian", ctx = "endian: Endian")]
 pub(crate) struct TutorialData {
     unk0x0: u16,
@@ -992,7 +992,7 @@ pub(crate) struct TutorialData {
 }
 
 // Field Area
-#[derive(PartialEq, Debug, DekuRead, DekuWrite)]
+#[derive(PartialEq, Debug, DekuRead, DekuWrite, Clone)]
 #[deku(endian = "endian", ctx = "endian: Endian")]
 pub(crate) struct FieldArea {
     pub(crate) size: i32,
@@ -1001,7 +1001,7 @@ pub(crate) struct FieldArea {
 }
 
 // World Area
-#[derive(PartialEq, Debug, DekuRead, DekuWrite)]
+#[derive(PartialEq, Debug, DekuRead, DekuWrite, Clone)]
 #[deku(endian = "endian", ctx = "endian: Endian")]
 pub(crate) struct WorldBlockChrData {
     magic: [u8; 4],
@@ -1011,7 +1011,7 @@ pub(crate) struct WorldBlockChrData {
     #[deku(skip, cond = "*size < 1", count = "*size - 0x10")]
     pub(crate) data: Vec<u8>,
 }
-#[derive(PartialEq, Debug, DekuRead, DekuWrite)]
+#[derive(PartialEq, Debug, DekuRead, DekuWrite, Clone)]
 #[deku(endian = "endian", ctx = "endian: Endian")]
 pub(crate) struct WorldAreaChrData {
     magic: [u8; 4],
@@ -1022,7 +1022,7 @@ pub(crate) struct WorldAreaChrData {
     #[deku(until = "|d: &WorldBlockChrData| d.size < 1")]
     pub(crate) data: Vec<WorldBlockChrData>,
 }
-#[derive(PartialEq, Debug, DekuRead, DekuWrite)]
+#[derive(PartialEq, Debug, DekuRead, DekuWrite, Clone)]
 #[deku(endian = "endian", ctx = "endian: Endian")]
 pub(crate) struct WorldArea {
     pub(crate) size: i32,
@@ -1030,7 +1030,7 @@ pub(crate) struct WorldArea {
 }
 
 // World Geom Man
-#[derive(PartialEq, Debug, DekuRead, DekuWrite)]
+#[derive(PartialEq, Debug, DekuRead, DekuWrite, Clone)]
 #[deku(endian = "endian", ctx = "endian: Endian")]
 pub(crate) struct WorldGeomDataChunk {
     map_id: MapId,
@@ -1039,7 +1039,7 @@ pub(crate) struct WorldGeomDataChunk {
     #[deku(skip, cond = "*size < 1", count = "*size-0x10")]
     pub(crate) data: Vec<u8>,
 }
-#[derive(PartialEq, Debug, DekuRead, DekuWrite)]
+#[derive(PartialEq, Debug, DekuRead, DekuWrite, Clone)]
 #[deku(endian = "endian", ctx = "endian: Endian")]
 pub(crate) struct WorldGeomData {
     magic: [u8; 4],
@@ -1047,7 +1047,7 @@ pub(crate) struct WorldGeomData {
     #[deku(until = "|d: &WorldGeomDataChunk| d.size < 1")]
     pub(crate) data: Vec<WorldGeomDataChunk>,
 }
-#[derive(PartialEq, Debug, DekuRead, DekuWrite)]
+#[derive(PartialEq, Debug, DekuRead, DekuWrite, Clone)]
 #[deku(endian = "endian", ctx = "endian: Endian")]
 pub(crate) struct WorldGeomMan {
     pub(crate) size: i32,
@@ -1055,20 +1055,20 @@ pub(crate) struct WorldGeomMan {
 }
 
 // RendMan
-#[derive(PartialEq, Debug, DekuRead, DekuWrite)]
+#[derive(PartialEq, Debug, DekuRead, DekuWrite, Clone)]
 #[deku(endian = "endian", ctx = "endian: Endian, size: i32")]
 pub(crate) struct StageManEntry {
     #[deku(skip, cond = "size < 1", count = "size")]
     pub(crate) data: Vec<u8>,
 }
-#[derive(PartialEq, Debug, DekuRead, DekuWrite)]
+#[derive(PartialEq, Debug, DekuRead, DekuWrite, Clone)]
 #[deku(endian = "endian", ctx = "endian: Endian, size: i32")]
 pub(crate) struct StageMan {
     count: i32,
     #[deku(skip, cond = "*count < 1", count = "*count", ctx = "(size-4)/(*count)")]
     pub(crate) data: Vec<StageManEntry>,
 }
-#[derive(PartialEq, Debug, DekuRead, DekuWrite)]
+#[derive(PartialEq, Debug, DekuRead, DekuWrite, Clone)]
 #[deku(endian = "endian", ctx = "endian: Endian")]
 pub(crate) struct RendMan {
     pub(crate) size: i32,
@@ -1077,7 +1077,7 @@ pub(crate) struct RendMan {
 }
 
 // Player Coordinates
-#[derive(PartialEq, Debug, DekuRead, DekuWrite)]
+#[derive(PartialEq, Debug, DekuRead, DekuWrite, Clone)]
 #[deku(endian = "endian", ctx = "endian: Endian")]
 pub(crate) struct PlayerCoordinates {
     pub(crate) coordinates: FloatVector3,
@@ -1090,7 +1090,7 @@ pub(crate) struct PlayerCoordinates {
 }
 
 // NetMan
-#[derive(PartialEq, Debug, DekuRead, DekuWrite)]
+#[derive(PartialEq, Debug, DekuRead, DekuWrite, Clone)]
 #[deku(endian = "endian", ctx = "endian: Endian")]
 pub(crate) struct NetMan {
     #[deku(assert = "*unk0x0 == 2 || *unk0x0 == 0")]
@@ -1100,7 +1100,7 @@ pub(crate) struct NetMan {
 }
 
 // World Area Weather
-#[derive(PartialEq, Debug, DekuRead, DekuWrite)]
+#[derive(PartialEq, Debug, DekuRead, DekuWrite, Clone)]
 #[deku(endian = "endian", ctx = "endian: Endian")]
 pub(crate) struct WorldAreaWeather {
     pub(crate) area_id: u16,
@@ -1110,7 +1110,7 @@ pub(crate) struct WorldAreaWeather {
 }
 
 // World Area Time
-#[derive(PartialEq, Debug, DekuRead, DekuWrite)]
+#[derive(PartialEq, Debug, DekuRead, DekuWrite, Clone)]
 #[deku(endian = "endian", ctx = "endian: Endian")]
 pub(crate) struct WorldAreaTime {
     pub(crate) hour: u32,
@@ -1119,7 +1119,7 @@ pub(crate) struct WorldAreaTime {
 }
 
 // Base Version
-#[derive(PartialEq, Debug, DekuRead, DekuWrite)]
+#[derive(PartialEq, Debug, DekuRead, DekuWrite, Clone)]
 #[deku(endian = "endian", ctx = "endian: Endian")]
 pub(crate) struct BaseVersion {
     pub(crate) base_version_copy: u32,
@@ -1130,21 +1130,21 @@ pub(crate) struct BaseVersion {
 }
 
 // PS5Activity
-#[derive(PartialEq, Debug, DekuRead, DekuWrite)]
+#[derive(PartialEq, Debug, DekuRead, DekuWrite, Clone)]
 #[deku(endian = "endian", ctx = "endian: Endian")]
 pub(crate) struct PS5Activity {
     data: [u8; 0x20],
 }
 
 // DLC
-#[derive(PartialEq, Debug, DekuRead, DekuWrite)]
+#[derive(PartialEq, Debug, DekuRead, DekuWrite, Clone)]
 #[deku(endian = "endian", ctx = "endian: Endian")]
 pub(crate) struct DLC {
     data: [u8; 0x32],
 }
 
 // Player Data Hash
-#[derive(PartialEq, Debug, DekuRead, DekuWrite)]
+#[derive(PartialEq, Debug, DekuRead, DekuWrite, Clone)]
 #[deku(endian = "endian", ctx = "endian: Endian")]
 pub(crate) struct PlayerGameDataHash {
     pub(crate) level: u32,

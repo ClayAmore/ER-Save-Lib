@@ -11,16 +11,16 @@ pub struct NETWORK_AREA_PARAM_ST {
 	pub cellOffsetY: f32,
 	pub cellOffsetZ: f32,
 	#[deku(bits = 1)]
-	pub enableBloodstain: u8,
-	#[deku(bits = 1)]
-	pub enableBloodMessage: u8,
-	#[deku(bits = 1)]
-	pub enableGhost: u8,
-	#[deku(bits = 1)]
-	pub enableMultiPlay: u8,
+	pub enableBreakInSearch: u8,
 	#[deku(bits = 1)]
 	pub enableRingSearch: u8,
 	#[deku(bits = 1)]
-	pub enableBreakInSearch: u8,
+	pub enableMultiPlay: u8,
+	#[deku(bits = 1)]
+	pub enableGhost: u8,
+	#[deku(bits = 1)]
+	pub enableBloodMessage: u8,
+	#[deku(bits = 1)]
+	pub enableBloodstain: u8,
 	pub dummy: [u8;3],
 }

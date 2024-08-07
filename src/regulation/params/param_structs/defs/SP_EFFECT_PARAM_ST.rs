@@ -117,149 +117,149 @@ pub struct SP_EFFECT_PARAM_ST {
 	pub addBehaviorJudgeId_condition: i8,
 	pub freezeDamageRate: u8,
 	#[deku(bits = 1)]
-	pub effectTargetSelf: u8,
-	#[deku(bits = 1)]
-	pub effectTargetFriend: u8,
-	#[deku(bits = 1)]
-	pub effectTargetEnemy: u8,
-	#[deku(bits = 1)]
-	pub effectTargetPlayer: u8,
-	#[deku(bits = 1)]
-	pub effectTargetAI: u8,
+	pub effectTargetGhost: u8,
 	#[deku(bits = 1)]
 	pub effectTargetLive: u8,
 	#[deku(bits = 1)]
-	pub effectTargetGhost: u8,
+	pub effectTargetAI: u8,
 	#[deku(bits = 1)]
-	pub disableSleep: u8,
+	pub effectTargetPlayer: u8,
 	#[deku(bits = 1)]
-	pub disableMadness: u8,
+	pub effectTargetEnemy: u8,
 	#[deku(bits = 1)]
-	pub effectTargetAttacker: u8,
+	pub effectTargetFriend: u8,
 	#[deku(bits = 1)]
-	pub dispIconNonactive: u8,
-	#[deku(bits = 1)]
-	pub regainGaugeDamage: u8,
-	#[deku(bits = 1)]
-	pub bAdjustMagicAblity: u8,
+	pub effectTargetSelf: u8,
 	#[deku(bits = 1)]
 	pub bAdjustFaithAblity: u8,
 	#[deku(bits = 1)]
-	pub bGameClearBonus: u8,
+	pub bAdjustMagicAblity: u8,
 	#[deku(bits = 1)]
-	pub magParamChange: u8,
+	pub regainGaugeDamage: u8,
 	#[deku(bits = 1)]
-	pub miracleParamChange: u8,
+	pub dispIconNonactive: u8,
 	#[deku(bits = 1)]
-	pub clearSoul: u8,
+	pub effectTargetAttacker: u8,
 	#[deku(bits = 1)]
-	pub requestSOS: u8,
+	pub disableMadness: u8,
 	#[deku(bits = 1)]
-	pub requestBlackSOS: u8,
+	pub disableSleep: u8,
 	#[deku(bits = 1)]
 	pub requestForceJoinBlackSOS: u8,
 	#[deku(bits = 1)]
-	pub requestKickSession: u8,
+	pub requestBlackSOS: u8,
 	#[deku(bits = 1)]
-	pub requestLeaveSession: u8,
+	pub requestSOS: u8,
 	#[deku(bits = 1)]
-	pub requestNpcInveda: u8,
+	pub clearSoul: u8,
 	#[deku(bits = 1)]
-	pub noDead: u8,
+	pub miracleParamChange: u8,
 	#[deku(bits = 1)]
-	pub bCurrHPIndependeMaxHP: u8,
+	pub magParamChange: u8,
 	#[deku(bits = 1)]
-	pub corrosionIgnore: u8,
+	pub bGameClearBonus: u8,
 	#[deku(bits = 1)]
 	pub sightSearchCutIgnore: u8,
 	#[deku(bits = 1)]
-	pub hearingSearchCutIgnore: u8,
+	pub corrosionIgnore: u8,
 	#[deku(bits = 1)]
-	pub antiMagicIgnore: u8,
+	pub bCurrHPIndependeMaxHP: u8,
 	#[deku(bits = 1)]
-	pub fakeTargetIgnore: u8,
+	pub noDead: u8,
 	#[deku(bits = 1)]
-	pub fakeTargetIgnoreUndead: u8,
+	pub requestNpcInveda: u8,
 	#[deku(bits = 1)]
-	pub fakeTargetIgnoreAnimal: u8,
+	pub requestLeaveSession: u8,
 	#[deku(bits = 1)]
-	pub grabityIgnore: u8,
+	pub requestKickSession: u8,
 	#[deku(bits = 1)]
 	pub disablePoison: u8,
 	#[deku(bits = 1)]
-	pub disableDisease: u8,
+	pub grabityIgnore: u8,
 	#[deku(bits = 1)]
-	pub disableBlood: u8,
+	pub fakeTargetIgnoreAnimal: u8,
 	#[deku(bits = 1)]
-	pub disableCurse: u8,
+	pub fakeTargetIgnoreUndead: u8,
 	#[deku(bits = 1)]
-	pub enableCharm: u8,
+	pub fakeTargetIgnore: u8,
 	#[deku(bits = 1)]
-	pub enableLifeTime: u8,
+	pub antiMagicIgnore: u8,
 	#[deku(bits = 1)]
-	pub bAdjustStrengthAblity: u8,
+	pub hearingSearchCutIgnore: u8,
 	#[deku(bits = 1)]
 	pub bAdjustAgilityAblity: u8,
 	#[deku(bits = 1)]
-	pub eraseOnBonfireRecover: u8,
+	pub bAdjustStrengthAblity: u8,
 	#[deku(bits = 1)]
-	pub throwAttackParamChange: u8,
+	pub enableLifeTime: u8,
 	#[deku(bits = 1)]
-	pub requestLeaveColiseumSession: u8,
+	pub enableCharm: u8,
 	#[deku(bits = 1)]
-	pub isExtendSpEffectLife: u8,
+	pub disableCurse: u8,
 	#[deku(bits = 1)]
-	pub hasTarget: u8,
+	pub disableBlood: u8,
 	#[deku(bits = 1)]
-	pub replanningOnFire: u8,
+	pub disableDisease: u8,
 	#[deku(bits = 1)]
 	pub vowType0: u8,
 	#[deku(bits = 1)]
-	pub vowType1: u8,
+	pub replanningOnFire: u8,
 	#[deku(bits = 1)]
-	pub vowType2: u8,
+	pub hasTarget: u8,
 	#[deku(bits = 1)]
-	pub vowType3: u8,
+	pub isExtendSpEffectLife: u8,
 	#[deku(bits = 1)]
-	pub vowType4: u8,
+	pub requestLeaveColiseumSession: u8,
 	#[deku(bits = 1)]
-	pub vowType5: u8,
+	pub throwAttackParamChange: u8,
 	#[deku(bits = 1)]
-	pub vowType6: u8,
+	pub eraseOnBonfireRecover: u8,
 	#[deku(bits = 1)]
 	pub vowType7: u8,
 	#[deku(bits = 1)]
-	pub vowType8: u8,
+	pub vowType6: u8,
 	#[deku(bits = 1)]
-	pub vowType9: u8,
+	pub vowType5: u8,
 	#[deku(bits = 1)]
-	pub vowType10: u8,
+	pub vowType4: u8,
 	#[deku(bits = 1)]
-	pub vowType11: u8,
+	pub vowType3: u8,
 	#[deku(bits = 1)]
-	pub vowType12: u8,
+	pub vowType2: u8,
+	#[deku(bits = 1)]
+	pub vowType1: u8,
+	#[deku(bits = 1)]
+	pub vowType14: u8,
 	#[deku(bits = 1)]
 	pub vowType13: u8,
 	#[deku(bits = 1)]
-	pub vowType14: u8,
+	pub vowType12: u8,
+	#[deku(bits = 1)]
+	pub vowType11: u8,
+	#[deku(bits = 1)]
+	pub vowType10: u8,
+	#[deku(bits = 1)]
+	pub vowType9: u8,
+	#[deku(bits = 1)]
+	pub vowType8: u8,
 	#[deku(bits = 1)]
 	pub vowType15: u8,
 	pub repAtkDmgLv: i8,
 	pub sightSearchRate: f32,
 	#[deku(bits = 1)]
-	pub effectTargetOpposeTarget: u8,
-	#[deku(bits = 1)]
-	pub effectTargetFriendlyTarget: u8,
-	#[deku(bits = 1)]
-	pub effectTargetSelfTarget: u8,
-	#[deku(bits = 1)]
-	pub effectTargetPcHorse: u8,
-	#[deku(bits = 1)]
-	pub effectTargetPcDeceased: u8,
+	pub isWaitModeDelete: u8,
 	#[deku(bits = 1)]
 	pub isContractSpEffectLife: u8,
 	#[deku(bits = 1)]
-	pub isWaitModeDelete: u8,
+	pub effectTargetPcDeceased: u8,
+	#[deku(bits = 1)]
+	pub effectTargetPcHorse: u8,
+	#[deku(bits = 1)]
+	pub effectTargetSelfTarget: u8,
+	#[deku(bits = 1)]
+	pub effectTargetFriendlyTarget: u8,
+	#[deku(bits = 1)]
+	pub effectTargetOpposeTarget: u8,
 	#[deku(bits = 1)]
 	pub isIgnoreNoDamage: u8,
 	pub changeTeamType: i8,
@@ -331,19 +331,19 @@ pub struct SP_EFFECT_PARAM_ST {
 	pub recoverArtsPoint_Miracle: i8,
 	pub madnessDamageRate: u8,
 	#[deku(bits = 1)]
-	pub isUseStatusAilmentAtkPowerCorrect: u8,
-	#[deku(bits = 1)]
-	pub isUseAtkParamAtkPowerCorrect: u8,
-	#[deku(bits = 1)]
-	pub dontDeleteOnDead: u8,
-	#[deku(bits = 1)]
-	pub disableFreeze: u8,
-	#[deku(bits = 1)]
-	pub isDisableNetSync: u8,
+	pub isStopSearchedNotify: u8,
 	#[deku(bits = 1)]
 	pub shamanParamChange: u8,
 	#[deku(bits = 1)]
-	pub isStopSearchedNotify: u8,
+	pub isDisableNetSync: u8,
+	#[deku(bits = 1)]
+	pub disableFreeze: u8,
+	#[deku(bits = 1)]
+	pub dontDeleteOnDead: u8,
+	#[deku(bits = 1)]
+	pub isUseAtkParamAtkPowerCorrect: u8,
+	#[deku(bits = 1)]
+	pub isUseStatusAilmentAtkPowerCorrect: u8,
 	#[deku(bits = 1)]
 	pub isCheckAboveShadowTest: u8,
 	pub addBehaviorJudgeId_add: i16,
@@ -423,38 +423,38 @@ pub struct SP_EFFECT_PARAM_ST {
 	pub changeMadnessResistPoint: i32,
 	pub sleepDamageRate: u8,
 	pub applyPartsGroup: u8,
+	#[deku(skip, cond = "version >= 11210015", bits = 3)]
+	pub padbit_old: u8,
 	#[deku(bits = 1)]
-	pub clearTarget: u8,
-	#[deku(bits = 1)]
-	pub fakeTargetIgnoreAjin: u8,
-	#[deku(bits = 1)]
-	pub fakeTargetIgnoreMirageArts: u8,
+	pub isDestinedDeathHpMult: u8,
 	#[deku(bits = 1)]
 	pub requestForceJoinBlackSOS_B: u8,
 	#[deku(bits = 1)]
-	pub isDestinedDeathHpMult: u8,
-	#[deku(skip, cond = "version >= 11210015", bits = 3)]
-	pub padbit_old: u8,
+	pub fakeTargetIgnoreMirageArts: u8,
+	#[deku(bits = 1)]
+	pub fakeTargetIgnoreAjin: u8,
+	#[deku(bits = 1)]
+	pub clearTarget: u8,
 	#[deku(skip, cond = "version < 11210015", bits = 1)]
-	pub isHpBurnEffect: u8,
+	pub unknown_0x352_7: u8,
 	#[deku(skip, cond = "version < 11210015", bits = 1)]
 	pub unknown_0x352_6: u8,
 	#[deku(skip, cond = "version < 11210015", bits = 1)]
-	pub unknown_0x352_7: u8,
+	pub isHpBurnEffect: u8,
 	#[deku(skip, cond = "version >= 11210015")]
 	pub pad2: [u8;1],
+	#[deku(skip, cond = "version < 11210015", bits = 3)]
+	pub unknown_0x353_5: u8,
 	#[deku(skip, cond = "version < 11210015", bits = 1)]
-	pub unknown_0x353_0: u8,
-	#[deku(skip, cond = "version < 11210015", bits = 1)]
-	pub unknown_0x353_1: u8,
-	#[deku(skip, cond = "version < 11210015", bits = 1)]
-	pub unknown_0x353_2: u8,
+	pub unknown_0x353_4: u8,
 	#[deku(skip, cond = "version < 11210015", bits = 1)]
 	pub unknown_0x353_3: u8,
 	#[deku(skip, cond = "version < 11210015", bits = 1)]
-	pub unknown_0x353_4: u8,
-	#[deku(skip, cond = "version < 11210015", bits = 3)]
-	pub unknown_0x353_5: u8,
+	pub unknown_0x353_2: u8,
+	#[deku(skip, cond = "version < 11210015", bits = 1)]
+	pub unknown_0x353_1: u8,
+	#[deku(skip, cond = "version < 11210015", bits = 1)]
+	pub unknown_0x353_0: u8,
 	pub changeSuperArmorPoint: f32,
 	pub changeSaPoint: f32,
 	pub hugeEnemyPickupHeightOverwrite: f32,

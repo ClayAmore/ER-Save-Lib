@@ -4,24 +4,24 @@ use deku::{ DekuRead, DekuWrite};
 #[derive(PartialEq, Debug, DekuRead, DekuWrite)]
 #[deku(endian = "endian", ctx = "endian: Endian, version: u32")]
 pub struct SWORD_ARTS_PARAM_ST {
-	#[deku(bits = 1)]
-	pub disableParam_NT: u8,
 	#[deku(bits = 7)]
 	pub disableParamReserve1: u8,
+	#[deku(bits = 1)]
+	pub disableParam_NT: u8,
 	pub disableParamReserve2: [u8;3],
 	pub swordArtsType: u8,
 	pub artsSpeedType: u8,
 	pub refStatus: i8,
+	#[deku(bits = 4)]
+	pub reserve2: u8,
 	#[deku(bits = 1)]
-	pub isRefRightArts: u8,
-	#[deku(bits = 1)]
-	pub isGrayoutLeftHand: u8,
+	pub isGrayoutBothHand: u8,
 	#[deku(bits = 1)]
 	pub isGrayoutRightHand: u8,
 	#[deku(bits = 1)]
-	pub isGrayoutBothHand: u8,
-	#[deku(bits = 4)]
-	pub reserve2: u8,
+	pub isGrayoutLeftHand: u8,
+	#[deku(bits = 1)]
+	pub isRefRightArts: u8,
 	pub usePoint_L1: i8,
 	pub usePoint_L2: i8,
 	pub usePoint_R1: i8,

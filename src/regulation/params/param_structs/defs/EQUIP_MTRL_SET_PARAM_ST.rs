@@ -26,16 +26,16 @@ pub struct EQUIP_MTRL_SET_PARAM_ST {
 	pub materialCate06: u8,
 	pub pad_cate: [u8;2],
 	#[deku(bits = 1)]
-	pub isDisableDispNum01: u8,
-	#[deku(bits = 1)]
-	pub isDisableDispNum02: u8,
-	#[deku(bits = 1)]
-	pub isDisableDispNum03: u8,
-	#[deku(bits = 1)]
-	pub isDisableDispNum04: u8,
+	pub isDisableDispNum06: u8,
 	#[deku(bits = 1)]
 	pub isDisableDispNum05: u8,
 	#[deku(bits = 1)]
-	pub isDisableDispNum06: u8,
+	pub isDisableDispNum04: u8,
+	#[deku(bits = 1)]
+	pub isDisableDispNum03: u8,
+	#[deku(bits = 1)]
+	pub isDisableDispNum02: u8,
+	#[deku(bits = 1)]
+	pub isDisableDispNum01: u8,
 	pub pad: [u8;3],
 }

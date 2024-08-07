@@ -4,37 +4,37 @@ use deku::{ DekuRead, DekuWrite};
 #[derive(PartialEq, Debug, DekuRead, DekuWrite)]
 #[deku(endian = "endian", ctx = "endian: Endian, version: u32")]
 pub struct WORLD_MAP_POINT_PARAM_ST {
-	#[deku(bits = 1)]
-	pub disableParam_NT: u8,
 	#[deku(bits = 7)]
 	pub disableParamReserve1: u8,
+	#[deku(bits = 1)]
+	pub disableParam_NT: u8,
 	pub disableParamReserve2: [u8;3],
 	pub eventFlagId: i32,
 	pub distViewEventFlagId: i32,
 	pub iconId: i16,
 	pub bgmPlaceType: i16,
+	#[deku(bits = 5)]
+	pub pad3: u8,
 	#[deku(bits = 1)]
-	pub isAreaIcon: u8,
+	pub isEnableNoText: u8,
 	#[deku(bits = 1)]
 	pub isOverrideDistViewMarkPos: u8,
 	#[deku(bits = 1)]
-	pub isEnableNoText: u8,
-	#[deku(bits = 5)]
-	pub pad3: u8,
+	pub isAreaIcon: u8,
 	pub areaNo_forDistViewMark: u8,
 	pub gridXNo_forDistViewMark: u8,
 	pub gridZNo_forDistViewMark: u8,
 	pub clearedEventFlagId: i32,
-	#[deku(bits = 1)]
-	pub dispMask00: u8,
-	#[deku(bits = 1)]
-	pub dispMask01: u8,
 	#[deku(skip, cond = "version >= 11210015", bits = 6)]
 	pub pad2_0: u8,
-	#[deku(skip, cond = "version < 11210015", bits = 1)]
-	pub dispMask02: u8,
+	#[deku(bits = 1)]
+	pub dispMask01: u8,
+	#[deku(bits = 1)]
+	pub dispMask00: u8,
 	#[deku(skip, cond = "version < 11210015", bits = 5)]
 	pub pad2_01: u8,
+	#[deku(skip, cond = "version < 11210015", bits = 1)]
+	pub dispMask02: u8,
 	pub pad2: [u8;1],
 	pub distViewIconId: i16,
 	pub angle: f32,

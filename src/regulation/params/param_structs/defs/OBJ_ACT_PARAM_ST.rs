@@ -10,8 +10,8 @@ pub struct OBJ_ACT_PARAM_ST {
 	pub playerAnimId: i32,
 	pub chrAnimId: i32,
 	pub validDist: i16,
-	pub spQualifiedId: i16,
-	pub spQualifiedId2: i16,
+	pub spQualifiedId_old: i16,
+	pub spQualifiedId2_old: i16,
 	pub objDummyId: u8,
 	pub isEventKickSync: u8,
 	pub objAnimId: i32,
@@ -29,17 +29,9 @@ pub struct OBJ_ACT_PARAM_ST {
 	#[deku(skip, cond = "version >= 11210015", count = "40")]
 	pub pad2_old: Vec<u8>,
 	#[deku(skip, cond = "version < 11210015")]
-	pub unknown_0x38: u8,
+	pub spQualifiedId_new: i32,
 	#[deku(skip, cond = "version < 11210015")]
-	pub unknown_0x3c: u8,
-	#[deku(skip, cond = "version < 11210015")]
-	pub unknown_0x40: u8,
-	#[deku(skip, cond = "version < 11210015")]
-	pub unknown_0x44: u8,
-	#[deku(skip, cond = "version < 11210015")]
-	pub unknown_0x48: u8,
-	#[deku(skip, cond = "version < 11210015")]
-	pub unknown_0x4c: u8,
-	#[deku(skip, cond = "version < 11210015", count = "34")]
+	pub spQualifiedId2_new: i32,
+	#[deku(skip, cond = "version < 11210015", count = "32")]
 	pub pad2: Vec<u8>,
 }

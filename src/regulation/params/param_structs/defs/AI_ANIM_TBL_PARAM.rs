@@ -95,65 +95,65 @@ pub struct AI_ANIM_TBL_PARAM {
 	pub atk28_MaxDist: i16,
 	pub atk29_MaxDist: i16,
 	#[deku(bits = 4)]
-	pub atk0_AtkDistType: u8,
-	#[deku(bits = 4)]
 	pub atk1_AtkDistType: u8,
 	#[deku(bits = 4)]
-	pub atk2_AtkDistType: u8,
+	pub atk0_AtkDistType: u8,
 	#[deku(bits = 4)]
 	pub atk3_AtkDistType: u8,
 	#[deku(bits = 4)]
-	pub atk4_AtkDistType: u8,
+	pub atk2_AtkDistType: u8,
 	#[deku(bits = 4)]
 	pub atk5_AtkDistType: u8,
 	#[deku(bits = 4)]
-	pub atk6_AtkDistType: u8,
+	pub atk4_AtkDistType: u8,
 	#[deku(bits = 4)]
 	pub atk7_AtkDistType: u8,
 	#[deku(bits = 4)]
-	pub atk8_AtkDistType: u8,
+	pub atk6_AtkDistType: u8,
 	#[deku(bits = 4)]
 	pub atk9_AtkDistType: u8,
 	#[deku(bits = 4)]
-	pub atk10_AtkDistType: u8,
+	pub atk8_AtkDistType: u8,
 	#[deku(bits = 4)]
 	pub atk11_AtkDistType: u8,
 	#[deku(bits = 4)]
-	pub atk12_AtkDistType: u8,
+	pub atk10_AtkDistType: u8,
 	#[deku(bits = 4)]
 	pub atk13_AtkDistType: u8,
 	#[deku(bits = 4)]
-	pub atk14_AtkDistType: u8,
+	pub atk12_AtkDistType: u8,
 	#[deku(bits = 4)]
 	pub atk15_AtkDistType: u8,
 	#[deku(bits = 4)]
-	pub atk16_AtkDistType: u8,
+	pub atk14_AtkDistType: u8,
 	#[deku(bits = 4)]
 	pub atk17_AtkDistType: u8,
 	#[deku(bits = 4)]
-	pub atk18_AtkDistType: u8,
+	pub atk16_AtkDistType: u8,
 	#[deku(bits = 4)]
 	pub atk19_AtkDistType: u8,
 	#[deku(bits = 4)]
-	pub atk20_AtkDistType: u8,
+	pub atk18_AtkDistType: u8,
 	#[deku(bits = 4)]
 	pub atk21_AtkDistType: u8,
 	#[deku(bits = 4)]
-	pub atk22_AtkDistType: u8,
+	pub atk20_AtkDistType: u8,
 	#[deku(bits = 4)]
 	pub atk23_AtkDistType: u8,
 	#[deku(bits = 4)]
-	pub atk24_AtkDistType: u8,
+	pub atk22_AtkDistType: u8,
 	#[deku(bits = 4)]
 	pub atk25_AtkDistType: u8,
 	#[deku(bits = 4)]
-	pub atk26_AtkDistType: u8,
+	pub atk24_AtkDistType: u8,
 	#[deku(bits = 4)]
 	pub atk27_AtkDistType: u8,
 	#[deku(bits = 4)]
-	pub atk28_AtkDistType: u8,
+	pub atk26_AtkDistType: u8,
 	#[deku(bits = 4)]
 	pub atk29_AtkDistType: u8,
+	#[deku(bits = 4)]
+	pub atk28_AtkDistType: u8,
 	#[deku(count = "13")]
 	pub pad0: Vec<u8>,
 }

@@ -4,10 +4,10 @@ use deku::{ DekuRead, DekuWrite};
 #[derive(PartialEq, Debug, DekuRead, DekuWrite)]
 #[deku(endian = "endian", ctx = "endian: Endian, version: u32")]
 pub struct EQUIP_PARAM_WEAPON_ST {
-	#[deku(bits = 1)]
-	pub disableParam_NT: u8,
 	#[deku(bits = 7)]
 	pub disableParamReserve1: u8,
+	#[deku(bits = 1)]
+	pub disableParam_NT: u8,
 	pub disableParamReserve2: [u8;3],
 	pub behaviorVariationId: i32,
 	pub sortId: i32,
@@ -106,73 +106,73 @@ pub struct EQUIP_PARAM_WEAPON_ST {
 	pub curseGuardResist: i8,
 	pub atkAttribute: u8,
 	#[deku(bits = 1)]
-	pub rightHandEquipable: u8,
-	#[deku(bits = 1)]
-	pub leftHandEquipable: u8,
-	#[deku(bits = 1)]
-	pub bothHandEquipable: u8,
-	#[deku(bits = 1)]
-	pub arrowSlotEquipable: u8,
-	#[deku(bits = 1)]
-	pub boltSlotEquipable: u8,
+	pub enableParry: u8,
 	#[deku(bits = 1)]
 	pub enableGuard: u8,
 	#[deku(bits = 1)]
-	pub enableParry: u8,
+	pub boltSlotEquipable: u8,
 	#[deku(bits = 1)]
-	pub enableMagic: u8,
+	pub arrowSlotEquipable: u8,
 	#[deku(bits = 1)]
-	pub enableSorcery: u8,
+	pub bothHandEquipable: u8,
 	#[deku(bits = 1)]
-	pub enableMiracle: u8,
+	pub leftHandEquipable: u8,
 	#[deku(bits = 1)]
-	pub enableVowMagic: u8,
-	#[deku(bits = 1)]
-	pub isNormalAttackType: u8,
-	#[deku(bits = 1)]
-	pub isBlowAttackType: u8,
+	pub rightHandEquipable: u8,
 	#[deku(bits = 1)]
 	pub isSlashAttackType: u8,
 	#[deku(bits = 1)]
-	pub isThrustAttackType: u8,
+	pub isBlowAttackType: u8,
 	#[deku(bits = 1)]
-	pub isEnhance: u8,
+	pub isNormalAttackType: u8,
 	#[deku(bits = 1)]
-	pub isHeroPointCorrect: u8,
+	pub enableVowMagic: u8,
 	#[deku(bits = 1)]
-	pub isCustom: u8,
+	pub enableMiracle: u8,
 	#[deku(bits = 1)]
-	pub disableBaseChangeReset: u8,
+	pub enableSorcery: u8,
 	#[deku(bits = 1)]
-	pub disableRepair: u8,
+	pub enableMagic: u8,
 	#[deku(bits = 1)]
 	pub isDarkHand: u8,
 	#[deku(bits = 1)]
-	pub simpleModelForDlc: u8,
+	pub disableRepair: u8,
 	#[deku(bits = 1)]
-	pub lanternWep: u8,
+	pub disableBaseChangeReset: u8,
 	#[deku(bits = 1)]
-	pub isVersusGhostWep: u8,
+	pub isCustom: u8,
+	#[deku(bits = 1)]
+	pub isHeroPointCorrect: u8,
+	#[deku(bits = 1)]
+	pub isEnhance: u8,
+	#[deku(bits = 1)]
+	pub isThrustAttackType: u8,
 	#[deku(bits = 6)]
 	pub baseChangeCategory: u8,
 	#[deku(bits = 1)]
-	pub isDragonSlayer: u8,
+	pub isVersusGhostWep: u8,
 	#[deku(bits = 1)]
-	pub isDeposit: u8,
+	pub lanternWep: u8,
 	#[deku(bits = 1)]
-	pub disableMultiDropShare: u8,
+	pub simpleModelForDlc: u8,
 	#[deku(bits = 1)]
-	pub isDiscard: u8,
-	#[deku(bits = 1)]
-	pub isDrop: u8,
+	pub enableThrow: u8,
 	#[deku(bits = 1)]
 	pub showLogCondType: u8,
 	#[deku(bits = 1)]
-	pub enableThrow: u8,
-	#[deku(bits = 2)]
-	pub showDialogCondType: u8,
+	pub isDrop: u8,
+	#[deku(bits = 1)]
+	pub isDiscard: u8,
+	#[deku(bits = 1)]
+	pub disableMultiDropShare: u8,
+	#[deku(bits = 1)]
+	pub isDeposit: u8,
+	#[deku(bits = 1)]
+	pub isDragonSlayer: u8,
 	#[deku(bits = 1)]
 	pub disableGemAttr: u8,
+	#[deku(bits = 2)]
+	pub showDialogCondType: u8,
 	pub defSfxMaterial1: i16,
 	pub wepCollidableType0: u8,
 	pub wepCollidableType1: u8,
@@ -206,24 +206,24 @@ pub struct EQUIP_PARAM_WEAPON_ST {
 	pub defSeMaterial2: i16,
 	pub absorpParamId: i32,
 	pub toughnessCorrectRate: f32,
+	#[deku(skip, cond = "version >= 11210015", bits = 3)]
+	pub unk1: u8,
 	#[deku(bits = 1)]
-	pub isValidTough_ProtSADmg: u8,
-	#[deku(bits = 1)]
-	pub isDualBlade: u8,
-	#[deku(bits = 1)]
-	pub isAutoEquip: u8,
+	pub invisibleOnRemo: u8,
 	#[deku(bits = 1)]
 	pub isEnableEmergencyStep: u8,
 	#[deku(bits = 1)]
-	pub invisibleOnRemo: u8,
-	#[deku(skip, cond = "version >= 11210015", bits = 3)]
-	pub unk1: u8,
+	pub isAutoEquip: u8,
+	#[deku(bits = 1)]
+	pub isDualBlade: u8,
+	#[deku(bits = 1)]
+	pub isValidTough_ProtSADmg: u8,
 	#[deku(skip, cond = "version < 11210015", bits = 1)]
-	pub unknown_0x17c_5: u8,
+	pub unknown_0x17c_7: u8,
 	#[deku(skip, cond = "version < 11210015", bits = 1)]
 	pub unknown_0x17c_6: u8,
 	#[deku(skip, cond = "version < 11210015", bits = 1)]
-	pub unknown_0x17c_7: u8,
+	pub unknown_0x17c_5: u8,
 	pub correctType_Magic: u8,
 	pub correctType_Fire: u8,
 	pub correctType_Thunder: u8,
@@ -285,19 +285,19 @@ pub struct EQUIP_PARAM_WEAPON_ST {
 	pub reinforceShopCategory: u8,
 	pub maxArrowQuantity: u8,
 	#[deku(bits = 1)]
-	pub residentSfx_1_IsVisibleForHang: u8,
-	#[deku(bits = 1)]
-	pub residentSfx_2_IsVisibleForHang: u8,
-	#[deku(bits = 1)]
-	pub residentSfx_3_IsVisibleForHang: u8,
-	#[deku(bits = 1)]
-	pub residentSfx_4_IsVisibleForHang: u8,
-	#[deku(bits = 1)]
-	pub isSoulParamIdChange_model0: u8,
+	pub isSoulParamIdChange_model2: u8,
 	#[deku(bits = 1)]
 	pub isSoulParamIdChange_model1: u8,
 	#[deku(bits = 1)]
-	pub isSoulParamIdChange_model2: u8,
+	pub isSoulParamIdChange_model0: u8,
+	#[deku(bits = 1)]
+	pub residentSfx_4_IsVisibleForHang: u8,
+	#[deku(bits = 1)]
+	pub residentSfx_3_IsVisibleForHang: u8,
+	#[deku(bits = 1)]
+	pub residentSfx_2_IsVisibleForHang: u8,
+	#[deku(bits = 1)]
+	pub residentSfx_1_IsVisibleForHang: u8,
 	#[deku(bits = 1)]
 	pub isSoulParamIdChange_model3: u8,
 	pub wepSeIdOffset: i8,

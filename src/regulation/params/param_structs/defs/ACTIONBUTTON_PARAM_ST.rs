@@ -21,18 +21,18 @@ pub struct ACTIONBUTTON_PARAM_ST {
 	pub spotDummyPoly: i32,
 	pub textBoxType: u8,
 	pub padding3: [u8;2],
+	#[deku(bits = 3)]
+	pub padding4: u8,
 	#[deku(bits = 1)]
-	pub padding5: u8,
-	#[deku(bits = 1)]
-	pub isInvalidForRide: u8,
-	#[deku(bits = 1)]
-	pub isGrayoutForRide: u8,
+	pub isGrayoutForCrouching: u8,
 	#[deku(bits = 1)]
 	pub isInvalidForCrouching: u8,
 	#[deku(bits = 1)]
-	pub isGrayoutForCrouching: u8,
-	#[deku(bits = 3)]
-	pub padding4: u8,
+	pub isGrayoutForRide: u8,
+	#[deku(bits = 1)]
+	pub isInvalidForRide: u8,
+	#[deku(bits = 1)]
+	pub padding5: u8,
 	pub textId: i32,
 	pub invalidFlag: i32,
 	pub grayoutFlag: i32,

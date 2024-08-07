@@ -4,10 +4,10 @@ use deku::{ DekuRead, DekuWrite};
 #[derive(PartialEq, Debug, DekuRead, DekuWrite)]
 #[deku(endian = "endian", ctx = "endian: Endian, version: u32")]
 pub struct EQUIP_PARAM_PROTECTOR_ST {
-	#[deku(bits = 1)]
-	pub disableParam_NT: u8,
 	#[deku(bits = 7)]
 	pub disableParamReserve1: u8,
+	#[deku(bits = 1)]
+	pub disableParam_NT: u8,
 	pub disableParamReserve2: [u8;3],
 	pub sortId: i32,
 	pub wanderingEquipId: i32,
@@ -83,37 +83,37 @@ pub struct EQUIP_PARAM_PROTECTOR_ST {
 	pub partsDmgType: u8,
 	pub pad04: [u8;2],
 	#[deku(bits = 1)]
-	pub isDeposit: u8,
-	#[deku(bits = 1)]
-	pub headEquip: u8,
-	#[deku(bits = 1)]
-	pub bodyEquip: u8,
-	#[deku(bits = 1)]
-	pub armEquip: u8,
-	#[deku(bits = 1)]
-	pub legEquip: u8,
+	pub isSkipWeakDamageAnim: u8,
 	#[deku(bits = 1)]
 	pub useFaceScale: u8,
 	#[deku(bits = 1)]
-	pub isSkipWeakDamageAnim: u8,
+	pub legEquip: u8,
+	#[deku(bits = 1)]
+	pub armEquip: u8,
+	#[deku(bits = 1)]
+	pub bodyEquip: u8,
+	#[deku(bits = 1)]
+	pub headEquip: u8,
+	#[deku(bits = 1)]
+	pub isDeposit: u8,
 	#[deku(bits = 1)]
 	pub pad06: u8,
 	pub defenseMaterialVariationValue_Weak: u8,
 	pub autoFootEffectDecalBaseId2: i16,
 	pub autoFootEffectDecalBaseId3: i16,
 	pub defenseMaterialVariationValue: u8,
+	#[deku(bits = 2)]
+	pub showDialogCondType: u8,
 	#[deku(bits = 1)]
-	pub isDiscard: u8,
-	#[deku(bits = 1)]
-	pub isDrop: u8,
-	#[deku(bits = 1)]
-	pub disableMultiDropShare: u8,
+	pub showLogCondType: u8,
 	#[deku(bits = 1)]
 	pub simpleModelForDlc: u8,
 	#[deku(bits = 1)]
-	pub showLogCondType: u8,
-	#[deku(bits = 2)]
-	pub showDialogCondType: u8,
+	pub disableMultiDropShare: u8,
+	#[deku(bits = 1)]
+	pub isDrop: u8,
+	#[deku(bits = 1)]
+	pub isDiscard: u8,
 	#[deku(bits = 1)]
 	pub pad: u8,
 	pub neutralDamageCutRate: f32,
@@ -137,73 +137,73 @@ pub struct EQUIP_PARAM_PROTECTOR_ST {
 	pub darkDamageCutRate: f32,
 	pub defenseDark: i16,
 	#[deku(bits = 1)]
-	pub invisibleFlag48: u8,
-	#[deku(bits = 1)]
-	pub invisibleFlag49: u8,
-	#[deku(bits = 1)]
-	pub invisibleFlag50: u8,
-	#[deku(bits = 1)]
-	pub invisibleFlag51: u8,
-	#[deku(bits = 1)]
-	pub invisibleFlag52: u8,
+	pub invisibleFlag54: u8,
 	#[deku(bits = 1)]
 	pub invisibleFlag53: u8,
 	#[deku(bits = 1)]
-	pub invisibleFlag54: u8,
+	pub invisibleFlag52: u8,
 	#[deku(bits = 1)]
-	pub invisibleFlag55: u8,
+	pub invisibleFlag51: u8,
 	#[deku(bits = 1)]
-	pub invisibleFlag56: u8,
+	pub invisibleFlag50: u8,
 	#[deku(bits = 1)]
-	pub invisibleFlag57: u8,
+	pub invisibleFlag49: u8,
 	#[deku(bits = 1)]
-	pub invisibleFlag58: u8,
-	#[deku(bits = 1)]
-	pub invisibleFlag59: u8,
-	#[deku(bits = 1)]
-	pub invisibleFlag60: u8,
+	pub invisibleFlag48: u8,
 	#[deku(bits = 1)]
 	pub invisibleFlag61: u8,
 	#[deku(bits = 1)]
-	pub invisibleFlag62: u8,
+	pub invisibleFlag60: u8,
 	#[deku(bits = 1)]
-	pub invisibleFlag63: u8,
+	pub invisibleFlag59: u8,
 	#[deku(bits = 1)]
-	pub invisibleFlag64: u8,
+	pub invisibleFlag58: u8,
 	#[deku(bits = 1)]
-	pub invisibleFlag65: u8,
+	pub invisibleFlag57: u8,
 	#[deku(bits = 1)]
-	pub invisibleFlag66: u8,
+	pub invisibleFlag56: u8,
 	#[deku(bits = 1)]
-	pub invisibleFlag67: u8,
+	pub invisibleFlag55: u8,
 	#[deku(bits = 1)]
 	pub invisibleFlag68: u8,
 	#[deku(bits = 1)]
-	pub invisibleFlag69: u8,
+	pub invisibleFlag67: u8,
 	#[deku(bits = 1)]
-	pub invisibleFlag70: u8,
+	pub invisibleFlag66: u8,
 	#[deku(bits = 1)]
-	pub invisibleFlag71: u8,
+	pub invisibleFlag65: u8,
 	#[deku(bits = 1)]
-	pub invisibleFlag72: u8,
+	pub invisibleFlag64: u8,
 	#[deku(bits = 1)]
-	pub invisibleFlag73: u8,
+	pub invisibleFlag63: u8,
 	#[deku(bits = 1)]
-	pub invisibleFlag74: u8,
+	pub invisibleFlag62: u8,
 	#[deku(bits = 1)]
 	pub invisibleFlag75: u8,
 	#[deku(bits = 1)]
-	pub invisibleFlag76: u8,
+	pub invisibleFlag74: u8,
 	#[deku(bits = 1)]
-	pub invisibleFlag77: u8,
+	pub invisibleFlag73: u8,
 	#[deku(bits = 1)]
-	pub invisibleFlag78: u8,
+	pub invisibleFlag72: u8,
+	#[deku(bits = 1)]
+	pub invisibleFlag71: u8,
+	#[deku(bits = 1)]
+	pub invisibleFlag70: u8,
+	#[deku(bits = 1)]
+	pub invisibleFlag69: u8,
+	#[deku(bits = 7)]
+	pub padbit: u8,
+	#[deku(bits = 1)]
+	pub invisibleFlag80: u8,
 	#[deku(bits = 1)]
 	pub invisibleFlag79: u8,
 	#[deku(bits = 1)]
-	pub invisibleFlag80: u8,
-	#[deku(bits = 7)]
-	pub padbit: u8,
+	pub invisibleFlag78: u8,
+	#[deku(bits = 1)]
+	pub invisibleFlag77: u8,
+	#[deku(bits = 1)]
+	pub invisibleFlag76: u8,
 	pub postureControlId: u8,
 	pub pad2: [u8;4],
 	pub saleValue: i32,

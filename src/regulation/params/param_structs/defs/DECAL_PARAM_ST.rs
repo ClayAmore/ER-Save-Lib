@@ -13,32 +13,32 @@ pub struct DECAL_PARAM_ST {
 	pub nearSize: f32,
 	pub farSize: f32,
 	pub maskSpeffectId: i32,
+	#[deku(bits = 2)]
+	pub dmypolyCategory: i32,
+	#[deku(bits = 1)]
+	pub replaceTextureId_byMaterial: i32,
 	#[deku(bits = 4)]
 	pub pad_10: i32,
 	#[deku(bits = 1)]
-	pub replaceTextureId_byMaterial: i32,
-	#[deku(bits = 2)]
-	pub dmypolyCategory: i32,
-	#[deku(bits = 4)]
-	pub pad_05: i32,
-	#[deku(bits = 1)]
-	pub useDeferredDecal: i32,
+	pub bloodTypeEnable: i32,
 	#[deku(bits = 1)]
 	pub usePaintDecal: i32,
 	#[deku(bits = 1)]
-	pub bloodTypeEnable: i32,
+	pub useDeferredDecal: i32,
+	#[deku(bits = 4)]
+	pub pad_05: i32,
 	#[deku(bits = 1)]
-	pub bUseNormal: i32,
-	#[deku(bits = 1)]
-	pub pad_08: i32,
-	#[deku(bits = 1)]
-	pub pad_09: i32,
-	#[deku(bits = 1)]
-	pub usePom: i32,
+	pub putVertical: i32,
 	#[deku(bits = 1)]
 	pub useEmissive: i32,
 	#[deku(bits = 1)]
-	pub putVertical: i32,
+	pub usePom: i32,
+	#[deku(bits = 1)]
+	pub pad_09: i32,
+	#[deku(bits = 1)]
+	pub pad_08: i32,
+	#[deku(bits = 1)]
+	pub bUseNormal: i32,
 	pub randomSizeMin: i16,
 	pub randomSizeMax: i16,
 	pub randomRollMin: f32,
@@ -89,21 +89,21 @@ pub struct DECAL_PARAM_ST {
 	pub distThinOutCheckNum: u8,
 	pub delayAppearFrame: i16,
 	#[deku(bits = 4)]
-	pub randVaria_Diffuse: i32,
-	#[deku(bits = 4)]
 	pub randVaria_Mask: i32,
 	#[deku(bits = 4)]
-	pub randVaria_Reflec: i32,
+	pub randVaria_Diffuse: i32,
 	#[deku(bits = 4)]
 	pub pad_12: i32,
 	#[deku(bits = 4)]
-	pub randVaria_Normal: i32,
+	pub randVaria_Reflec: i32,
 	#[deku(bits = 4)]
 	pub randVaria_Height: i32,
 	#[deku(bits = 4)]
-	pub randVaria_Emissive: i32,
+	pub randVaria_Normal: i32,
 	#[deku(bits = 4)]
 	pub pad_11: i32,
+	#[deku(bits = 4)]
+	pub randVaria_Emissive: i32,
 	pub fadeInTimeSec: f32,
 	pub thinOutOverlapMultiRadius: f32,
 	pub thinOutNeighborAddRadius: f32,

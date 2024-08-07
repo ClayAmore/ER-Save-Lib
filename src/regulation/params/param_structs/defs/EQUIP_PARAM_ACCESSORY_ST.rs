@@ -4,10 +4,10 @@ use deku::{ DekuRead, DekuWrite};
 #[derive(PartialEq, Debug, DekuRead, DekuWrite)]
 #[deku(endian = "endian", ctx = "endian: Endian, version: u32")]
 pub struct EQUIP_PARAM_ACCESSORY_ST {
-	#[deku(bits = 1)]
-	pub disableParam_NT: u8,
 	#[deku(bits = 7)]
 	pub disableParamReserve1: u8,
+	#[deku(bits = 1)]
+	pub disableParam_NT: u8,
 	pub disableParamReserve2: [u8;3],
 	pub refId: i32,
 	pub sfxVariationId: i32,
@@ -31,20 +31,20 @@ pub struct EQUIP_PARAM_ACCESSORY_ST {
 	pub vagrantItemLotId: i32,
 	pub vagrantBonusEneDropItemLotId: i32,
 	pub vagrantItemEneDropItemLotId: i32,
+	#[deku(bits = 2)]
+	pub showDialogCondType: u8,
 	#[deku(bits = 1)]
-	pub isDeposit: u8,
-	#[deku(bits = 1)]
-	pub isEquipOutBrake: u8,
-	#[deku(bits = 1)]
-	pub disableMultiDropShare: u8,
-	#[deku(bits = 1)]
-	pub isDiscard: u8,
+	pub showLogCondType: u8,
 	#[deku(bits = 1)]
 	pub isDrop: u8,
 	#[deku(bits = 1)]
-	pub showLogCondType: u8,
-	#[deku(bits = 2)]
-	pub showDialogCondType: u8,
+	pub isDiscard: u8,
+	#[deku(bits = 1)]
+	pub disableMultiDropShare: u8,
+	#[deku(bits = 1)]
+	pub isEquipOutBrake: u8,
+	#[deku(bits = 1)]
+	pub isDeposit: u8,
 	pub rarity: u8,
 	pub pad2: [u8;2],
 	pub saleValue: i32,
