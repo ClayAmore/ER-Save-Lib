@@ -9,7 +9,7 @@ use er_save_lib::SaveApi;
 
 fn main() {
    // PC
-   let save_api = SaveApi::from_path("./test/ER0000.sl2").expect("Failed to read save file!");
+   let save_api = SaveApi::from_path("./test/ER0000.sl2");
 
    match save_api {
       Ok(save_api) => {
@@ -22,7 +22,7 @@ fn main() {
    
    
    // Playstation
-   let save = SaveApi::from_path("./test/ps_save.txt").expect("Failed to read save file!");
+   let save = SaveApi::from_path("./test/ps_save.txt");
    
    match save_api {
       Ok(save_api) => {
@@ -43,7 +43,7 @@ use er_save_lib::Save;
 
 fn main() {
    // PC
-   let save = Save::from_path("./test/ER0000.sl2").expect("Failed to read save file!");
+   let save = Save::from_path("./test/ER0000.sl2");
 
     match save {
         Ok(save) => {
@@ -54,7 +54,7 @@ fn main() {
 
 
    // Playstation
-   let save = Save::from_path("./test/ps_save.txt").expect("Failed to read save file!");
+   let save = Save::from_path("./test/ps_save.txt");
 
     match save {
         Ok(save) => {
