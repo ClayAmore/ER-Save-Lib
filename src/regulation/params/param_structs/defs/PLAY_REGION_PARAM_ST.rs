@@ -17,6 +17,8 @@ pub struct PLAY_REGION_PARAM_ST {
 	pub cultNpcWhiteGhostEntityId_byFree: i16,
 	pub bMapGuradianRegion: u8,
 	#[deku(bits = 1)]
+	pub whiteSignLimitEventFlagId_2_targetFlagState: u8,
+	#[deku(bits = 1)]
 	pub breakInLimitEventFlagId_3_targetFlagState: u8,
 	#[deku(bits = 1)]
 	pub breakInLimitEventFlagId_2_targetFlagState: u8,
@@ -30,8 +32,6 @@ pub struct PLAY_REGION_PARAM_ST {
 	pub multiPlayStartLimitEventFlagId_targetFlagState: u8,
 	#[deku(bits = 1)]
 	pub bYellowCostumeRegion: u8,
-	#[deku(bits = 1)]
-	pub whiteSignLimitEventFlagId_2_targetFlagState: u8,
 	pub warpItemUsePermitBonfireId_1: i32,
 	pub warpItemUsePermitBonfireId_2: i32,
 	pub warpItemUsePermitBonfireId_3: i32,
@@ -42,6 +42,8 @@ pub struct PLAY_REGION_PARAM_ST {
 	pub warpItemProhibitionEventFlagId_3: i32,
 	pub warpItemProhibitionEventFlagId_4: i32,
 	pub warpItemProhibitionEventFlagId_5: i32,
+	#[deku(bits = 1)]
+	pub redSignLimitEventFlagId_3_targetFlagState: u8,
 	#[deku(bits = 1)]
 	pub redSignLimitEventFlagId_2_targetFlagState: u8,
 	#[deku(bits = 1)]
@@ -60,8 +62,6 @@ pub struct PLAY_REGION_PARAM_ST {
 	pub pad1_old: u8,
 	#[deku(bits = 1)]
 	pub isAutoIntrudePoint: u8,
-	#[deku(bits = 1)]
-	pub redSignLimitEventFlagId_3_targetFlagState: u8,
 	#[deku(skip, cond = "version < 11210015", bits = 6)]
 	pub pad1: u8,
 	#[deku(skip, cond = "version < 11210015", bits = 1)]

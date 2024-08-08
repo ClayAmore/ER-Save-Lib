@@ -25,6 +25,8 @@ pub struct ASSET_GEOMETORY_PARAM_ST {
 	pub breakItemLotType: i8,
 	pub animBreakIdMax: u8,
 	pub breakBulletAttributeDamageType: i8,
+	#[deku(skip, cond = "version >= 11210015", bits = 1)]
+	pub Reserve_2: u8,
 	#[deku(bits = 1)]
 	pub isAttackBacklash: u8,
 	#[deku(bits = 1)]
@@ -40,6 +42,10 @@ pub struct ASSET_GEOMETORY_PARAM_ST {
 	#[deku(bits = 1)]
 	pub isBreakByPlayerCollide: u8,
 	#[deku(bits = 1)]
+	pub isBreakOnPickUp: u8,
+	#[deku(bits = 1)]
+	pub isEnableRepick: u8,
+	#[deku(bits = 1)]
 	pub isBurn: u8,
 	#[deku(bits = 1)]
 	pub isAnimPauseOnRemoPlay: u8,
@@ -51,14 +57,8 @@ pub struct ASSET_GEOMETORY_PARAM_ST {
 	pub isLadder: u8,
 	#[deku(skip, cond = "version < 11210015", bits = 1)]
 	pub unknown_0x3b_7: u8,
-	#[deku(skip, cond = "version >= 11210015", bits = 1)]
-	pub Reserve_2: u8,
 	#[deku(bits = 1)]
 	pub isBreakByHugeenemyCollide: u8,
-	#[deku(bits = 1)]
-	pub isBreakOnPickUp: u8,
-	#[deku(bits = 1)]
-	pub isEnableRepick: u8,
 	pub navimeshFlag: u8,
 	pub burnBulletInterval: i16,
 	pub clothUpdateDist: f32,

@@ -8,6 +8,8 @@ pub struct HIT_MTRL_PARAM_ST {
 	pub spEffectIdOnHit0: i32,
 	pub spEffectIdOnHit1: i32,
 	#[deku(bits = 1)]
+	pub isHardnessForSoundReverb: u8,
+	#[deku(bits = 1)]
 	pub disableFallDamage: u8,
 	#[deku(bits = 2)]
 	pub floorHeightType: u8,
@@ -15,8 +17,6 @@ pub struct HIT_MTRL_PARAM_ST {
 	pub footEffectDirType: u8,
 	#[deku(bits = 2)]
 	pub footEffectHeightType: u8,
-	#[deku(bits = 1)]
-	pub isHardnessForSoundReverb: u8,
 	pub hardnessType: u8,
 	pub pad2: [u8;6],
 	pub spEffectIdOnHit0_ClearCount_2: i32,

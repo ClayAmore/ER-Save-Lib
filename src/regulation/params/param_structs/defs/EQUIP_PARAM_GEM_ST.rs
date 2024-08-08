@@ -24,6 +24,8 @@ pub struct EQUIP_PARAM_GEM_ST {
 	pub compTrophySedId: i16,
 	pub trophySeqId: i16,
 	#[deku(bits = 1)]
+	pub configurableWepAttr07: u8,
+	#[deku(bits = 1)]
 	pub configurableWepAttr06: u8,
 	#[deku(bits = 1)]
 	pub configurableWepAttr05: u8,
@@ -38,6 +40,10 @@ pub struct EQUIP_PARAM_GEM_ST {
 	#[deku(bits = 1)]
 	pub configurableWepAttr00: u8,
 	#[deku(bits = 1)]
+	pub configurableWepAttr15: u8,
+	#[deku(bits = 1)]
+	pub configurableWepAttr14: u8,
+	#[deku(bits = 1)]
 	pub configurableWepAttr13: u8,
 	#[deku(bits = 1)]
 	pub configurableWepAttr12: u8,
@@ -49,13 +55,9 @@ pub struct EQUIP_PARAM_GEM_ST {
 	pub configurableWepAttr09: u8,
 	#[deku(bits = 1)]
 	pub configurableWepAttr08: u8,
-	#[deku(bits = 1)]
-	pub configurableWepAttr07: u8,
-	#[deku(bits = 1)]
-	pub configurableWepAttr15: u8,
-	#[deku(bits = 1)]
-	pub configurableWepAttr14: u8,
 	pub rarity: u8,
+	#[deku(bits = 1)]
+	pub configurableWepAttr23: u8,
 	#[deku(bits = 1)]
 	pub configurableWepAttr22: u8,
 	#[deku(bits = 1)]
@@ -70,6 +72,10 @@ pub struct EQUIP_PARAM_GEM_ST {
 	pub configurableWepAttr17: u8,
 	#[deku(bits = 1)]
 	pub configurableWepAttr16: u8,
+	#[deku(bits = 1)]
+	pub pad: u8,
+	#[deku(bits = 1)]
+	pub showLogCondType: u8,
 	#[deku(bits = 2)]
 	pub showDialogCondType: u8,
 	#[deku(bits = 1)]
@@ -80,12 +86,6 @@ pub struct EQUIP_PARAM_GEM_ST {
 	pub isDrop: u8,
 	#[deku(bits = 1)]
 	pub isDiscard: u8,
-	#[deku(bits = 1)]
-	pub configurableWepAttr23: u8,
-	#[deku(bits = 1)]
-	pub pad: u8,
-	#[deku(bits = 1)]
-	pub showLogCondType: u8,
 	pub defaultWepAttr: u8,
 	#[deku(skip, cond = "version >= 11210015")]
 	pub pad2_old: [u8;2],
@@ -93,6 +93,8 @@ pub struct EQUIP_PARAM_GEM_ST {
 	pub isSpecialSwordArt: u8,
 	#[deku(skip, cond = "version < 11210015")]
 	pub pad2: [u8;1],
+	#[deku(bits = 1)]
+	pub canMountWep_SwordDoubleEdge: u8,
 	#[deku(bits = 1)]
 	pub canMountWep_katana: u8,
 	#[deku(bits = 1)]
@@ -108,6 +110,10 @@ pub struct EQUIP_PARAM_GEM_ST {
 	#[deku(bits = 1)]
 	pub canMountWep_Dagger: u8,
 	#[deku(bits = 1)]
+	pub canMountWep_SpearNormal: u8,
+	#[deku(bits = 1)]
+	pub canMountWep_Flail: u8,
+	#[deku(bits = 1)]
 	pub canMountWep_HammerLarge: u8,
 	#[deku(bits = 1)]
 	pub canMountWep_HammerNormal: u8,
@@ -120,7 +126,11 @@ pub struct EQUIP_PARAM_GEM_ST {
 	#[deku(bits = 1)]
 	pub canMountWep_SwordPierce: u8,
 	#[deku(bits = 1)]
-	pub canMountWep_SwordDoubleEdge: u8,
+	pub canMountWep_AxhammerLarge: u8,
+	#[deku(bits = 1)]
+	pub canMountWep_Whip: u8,
+	#[deku(bits = 1)]
+	pub canMountWep_Claw: u8,
 	#[deku(bits = 1)]
 	pub canMountWep_Knuckle: u8,
 	#[deku(bits = 1)]
@@ -132,9 +142,13 @@ pub struct EQUIP_PARAM_GEM_ST {
 	#[deku(bits = 1)]
 	pub canMountWep_SpearLarge: u8,
 	#[deku(bits = 1)]
-	pub canMountWep_SpearNormal: u8,
+	pub canMountWep_Talisman: u8,
 	#[deku(bits = 1)]
-	pub canMountWep_Flail: u8,
+	pub canMountWep_Sorcery: u8,
+	#[deku(bits = 1)]
+	pub canMountWep_Staff: u8,
+	#[deku(bits = 1)]
+	pub canMountWep_Ballista: u8,
 	#[deku(bits = 1)]
 	pub canMountWep_ClossBow: u8,
 	#[deku(bits = 1)]
@@ -143,38 +157,24 @@ pub struct EQUIP_PARAM_GEM_ST {
 	pub canMountWep_BowNormal: u8,
 	#[deku(bits = 1)]
 	pub canMountWep_BowSmall: u8,
+	#[deku(skip, cond = "version >= 11210015", bits = 4)]
+	pub reserved_canMountWep: u8,
 	#[deku(bits = 1)]
-	pub canMountWep_AxhammerLarge: u8,
-	#[deku(bits = 1)]
-	pub canMountWep_Whip: u8,
-	#[deku(bits = 1)]
-	pub canMountWep_Claw: u8,
+	pub canMountWep_Torch: u8,
 	#[deku(bits = 1)]
 	pub canMountWep_ShieldLarge: u8,
 	#[deku(bits = 1)]
 	pub canMountWep_ShieldNormal: u8,
 	#[deku(bits = 1)]
 	pub canMountWep_ShieldSmall: u8,
-	#[deku(bits = 1)]
-	pub canMountWep_Talisman: u8,
-	#[deku(bits = 1)]
-	pub canMountWep_Sorcery: u8,
-	#[deku(bits = 1)]
-	pub canMountWep_Staff: u8,
-	#[deku(bits = 1)]
-	pub canMountWep_Ballista: u8,
-	#[deku(skip, cond = "version < 11210015", bits = 1)]
-	pub canMountWep_PerfumeBottle: u8,
-	#[deku(skip, cond = "version < 11210015", bits = 1)]
-	pub canMountWep_HandToHand: u8,
-	#[deku(skip, cond = "version >= 11210015", bits = 4)]
-	pub reserved_canMountWep: u8,
-	#[deku(bits = 1)]
-	pub canMountWep_Torch: u8,
 	#[deku(skip, cond = "version < 11210015", bits = 1)]
 	pub canMountWep_ThrowingWeapon: u8,
 	#[deku(skip, cond = "version < 11210015", bits = 1)]
 	pub canMountWep_ThrustingShield: u8,
+	#[deku(skip, cond = "version < 11210015", bits = 1)]
+	pub canMountWep_PerfumeBottle: u8,
+	#[deku(skip, cond = "version < 11210015", bits = 1)]
+	pub canMountWep_HandToHand: u8,
 	#[deku(skip, cond = "version >= 11210015")]
 	pub reserved2_canMountWep_old: [u8;3],
 	#[deku(skip, cond = "version < 11210015", bits = 4)]

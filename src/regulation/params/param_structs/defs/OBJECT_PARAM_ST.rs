@@ -10,6 +10,8 @@ pub struct OBJECT_PARAM_ST {
 	pub materialId: i16,
 	pub animBreakIdMax: u8,
 	#[deku(bits = 1)]
+	pub isLadder: u8,
+	#[deku(bits = 1)]
 	pub isDisableBreakForFirstAppear: u8,
 	#[deku(bits = 1)]
 	pub isAttackBacklash: u8,
@@ -24,6 +26,10 @@ pub struct OBJECT_PARAM_ST {
 	#[deku(bits = 1)]
 	pub isCamHit: u8,
 	#[deku(bits = 1)]
+	pub isBreakByEnemyCollide: u8,
+	#[deku(bits = 1)]
+	pub isBurn: u8,
+	#[deku(bits = 1)]
 	pub isBreak_ByChrRide: u8,
 	#[deku(bits = 1)]
 	pub isAddRigidImpulse_ByDamage: u8,
@@ -35,12 +41,6 @@ pub struct OBJECT_PARAM_ST {
 	pub isDamageNoHit: u8,
 	#[deku(bits = 1)]
 	pub isAnimPauseOnRemoPlay: u8,
-	#[deku(bits = 1)]
-	pub isLadder: u8,
-	#[deku(bits = 1)]
-	pub isBreakByEnemyCollide: u8,
-	#[deku(bits = 1)]
-	pub isBurn: u8,
 	pub defaultLodParamId: i8,
 	pub breakSfxId: i32,
 	pub breakSfxCpId: i32,

@@ -39,6 +39,8 @@ pub struct MAGIC_PARAM_ST {
 	pub replaceCategory: u8,
 	pub useLimitCategory: u8,
 	#[deku(bits = 1)]
+	pub vowType7: u8,
+	#[deku(bits = 1)]
 	pub vowType6: u8,
 	#[deku(bits = 1)]
 	pub vowType5: u8,
@@ -53,6 +55,10 @@ pub struct MAGIC_PARAM_ST {
 	#[deku(bits = 1)]
 	pub vowType0: u8,
 	#[deku(bits = 1)]
+	pub enable_black: u8,
+	#[deku(bits = 1)]
+	pub enable_white: u8,
+	#[deku(bits = 1)]
 	pub enable_gray: u8,
 	#[deku(bits = 1)]
 	pub enable_live: u8,
@@ -65,7 +71,11 @@ pub struct MAGIC_PARAM_ST {
 	#[deku(bits = 1)]
 	pub enable_multi: u8,
 	#[deku(bits = 1)]
-	pub vowType7: u8,
+	pub pad_1: u8,
+	#[deku(bits = 1)]
+	pub isUseNoAttackRegion: u8,
+	#[deku(bits = 1)]
+	pub disableRiding: u8,
 	#[deku(bits = 1)]
 	pub enableRiding: u8,
 	#[deku(bits = 1)]
@@ -77,9 +87,13 @@ pub struct MAGIC_PARAM_ST {
 	#[deku(bits = 1)]
 	pub disableOffline: u8,
 	#[deku(bits = 1)]
-	pub enable_black: u8,
+	pub vowType15: u8,
 	#[deku(bits = 1)]
-	pub enable_white: u8,
+	pub vowType14: u8,
+	#[deku(bits = 1)]
+	pub vowType13: u8,
+	#[deku(bits = 1)]
+	pub vowType12: u8,
 	#[deku(bits = 1)]
 	pub vowType11: u8,
 	#[deku(bits = 1)]
@@ -88,20 +102,6 @@ pub struct MAGIC_PARAM_ST {
 	pub vowType9: u8,
 	#[deku(bits = 1)]
 	pub vowType8: u8,
-	#[deku(bits = 1)]
-	pub pad_1: u8,
-	#[deku(bits = 1)]
-	pub isUseNoAttackRegion: u8,
-	#[deku(bits = 1)]
-	pub disableRiding: u8,
-	#[deku(bits = 1)]
-	pub vowType15: u8,
-	#[deku(bits = 1)]
-	pub vowType14: u8,
-	#[deku(bits = 1)]
-	pub vowType13: u8,
-	#[deku(bits = 1)]
-	pub vowType12: u8,
 	pub castSfxId: i32,
 	pub fireSfxId: i32,
 	pub effectSfxId: i32,

@@ -5,6 +5,8 @@ use deku::{ DekuRead, DekuWrite};
 #[deku(endian = "endian", ctx = "endian: Endian, version: u32")]
 pub struct CHR_ACTIVATE_CONDITION_PARAM_ST {
 	#[deku(bits = 1)]
+	pub weatherStormForBattle: u8,
+	#[deku(bits = 1)]
 	pub weatherStorm: u8,
 	#[deku(bits = 1)]
 	pub weatherHeavyRain: u8,
@@ -18,6 +20,8 @@ pub struct CHR_ACTIVATE_CONDITION_PARAM_ST {
 	pub weatherClearSky: u8,
 	#[deku(bits = 1)]
 	pub weatherSunny: u8,
+	#[deku(bits = 2)]
+	pub pad1: u8,
 	#[deku(bits = 1)]
 	pub weatherSandStorm: u8,
 	#[deku(bits = 1)]
@@ -30,10 +34,6 @@ pub struct CHR_ACTIVATE_CONDITION_PARAM_ST {
 	pub weatherHeavySnow: u8,
 	#[deku(bits = 1)]
 	pub weatherSnow: u8,
-	#[deku(bits = 1)]
-	pub weatherStormForBattle: u8,
-	#[deku(bits = 2)]
-	pub pad1: u8,
 	pub timeStartHour: u8,
 	pub timeStartMin: u8,
 	pub timeEndHour: u8,

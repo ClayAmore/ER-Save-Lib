@@ -57,6 +57,8 @@ pub struct ITEMLOT_PARAM_ST {
 	pub lotItemNum07: u8,
 	pub lotItemNum08: u8,
 	#[deku(bits = 1)]
+	pub enableLuck08: i16,
+	#[deku(bits = 1)]
 	pub enableLuck07: i16,
 	#[deku(bits = 1)]
 	pub enableLuck06: i16,
@@ -71,6 +73,10 @@ pub struct ITEMLOT_PARAM_ST {
 	#[deku(bits = 1)]
 	pub enableLuck01: i16,
 	#[deku(bits = 1)]
+	pub cumulateReset08: i16,
+	#[deku(bits = 1)]
+	pub cumulateReset07: i16,
+	#[deku(bits = 1)]
 	pub cumulateReset06: i16,
 	#[deku(bits = 1)]
 	pub cumulateReset05: i16,
@@ -82,12 +88,6 @@ pub struct ITEMLOT_PARAM_ST {
 	pub cumulateReset02: i16,
 	#[deku(bits = 1)]
 	pub cumulateReset01: i16,
-	#[deku(bits = 1)]
-	pub enableLuck08: i16,
-	#[deku(bits = 1)]
-	pub cumulateReset08: i16,
-	#[deku(bits = 1)]
-	pub cumulateReset07: i16,
 	pub GameClearOffset: i8,
 	#[deku(bits = 6)]
 	pub PAD1: u8,

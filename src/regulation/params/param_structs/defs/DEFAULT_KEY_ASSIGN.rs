@@ -5,6 +5,8 @@ use deku::{ DekuRead, DekuWrite};
 #[deku(endian = "endian", ctx = "endian: Endian, version: u32")]
 pub struct DEFAULT_KEY_ASSIGN {
 	#[deku(bits = 1)]
+	pub priority7: u8,
+	#[deku(bits = 1)]
 	pub priority6: u8,
 	#[deku(bits = 1)]
 	pub priority5: u8,
@@ -19,6 +21,10 @@ pub struct DEFAULT_KEY_ASSIGN {
 	#[deku(bits = 1)]
 	pub priority0: u8,
 	#[deku(bits = 1)]
+	pub priority15: u8,
+	#[deku(bits = 1)]
+	pub priority14: u8,
+	#[deku(bits = 1)]
 	pub priority13: u8,
 	#[deku(bits = 1)]
 	pub priority12: u8,
@@ -31,7 +37,11 @@ pub struct DEFAULT_KEY_ASSIGN {
 	#[deku(bits = 1)]
 	pub priority8: u8,
 	#[deku(bits = 1)]
-	pub priority7: u8,
+	pub priority23: u8,
+	#[deku(bits = 1)]
+	pub priority22: u8,
+	#[deku(bits = 1)]
+	pub priority21: u8,
 	#[deku(bits = 1)]
 	pub priority20: u8,
 	#[deku(bits = 1)]
@@ -43,9 +53,13 @@ pub struct DEFAULT_KEY_ASSIGN {
 	#[deku(bits = 1)]
 	pub priority16: u8,
 	#[deku(bits = 1)]
-	pub priority15: u8,
+	pub priority31: u8,
 	#[deku(bits = 1)]
-	pub priority14: u8,
+	pub priority30: u8,
+	#[deku(bits = 1)]
+	pub priority29: u8,
+	#[deku(bits = 1)]
+	pub priority28: u8,
 	#[deku(bits = 1)]
 	pub priority27: u8,
 	#[deku(bits = 1)]
@@ -54,20 +68,6 @@ pub struct DEFAULT_KEY_ASSIGN {
 	pub priority25: u8,
 	#[deku(bits = 1)]
 	pub priority24: u8,
-	#[deku(bits = 1)]
-	pub priority23: u8,
-	#[deku(bits = 1)]
-	pub priority22: u8,
-	#[deku(bits = 1)]
-	pub priority21: u8,
-	#[deku(bits = 1)]
-	pub priority31: u8,
-	#[deku(bits = 1)]
-	pub priority30: u8,
-	#[deku(bits = 1)]
-	pub priority29: u8,
-	#[deku(bits = 1)]
-	pub priority28: u8,
 	#[deku(count = "12")]
 	pub dummy: Vec<u8>,
 	pub phyisicalKey_0: i32,

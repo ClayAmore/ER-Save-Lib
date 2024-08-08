@@ -132,6 +132,8 @@ pub struct NPC_PARAM_ST {
 	pub ladderEndChkOffsetTop: u8,
 	pub ladderEndChkOffsetLow: u8,
 	#[deku(bits = 1)]
+	pub isChangeWanderGhost: u8,
+	#[deku(bits = 1)]
 	pub isUnduration: u8,
 	#[deku(bits = 1)]
 	pub isNoDamageMotion: u8,
@@ -146,6 +148,10 @@ pub struct NPC_PARAM_ST {
 	#[deku(bits = 1)]
 	pub useRagdollCamHit: u8,
 	#[deku(bits = 1)]
+	pub modelDispMask7: u8,
+	#[deku(bits = 1)]
+	pub modelDispMask6: u8,
+	#[deku(bits = 1)]
 	pub modelDispMask5: u8,
 	#[deku(bits = 1)]
 	pub modelDispMask4: u8,
@@ -158,7 +164,11 @@ pub struct NPC_PARAM_ST {
 	#[deku(bits = 1)]
 	pub modelDispMask0: u8,
 	#[deku(bits = 1)]
-	pub isChangeWanderGhost: u8,
+	pub modelDispMask15: u8,
+	#[deku(bits = 1)]
+	pub modelDispMask14: u8,
+	#[deku(bits = 1)]
+	pub modelDispMask13: u8,
 	#[deku(bits = 1)]
 	pub modelDispMask12: u8,
 	#[deku(bits = 1)]
@@ -170,30 +180,6 @@ pub struct NPC_PARAM_ST {
 	#[deku(bits = 1)]
 	pub modelDispMask8: u8,
 	#[deku(bits = 1)]
-	pub modelDispMask7: u8,
-	#[deku(bits = 1)]
-	pub modelDispMask6: u8,
-	#[deku(bits = 1)]
-	pub isCrowd: u8,
-	#[deku(bits = 1)]
-	pub isMoveAnimWait: u8,
-	#[deku(bits = 1)]
-	pub disableRespawn: u8,
-	#[deku(bits = 1)]
-	pub isEnableNeckTurn: u8,
-	#[deku(bits = 1)]
-	pub modelDispMask15: u8,
-	#[deku(bits = 1)]
-	pub modelDispMask14: u8,
-	#[deku(bits = 1)]
-	pub modelDispMask13: u8,
-	#[deku(bits = 1)]
-	pub isStealthTarget: u8,
-	#[deku(bits = 1)]
-	pub isEnableStepDispInterpolate: u8,
-	#[deku(bits = 1)]
-	pub isRideAtkTarget: u8,
-	#[deku(bits = 1)]
 	pub doesAlwaysUseSpecialTurn: u8,
 	#[deku(bits = 1)]
 	pub isWeakD: u8,
@@ -202,9 +188,13 @@ pub struct NPC_PARAM_ST {
 	#[deku(bits = 1)]
 	pub isWeakB: u8,
 	#[deku(bits = 1)]
-	pub modelDispMask17: u8,
+	pub isCrowd: u8,
 	#[deku(bits = 1)]
-	pub modelDispMask16: u8,
+	pub isMoveAnimWait: u8,
+	#[deku(bits = 1)]
+	pub disableRespawn: u8,
+	#[deku(bits = 1)]
+	pub isEnableNeckTurn: u8,
 	#[deku(bits = 1)]
 	pub isWeakF: u8,
 	#[deku(bits = 1)]
@@ -216,7 +206,11 @@ pub struct NPC_PARAM_ST {
 	#[deku(bits = 1)]
 	pub disableInitializeDead: u8,
 	#[deku(bits = 1)]
-	pub modelDispMask24: u8,
+	pub isStealthTarget: u8,
+	#[deku(bits = 1)]
+	pub isEnableStepDispInterpolate: u8,
+	#[deku(bits = 1)]
+	pub isRideAtkTarget: u8,
 	#[deku(bits = 1)]
 	pub modelDispMask23: u8,
 	#[deku(bits = 1)]
@@ -229,6 +223,10 @@ pub struct NPC_PARAM_ST {
 	pub modelDispMask19: u8,
 	#[deku(bits = 1)]
 	pub modelDispMask18: u8,
+	#[deku(bits = 1)]
+	pub modelDispMask17: u8,
+	#[deku(bits = 1)]
+	pub modelDispMask16: u8,
 	#[deku(bits = 1)]
 	pub modelDispMask31: u8,
 	#[deku(bits = 1)]
@@ -243,10 +241,14 @@ pub struct NPC_PARAM_ST {
 	pub modelDispMask26: u8,
 	#[deku(bits = 1)]
 	pub modelDispMask25: u8,
+	#[deku(bits = 1)]
+	pub modelDispMask24: u8,
 	pub itemSearchRadius: f32,
 	pub chrHitHeight: f32,
 	pub chrHitRadius: f32,
 	pub specialTurnType: u8,
+	#[deku(bits = 1)]
+	pub isSpCollide: u8,
 	#[deku(bits = 1)]
 	pub isKeepHitOnRide: u8,
 	#[deku(bits = 1)]
@@ -261,8 +263,6 @@ pub struct NPC_PARAM_ST {
 	pub isBulletOwner_byObject: u8,
 	#[deku(bits = 1)]
 	pub isSoulGetByBoss: u8,
-	#[deku(bits = 1)]
-	pub isSpCollide: u8,
 	pub def_dark: i16,
 	pub threatLv: i32,
 	pub specialTurnDistanceThreshold: f32,
@@ -328,6 +328,8 @@ pub struct NPC_PARAM_ST {
 	pub disableLockOnAng: f32,
 	pub clothOffLodLevel: i8,
 	#[deku(bits = 1)]
+	pub disableActivateLegacy_xb1: u8,
+	#[deku(bits = 1)]
 	pub disableActivateOpen_xb1: u8,
 	#[deku(bits = 1)]
 	pub enableAILockDmyPoly_214: u8,
@@ -341,8 +343,6 @@ pub struct NPC_PARAM_ST {
 	pub attachHitInitializeDead: u8,
 	#[deku(bits = 1)]
 	pub isUseFootIKNormalByUnduration: u8,
-	#[deku(bits = 1)]
-	pub disableActivateLegacy_xb1: u8,
 	pub estusFlaskRecoveryParamId: i16,
 	pub roleNameId: i32,
 	pub estusFlaskLotPoint: i16,

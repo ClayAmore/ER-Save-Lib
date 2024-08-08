@@ -67,11 +67,17 @@ pub struct BULLET_PARAM_ST {
 	pub mayRemoteDetonate: u8,
 	pub launchConditionType: u8,
 	#[deku(bits = 1)]
+	pub isEndlessHit: u8,
+	#[deku(bits = 1)]
 	pub isAttackSFX: u8,
 	#[deku(bits = 3)]
 	pub EmittePosType: u8,
 	#[deku(bits = 3)]
 	pub FollowType: u8,
+	#[deku(bits = 1)]
+	pub isIgnoreSfxIfHitWater: u8,
+	#[deku(bits = 1)]
+	pub isHitForceMagic: u8,
 	#[deku(bits = 1)]
 	pub isHitOtherBulletForceEraseB: u8,
 	#[deku(bits = 1)]
@@ -85,7 +91,11 @@ pub struct BULLET_PARAM_ST {
 	#[deku(bits = 1)]
 	pub isPenetrateMap: u8,
 	#[deku(bits = 1)]
-	pub isEndlessHit: u8,
+	pub isInheritSfxToChild: u8,
+	#[deku(bits = 1)]
+	pub isOwnerOverrideInitAngle: u8,
+	#[deku(bits = 1)]
+	pub isSyncBulletCulcDumypolyPos: u8,
 	#[deku(bits = 1)]
 	pub isEnableAutoHoming: u8,
 	#[deku(bits = 2)]
@@ -94,16 +104,6 @@ pub struct BULLET_PARAM_ST {
 	pub isHitDarkForceMagic: u8,
 	#[deku(bits = 1)]
 	pub isIgnoreMoveStateIfHitWater: u8,
-	#[deku(bits = 1)]
-	pub isIgnoreSfxIfHitWater: u8,
-	#[deku(bits = 1)]
-	pub isHitForceMagic: u8,
-	#[deku(bits = 1)]
-	pub isInheritSfxToChild: u8,
-	#[deku(bits = 1)]
-	pub isOwnerOverrideInitAngle: u8,
-	#[deku(bits = 1)]
-	pub isSyncBulletCulcDumypolyPos: u8,
 	pub darkDamageDamp: i8,
 	pub bulletSfxDeleteType_byHit: i8,
 	pub bulletSfxDeleteType_byLifeDead: i8,
@@ -118,6 +118,8 @@ pub struct BULLET_PARAM_ST {
 	pub sfxPostureType: u8,
 	pub createLimitGroupId: u8,
 	pub pad5: [u8;1],
+	#[deku(bits = 1)]
+	pub isNonDependenceMagicForFunnleNum: u8,
 	#[deku(skip, cond = "version < 11210015", bits = 1)]
 	pub unknown_0xc3_5: u8,
 	#[deku(skip, cond = "version >= 11210015", bits = 1)]
@@ -134,8 +136,6 @@ pub struct BULLET_PARAM_ST {
 	pub isInheritSpeedToChild: u8,
 	#[deku(bits = 1)]
 	pub isAiInterruptShootNoDamageBullet: u8,
-	#[deku(bits = 1)]
-	pub isNonDependenceMagicForFunnleNum: u8,
 	pub randomCreateRadius: f32,
 	pub followOffset_BaseHeight: f32,
 	pub assetNo_Hit: i32,

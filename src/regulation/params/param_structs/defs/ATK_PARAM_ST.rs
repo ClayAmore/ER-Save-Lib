@@ -68,6 +68,8 @@ pub struct ATK_PARAM_ST {
 	pub hitSourceType: u8,
 	pub throwFlag: u8,
 	#[deku(bits = 1)]
+	pub isDisableNoDamage: u8,
+	#[deku(bits = 1)]
 	pub isGhostAtk: u8,
 	#[deku(bits = 1)]
 	pub isArrowAtk: u8,
@@ -81,10 +83,10 @@ pub struct ATK_PARAM_ST {
 	pub disableStaminaAttack: u8,
 	#[deku(bits = 1)]
 	pub disableGuard: u8,
-	#[deku(bits = 1)]
-	pub isDisableNoDamage: u8,
 	pub atkPow_forSfx: i8,
 	pub atkDir_forSfx: i8,
+	#[deku(bits = 1)]
+	pub pad1: u8,
 	#[deku(bits = 1)]
 	pub excludeThreatLvNotify: u8,
 	#[deku(bits = 1)]
@@ -99,8 +101,6 @@ pub struct ATK_PARAM_ST {
 	pub friendlyTarget: u8,
 	#[deku(bits = 1)]
 	pub opposeTarget: u8,
-	#[deku(bits = 1)]
-	pub pad1: u8,
 	pub atkBehaviorId: u8,
 	pub atkPow_forSe: i8,
 	pub atkSuperArmor: f32,

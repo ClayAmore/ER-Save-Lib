@@ -13,22 +13,14 @@ pub struct DECAL_PARAM_ST {
 	pub nearSize: f32,
 	pub farSize: f32,
 	pub maskSpeffectId: i32,
+	#[deku(bits = 4)]
+	pub pad_05: i32,
 	#[deku(bits = 2)]
 	pub dmypolyCategory: i32,
 	#[deku(bits = 1)]
 	pub replaceTextureId_byMaterial: i32,
 	#[deku(bits = 4)]
 	pub pad_10: i32,
-	#[deku(bits = 1)]
-	pub bloodTypeEnable: i32,
-	#[deku(bits = 1)]
-	pub usePaintDecal: i32,
-	#[deku(bits = 1)]
-	pub useDeferredDecal: i32,
-	#[deku(bits = 4)]
-	pub pad_05: i32,
-	#[deku(bits = 1)]
-	pub putVertical: i32,
 	#[deku(bits = 1)]
 	pub useEmissive: i32,
 	#[deku(bits = 1)]
@@ -39,6 +31,14 @@ pub struct DECAL_PARAM_ST {
 	pub pad_08: i32,
 	#[deku(bits = 1)]
 	pub bUseNormal: i32,
+	#[deku(bits = 1)]
+	pub bloodTypeEnable: i32,
+	#[deku(bits = 1)]
+	pub usePaintDecal: i32,
+	#[deku(bits = 1)]
+	pub useDeferredDecal: i32,
+	#[deku(bits = 1)]
+	pub putVertical: i32,
 	pub randomSizeMin: i16,
 	pub randomSizeMax: i16,
 	pub randomRollMin: f32,

@@ -117,6 +117,8 @@ pub struct SP_EFFECT_PARAM_ST {
 	pub addBehaviorJudgeId_condition: i8,
 	pub freezeDamageRate: u8,
 	#[deku(bits = 1)]
+	pub disableSleep: u8,
+	#[deku(bits = 1)]
 	pub effectTargetGhost: u8,
 	#[deku(bits = 1)]
 	pub effectTargetLive: u8,
@@ -131,6 +133,10 @@ pub struct SP_EFFECT_PARAM_ST {
 	#[deku(bits = 1)]
 	pub effectTargetSelf: u8,
 	#[deku(bits = 1)]
+	pub magParamChange: u8,
+	#[deku(bits = 1)]
+	pub bGameClearBonus: u8,
+	#[deku(bits = 1)]
 	pub bAdjustFaithAblity: u8,
 	#[deku(bits = 1)]
 	pub bAdjustMagicAblity: u8,
@@ -143,7 +149,11 @@ pub struct SP_EFFECT_PARAM_ST {
 	#[deku(bits = 1)]
 	pub disableMadness: u8,
 	#[deku(bits = 1)]
-	pub disableSleep: u8,
+	pub requestNpcInveda: u8,
+	#[deku(bits = 1)]
+	pub requestLeaveSession: u8,
+	#[deku(bits = 1)]
+	pub requestKickSession: u8,
 	#[deku(bits = 1)]
 	pub requestForceJoinBlackSOS: u8,
 	#[deku(bits = 1)]
@@ -155,30 +165,6 @@ pub struct SP_EFFECT_PARAM_ST {
 	#[deku(bits = 1)]
 	pub miracleParamChange: u8,
 	#[deku(bits = 1)]
-	pub magParamChange: u8,
-	#[deku(bits = 1)]
-	pub bGameClearBonus: u8,
-	#[deku(bits = 1)]
-	pub sightSearchCutIgnore: u8,
-	#[deku(bits = 1)]
-	pub corrosionIgnore: u8,
-	#[deku(bits = 1)]
-	pub bCurrHPIndependeMaxHP: u8,
-	#[deku(bits = 1)]
-	pub noDead: u8,
-	#[deku(bits = 1)]
-	pub requestNpcInveda: u8,
-	#[deku(bits = 1)]
-	pub requestLeaveSession: u8,
-	#[deku(bits = 1)]
-	pub requestKickSession: u8,
-	#[deku(bits = 1)]
-	pub disablePoison: u8,
-	#[deku(bits = 1)]
-	pub grabityIgnore: u8,
-	#[deku(bits = 1)]
-	pub fakeTargetIgnoreAnimal: u8,
-	#[deku(bits = 1)]
 	pub fakeTargetIgnoreUndead: u8,
 	#[deku(bits = 1)]
 	pub fakeTargetIgnore: u8,
@@ -187,9 +173,13 @@ pub struct SP_EFFECT_PARAM_ST {
 	#[deku(bits = 1)]
 	pub hearingSearchCutIgnore: u8,
 	#[deku(bits = 1)]
-	pub bAdjustAgilityAblity: u8,
+	pub sightSearchCutIgnore: u8,
 	#[deku(bits = 1)]
-	pub bAdjustStrengthAblity: u8,
+	pub corrosionIgnore: u8,
+	#[deku(bits = 1)]
+	pub bCurrHPIndependeMaxHP: u8,
+	#[deku(bits = 1)]
+	pub noDead: u8,
 	#[deku(bits = 1)]
 	pub enableLifeTime: u8,
 	#[deku(bits = 1)]
@@ -201,7 +191,11 @@ pub struct SP_EFFECT_PARAM_ST {
 	#[deku(bits = 1)]
 	pub disableDisease: u8,
 	#[deku(bits = 1)]
-	pub vowType0: u8,
+	pub disablePoison: u8,
+	#[deku(bits = 1)]
+	pub grabityIgnore: u8,
+	#[deku(bits = 1)]
+	pub fakeTargetIgnoreAnimal: u8,
 	#[deku(bits = 1)]
 	pub replanningOnFire: u8,
 	#[deku(bits = 1)]
@@ -214,6 +208,10 @@ pub struct SP_EFFECT_PARAM_ST {
 	pub throwAttackParamChange: u8,
 	#[deku(bits = 1)]
 	pub eraseOnBonfireRecover: u8,
+	#[deku(bits = 1)]
+	pub bAdjustAgilityAblity: u8,
+	#[deku(bits = 1)]
+	pub bAdjustStrengthAblity: u8,
 	#[deku(bits = 1)]
 	pub vowType7: u8,
 	#[deku(bits = 1)]
@@ -229,6 +227,10 @@ pub struct SP_EFFECT_PARAM_ST {
 	#[deku(bits = 1)]
 	pub vowType1: u8,
 	#[deku(bits = 1)]
+	pub vowType0: u8,
+	#[deku(bits = 1)]
+	pub vowType15: u8,
+	#[deku(bits = 1)]
 	pub vowType14: u8,
 	#[deku(bits = 1)]
 	pub vowType13: u8,
@@ -242,10 +244,10 @@ pub struct SP_EFFECT_PARAM_ST {
 	pub vowType9: u8,
 	#[deku(bits = 1)]
 	pub vowType8: u8,
-	#[deku(bits = 1)]
-	pub vowType15: u8,
 	pub repAtkDmgLv: i8,
 	pub sightSearchRate: f32,
+	#[deku(bits = 1)]
+	pub isIgnoreNoDamage: u8,
 	#[deku(bits = 1)]
 	pub isWaitModeDelete: u8,
 	#[deku(bits = 1)]
@@ -260,8 +262,6 @@ pub struct SP_EFFECT_PARAM_ST {
 	pub effectTargetFriendlyTarget: u8,
 	#[deku(bits = 1)]
 	pub effectTargetOpposeTarget: u8,
-	#[deku(bits = 1)]
-	pub isIgnoreNoDamage: u8,
 	pub changeTeamType: i8,
 	pub dmypolyId: i16,
 	pub vfxId: i32,
@@ -331,6 +331,8 @@ pub struct SP_EFFECT_PARAM_ST {
 	pub recoverArtsPoint_Miracle: i8,
 	pub madnessDamageRate: u8,
 	#[deku(bits = 1)]
+	pub isCheckAboveShadowTest: u8,
+	#[deku(bits = 1)]
 	pub isStopSearchedNotify: u8,
 	#[deku(bits = 1)]
 	pub shamanParamChange: u8,
@@ -344,8 +346,6 @@ pub struct SP_EFFECT_PARAM_ST {
 	pub isUseAtkParamAtkPowerCorrect: u8,
 	#[deku(bits = 1)]
 	pub isUseStatusAilmentAtkPowerCorrect: u8,
-	#[deku(bits = 1)]
-	pub isCheckAboveShadowTest: u8,
 	pub addBehaviorJudgeId_add: i16,
 	pub saReceiveDamageRate: f32,
 	pub defPlayerDmgCorrectRate_Physics: f32,

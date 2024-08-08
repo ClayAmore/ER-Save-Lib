@@ -43,6 +43,8 @@ pub struct EQUIP_PARAM_GOODS_ST {
 	pub replaceCategory: u8,
 	pub reserve4: [u8;2],
 	#[deku(bits = 1)]
+	pub isConsume: u8,
+	#[deku(bits = 1)]
 	pub isEquip: u8,
 	#[deku(bits = 1)]
 	pub disable_offline: u8,
@@ -57,6 +59,10 @@ pub struct EQUIP_PARAM_GOODS_ST {
 	#[deku(bits = 1)]
 	pub enable_live: u8,
 	#[deku(bits = 1)]
+	pub isSuppleItem: u8,
+	#[deku(bits = 1)]
+	pub isRemoveItem_forGameClear: u8,
+	#[deku(bits = 1)]
 	pub isDisableHand: u8,
 	#[deku(bits = 1)]
 	pub isDeposit: u8,
@@ -69,7 +75,11 @@ pub struct EQUIP_PARAM_GOODS_ST {
 	#[deku(bits = 1)]
 	pub isAutoEquip: u8,
 	#[deku(bits = 1)]
-	pub isConsume: u8,
+	pub isApplySpecialEffect: u8,
+	#[deku(bits = 1)]
+	pub isEnableFastUseItem: u8,
+	#[deku(bits = 1)]
+	pub disableUseAtOutOfColiseum: u8,
 	#[deku(bits = 1)]
 	pub disableUseAtColiseum: u8,
 	#[deku(bits = 1)]
@@ -80,16 +90,6 @@ pub struct EQUIP_PARAM_GOODS_ST {
 	pub isEnhance: u8,
 	#[deku(bits = 1)]
 	pub isFullSuppleItem: u8,
-	#[deku(bits = 1)]
-	pub isSuppleItem: u8,
-	#[deku(bits = 1)]
-	pub isRemoveItem_forGameClear: u8,
-	#[deku(bits = 1)]
-	pub isApplySpecialEffect: u8,
-	#[deku(bits = 1)]
-	pub isEnableFastUseItem: u8,
-	#[deku(bits = 1)]
-	pub disableUseAtOutOfColiseum: u8,
 	pub syncNumVaryId: u8,
 	pub refId_1: i32,
 	pub refVirtualWepId: i32,
@@ -99,6 +99,8 @@ pub struct EQUIP_PARAM_GOODS_ST {
 	pub castSfxId: i32,
 	pub fireSfxId: i32,
 	pub effectSfxId: i32,
+	#[deku(bits = 1)]
+	pub isUseMultiPenaltyOnly: u8,
 	#[deku(bits = 1)]
 	pub isWarpProhibited: u8,
 	#[deku(bits = 1)]
@@ -113,10 +115,10 @@ pub struct EQUIP_PARAM_GOODS_ST {
 	pub isBonfireWarpItem: u8,
 	#[deku(bits = 1)]
 	pub enable_ActiveBigRune: u8,
-	#[deku(bits = 1)]
-	pub isUseMultiPenaltyOnly: u8,
 	pub suppleType: u8,
 	pub autoReplenishType: u8,
+	#[deku(bits = 1)]
+	pub disableRiding: u8,
 	#[deku(bits = 1)]
 	pub enableRiding: u8,
 	#[deku(bits = 1)]
@@ -129,8 +131,6 @@ pub struct EQUIP_PARAM_GOODS_ST {
 	pub showLogCondType: u8,
 	#[deku(bits = 1)]
 	pub isDrop: u8,
-	#[deku(bits = 1)]
-	pub disableRiding: u8,
 	pub maxRepositoryNum: i16,
 	pub sortGroupId: u8,
 	#[deku(skip, cond = "version >= 11210015", bits = 7)]

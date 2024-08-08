@@ -63,6 +63,8 @@ pub struct NPC_THINK_PARAM_ST {
 	pub skipArrivalVisibleCheck: u8,
 	pub thinkAttr_doAdmirer: u8,
 	#[deku(bits = 1)]
+	pub enableNaviFlg_Edge_Ordinary: u8,
+	#[deku(bits = 1)]
 	pub enableNaviFlg_Lava: u8,
 	#[deku(bits = 1)]
 	pub enableNaviFlg_InSideWall: u8,
@@ -76,8 +78,6 @@ pub struct NPC_THINK_PARAM_ST {
 	pub enableNaviFlg_LargeSpace: u8,
 	#[deku(bits = 1)]
 	pub enableNaviFlg_Edge: u8,
-	#[deku(bits = 1)]
-	pub enableNaviFlg_Edge_Ordinary: u8,
 	pub enableNaviFlg_reserve1: [u8;3],
 	pub searchThreshold_Lv0toLv1: i32,
 	pub searchThreshold_Lv1toLv2: i32,
