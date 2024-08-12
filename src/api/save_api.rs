@@ -616,4 +616,72 @@ impl SaveApi {
 
         false
     }
+
+    pub fn next_equip_index(
+        &self,
+        index: usize,
+        storage_type: StorageType,
+    ) -> Result<u32, SaveApiError> {
+        Ok(match storage_type {
+            StorageType::Held => {
+                self.raw.user_data_x[index]
+                    .inventory_held
+                    .equip_index_counter
+            }
+            StorageType::StorageBox => {
+                self.raw.user_data_x[index]
+                    .inventory_storage_box
+                    .equip_index_counter
+            }
+        })
+    }
+
+    pub fn next_acquistion_index(
+        &self,
+        index: usize,
+        storage_type: StorageType,
+    ) -> Result<u32, SaveApiError> {
+        Ok(match storage_type {
+            StorageType::Held => {
+                self.raw.user_data_x[index]
+                    .inventory_held
+                    .aquistion_index_counter
+            }
+            StorageType::StorageBox => {
+                self.raw.user_data_x[index]
+                    .inventory_storage_box
+                    .aquistion_index_counter
+            }
+        })
+    }
+
+    pub fn common_items_count(
+        &self,
+        index: usize,
+        storage_type: StorageType,
+    ) -> Result<u32, SaveApiError> {
+        Ok(match storage_type {
+            StorageType::Held => self.raw.user_data_x[index].inventory_held.common_item_count,
+            StorageType::StorageBox => {
+                self.raw.user_data_x[index]
+                    .inventory_storage_box
+                    .common_item_count
+            }
+        })
+    }
+
+    pub fn key_items_count(
+        &self,
+        index: usize,
+        storage_type: StorageType,
+    ) -> Result<u32, SaveApiError> {
+        Ok(match storage_type {
+            StorageType::Held => self.raw.user_data_x[index].inventory_held.key_item_count,
+            StorageType::StorageBox => {
+                self.raw.user_data_x[index]
+                    .inventory_storage_box
+                    .key_item_count
+            }
+        })
+    }
 }
