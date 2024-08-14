@@ -338,23 +338,10 @@ impl Save {
     /// byte slice.
     pub fn is_ps(bytes: &[u8]) -> bool {
         let file_size = bytes.len();
-
-        let save_file_size = 0x1BA0080;
-        if file_size < save_file_size {
+        if file_size < 4 {
             return false;
         }
-
-        let user_data_11_offset = 0x1960070;
-        let user_data_11_size = 0x240010;
-        let user_data_11_end = user_data_11_offset + user_data_11_size;
-        let user_data_11 = &bytes[user_data_11_offset..user_data_11_end];
-        let digest = md5::compute(user_data_11);
-
-        return digest
-            == md5::Digest([
-                0x2E, 0x88, 0x1A, 0x15, 0xAC, 0x05, 0x88, 0x8D, 0xF2, 0xC2, 0x6A, 0xEC, 0xC2, 0x90,
-                0x89, 0x23,
-            ]);
+        &bytes[0..4] == [0xcb, 0x1, 0x9c, 0x2c]
     }
 
     /// Checks if the provided byte slice indicates a PC save file.
