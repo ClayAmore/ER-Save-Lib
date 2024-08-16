@@ -170,7 +170,6 @@ pub(crate) struct Profile {
         writer = "Util::write_wstring(deku::writer, &character_name, 32)"
     )]
     pub(crate) character_name: String,
-    #[deku(assert_eq = "0")]
     character_name_terminator: u16,
     pub(crate) level: u32,
     pub(crate) seconds_played: u32,
