@@ -224,6 +224,13 @@ impl SaveApi {
             SaveType::Playstation => 0,
         };
 
+        // Hack to fix issue with PS to PC character imports lacking
+        // checksum which causes the version not being read which causes
+        // the gaitemap to be assumed to be 5118 instead of 5120
+        if self.platform() == SaveType::PC {
+            character.checksum = vec![0; 0x10];
+        }
+
         // Insert the character
         self.raw.user_data_x[index] = character;
         Ok(())
@@ -683,5 +690,69 @@ impl SaveApi {
                     .key_item_count
             }
         })
+    }
+
+    pub fn is_item_in_invenotry(
+        &self,
+        index: usize,
+        storage_type: StorageType,
+        item_id: u32,
+    ) -> Result<bool, SaveApiError> {
+        match storage_type {
+            StorageType::Held => {
+                for inventory_item in self.raw.user_data_x[index]
+                    .inventory_held
+                    .common_items
+                    .iter()
+                    .chain(self.raw.user_data_x[index].inventory_held.key_items.iter())
+                {
+                    if self.item_id_from_gaitem_handle(index, inventory_item.gaitem_handle)?
+                        == item_id
+                    {
+                        return Ok(true);
+                    }
+                }
+            }
+            StorageType::StorageBox => {
+                for inventory_item in self.raw.user_data_x[index]
+                    .inventory_storage_box
+                    .common_items
+                    .iter()
+                    .chain(
+                        self.raw.user_data_x[index]
+                            .inventory_storage_box
+                            .key_items
+                            .iter(),
+                    )
+                {
+                    if self.item_id_from_gaitem_handle(index, inventory_item.gaitem_handle)?
+                        == item_id
+                    {
+                        return Ok(true);
+                    }
+                }
+            }
+        }
+        Ok(false)
+    }
+
+    pub fn add_item_to_inventory(
+        &mut self,
+        index: usize,
+        item_id: u32,
+        item_type: ItemType,
+        storage_type: &StorageType,
+    ) -> Result<(), SaveApiError> {
+        Ok(())
+    }
+
+    pub fn add_weapon_to_inventory(
+        &mut self,
+        index: usize,
+        weapon_id: u32,
+        aow_id: Option<u32>,
+        storage_type: &StorageType,
+    ) -> Result<(), SaveApiError> {
+        Ok(())
     }
 }
